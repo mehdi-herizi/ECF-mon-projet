@@ -1,0 +1,541 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
+
+/* ma tete de page  */
+header {
+    background-color: rgb(255, 132, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+/* replacé tous mes elements */
+nav {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 20px;
+    padding-top: 40px;
+}
+
+/* c'est le logo  */
+#logo {
+    width: 150px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#ogol {
+    width: 150px;
+}
+
+/* les 2 liens */
+.btn {
+
+    color: black;
+    text-align: center;
+    margin: 1rem !important;
+
+}
+
+.mh {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    width: 50px;
+    height: 3px;
+    background-color: black;
+}
+
+/* la page index */
+/* c'est le main */
+.categorie {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    opacity: 0;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    animation-name: montexte;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+
+}
+
+/* 2 de mes jeux */
+.tbl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* c'est un jeu */
+.tableau {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    font-size: 20px;
+}
+
+/* mon image de jeu et mon titre */
+.article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
+/* mon image de jeu */
+.jeu {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* les réseaux sociaux */
+.sociaux {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.soc {
+    width: 50px;
+}
+
+/* mon bouton */
+.bouton {
+    width: 4rem;
+    border-radius: 25px;
+    background-color: black;
+    border: 2px solid white;
+    color: #ffffff;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+/* la page en savoir plus */
+
+/* mon main */
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    flex-wrap: wrap;
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    opacity: 0;
+    animation-name: montexte;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}
+
+/* c'est un jeu */
+.t {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    padding: 15px;
+    padding-bottom: 50px;
+}
+
+/* mon image de jeu et mon titre */
+.a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* mon image de jeu */
+.j {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* les réseaux sociaux */
+.s {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.soci {
+    width: 50px;
+
+}
+
+/* mon bouton */
+.b {
+    width: 4rem;
+    padding: 2px;
+    border-radius: 15px;
+    background-color: black;
+    border: 2px solid white;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+/* la page contact */
+
+/* mon main */
+.contact {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: #ffffff solid;
+    padding: 16px;
+    min-height: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    margin-bottom: 32px;
+    flex-direction: column;
+    max-width: 800px;
+}
+
+/* mon formulaire */
+.place {
+    flex-direction: column;
+    top: 25%;
+}
+
+/* gérer tous mes elements */
+.form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 700px;
+    padding: 50px;
+}
+
+/* nom */
+.titre {
+    font-size: x-large;
+}
+
+/* mon message */
+textarea {
+    resize: none;
+    padding-bottom: 200px;
+    width: 100%;
+}
+
+/* groupe mon message et mon bouton */
+.env {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* mon bouton */
+.envoyer input {
+    padding: 10px;
+    border-radius: 20px;
+
+}
+
+.envoyer input:hover {
+    background-color: rgb(255, 132, 0);
+}
+
+.envoyer {
+    display: flex;
+    justify-content: center;
+}
+
+/* mon pied de page */
+footer {
+    color: #ffffff;
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
+
+#foot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    background-color: rgb(255, 132, 0);
+    padding: 2rem;
+}
+
+#Fantasy {
+    max-width: 100%;
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+@media screen and (max-width:780px) {
+
+    body {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .categorie {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    textarea {
+        max-width: 100%;
+        width: 100%;
+        padding: 0px;
+    }
+
+    .page {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .accueil {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .box {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .n {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .accueil {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .contact {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .tbl {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .j {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .t {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .a {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .s {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .tableau {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .article {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .jeu {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .place {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .titre {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .form {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    footer {
+        max-width: 100%;
+        width: 100%;
+
+    }
+
+    #foot {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@keyframes montexte {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    header {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .categorie {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    textarea {
+        max-width: 100%;
+        width: 100%;
+        padding: 0px;
+    }
+
+    .page {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact {
+        max-width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+        padding: 0px;
+        margin-top: 50px;
+    }
+
+    .tbl {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .tableau {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .article {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .jeu {
+        max-width: 100%;
+        width: 400px;
+        height: auto;
+    }
+
+    footer {
+        max-width: 100%;
+        width: 100%;
+
+    }
+
+    #foot {
+        display: flex;
+        flex-direction: column;
+    }
+}

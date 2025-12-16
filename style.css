@@ -69,7 +69,7 @@ nav {
 
 /* la page index */
 /* c'est le main */
-.categorie {
+#categorie {
     display: flex;
     flex-direction: column;
     justify-content: center;

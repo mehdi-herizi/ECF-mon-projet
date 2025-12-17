@@ -125,7 +125,7 @@ nav {
 
 /* mon image de jeu */
 .jeu {
-    width: 600px;
+    /* width: 600px; */
     height: 600px;
     display: flex;
     flex-direction: column;

@@ -14,11 +14,12 @@ async function chargerJSON() {
     jeux.forEach((jeu) => {
       const image = document.createElement("img");
       image.src = jeu.imageUrl;
-
+      image.classList.add("jeu")
+      
       const monthDiv = document.createElement("div");
-      monthDiv.classList.add("month");
+      monthDiv.id = "categorie"
 
-      const h3 = document.createElement("h3");
+      const h3 = document.createElement("h1");
       h3.innerText = jeu.name;
 
       const date = document.createElement("p");
@@ -32,15 +33,24 @@ async function chargerJSON() {
       description.innerText = jeu.description;
 
       const MaDivReaseaux = document.createElement("div");
-      MaDivReaseaux.classList = ""
+      MaDivReaseaux.classList.add("reseaux")
       
-      jeu.reesauxSociaux.forEach((reseau) => {});
+      jeu.reseauxSociaux.forEach((reseau) => {
+        const link = document.createElement("a")
+        link.href=reseau.SocialMediaUrl
+
+        const img = document.createElement("img")
+        img.src=reseau.socialMediaImage
+        img.classList.add("soc")
+        link.appendChild(img)
+        MaDivReaseaux.appendChild(link)
+      });
 
       monthDiv.appendChild(image);
       monthDiv.appendChild(h3);
       monthDiv.appendChild(date);
       monthDiv.appendChild(categorie);
-      monthDiv.appendChild(imagereseaux);
+      monthDiv.appendChild(MaDivReaseaux);
       monthDiv.appendChild(description);
 
       gameList.appendChild(monthDiv);

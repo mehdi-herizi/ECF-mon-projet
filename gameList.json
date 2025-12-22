@@ -1,6 +1,6 @@
 [
   {
-    "ref": "#",
+    "id": "1",
     "imageUrl": "/images/world-fantasy-nexary.png",
     "name": "World Fantasy",
     "categorie": "MMORPG, aventure, action et énigme ",
@@ -23,11 +23,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   },
 
   {
-    "ref": "#",
+    "id": "2",
     "imageUrl": "/images/jeux-nexary.png",
     "name": "Warfare Modern",
     "categorie": "FPS et Arcade",
@@ -50,11 +54,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "60€"
   },
 
   {
-    "ref": "#",
+    "id": "3",
     "imageUrl": "/images/survive-jeu-nexary.png",
     "name": "Survive Washington",
     "categorie": "aventure, action et énigme",
@@ -77,11 +85,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "15€"
   },
 
   {
-    "ref": "#",
+    "id": "4",
     "imageUrl": "/images/StarForge.png",
     "name": "StarForge Galactic Odysssy",
     "categorie": "FPS, MMORPG et aventure",
@@ -104,11 +116,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "10€"
   },
 
   {
-    "ref": "#",
+    "id": "5",
     "imageUrl": "/images/ARCRaiders.webp",
     "name": "ARC Raiders",
     "categorie": "Extraction shooter, Tir à la troisième personne",
@@ -131,11 +147,16 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "40€"
+     
   },
 
   {
-    "ref": "#",
+    "id": "6",
     "imageUrl": "/images/ARK.webp",
     "name": "ARK: Survival Ascended",
     "categorie": "Survie, Monde Ouvert, Multijoueurs et Action",
@@ -158,11 +179,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "45€"
   },
 
   {
-    "ref": "#",
+    "id": "7",
     "imageUrl": "/images/assassinsCreedOdyssey.webp",
     "name": "Assassin's Creed Odyssey",
     "categorie": "Action-aventure, RPG",
@@ -185,11 +210,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "60€"
   },
 
   {
-    "ref": "#",
+    "id": "8",
     "imageUrl": "/images/BO2.webp",
     "name": "Call of Duty: Black Ops II",
     "categorie": "Tir à la première personne",
@@ -212,11 +241,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "20€"
   },
 
   {
-    "ref": "#",
+    "id": "9",
     "imageUrl": "/images/COD4.webp",
     "name": "Call of Duty 4: Modern Warfare",
     "categorie": "Tir à la première personne et Action ",
@@ -239,11 +272,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "10€"
   },
 
   {
-    "ref": "#",
+    "id": "10",
     "imageUrl": "/images/Dayz.webp",
     "name": "DayZ",
     "categorie": "Tir à la première personne, Survie",
@@ -266,11 +303,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "48€"
   },
 
   {
-    "ref": "#",
+    "id": "11",
     "imageUrl": "/images/Fortnite.webp",
     "name": "Fortnite",
     "categorie": "Survie, tir à la troisième personne, tower defense (Sauver le monde),Battle royale, tir à la troisième personne (Battle Royale),Sandbox, tir à la troisième personne (Créatif)",
@@ -293,11 +334,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   },
 
   {
-    "ref": "#",
+    "id": "12",
     "imageUrl": "/images/GenshinImpact.webp",
     "name": "Genshin Impact",
     "categorie": "Action-RPG",
@@ -320,11 +365,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   },
 
   {
-    "ref": "#",
+    "id": "13",
     "imageUrl": "/images/GTA6.webp",
     "name": "Grand Theft Auto VI",
     "categorie": "Action-aventure, conduite, tir à la troisième personne",
@@ -347,11 +396,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "120€"
   },
 
   {
-    "ref": "#",
+    "id": "14",
     "imageUrl": "/images/LOL.webp",
     "name": "League of Legends",
     "categorie": "MOBA",
@@ -374,11 +427,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   },
 
   {
-    "ref": "#",
+    "id": "15",
     "imageUrl": "/images/minecraft.webp",
     "name": "Minecraft",
     "categorie": "Bac à sable,Aventure",
@@ -401,11 +458,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "20€"
   },
 
   {
-    "ref": "#",
+    "id": "16",
     "imageUrl": "/images/MW2.webp",
     "name": "Call of Duty: Modern Warfare 2",
     "categorie": "Tir à la première personne (FPS)",
@@ -428,11 +489,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "15€"
   },
 
   {
-    "ref": "#",
+    "id": "17",
     "imageUrl": "/images/RocketLeague.jpg",
     "name": "Rocket League",
     "categorie": "Course, football",
@@ -455,11 +520,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   },
 
   {
-    "ref": "#",
+    "id": "18",
     "imageUrl": "/images/Warframe.webp",
     "name": "Warframe",
     "categorie": "TPS, Science-fiction",
@@ -482,11 +551,15 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   },
 
   {
-    "ref": "#",
+    "id": "19",
     "imageUrl": "/images/wuwa.webp",
     "name": "Wuthering Waves",
     "categorie": "Action-RPG",
@@ -509,14 +582,18 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   },
 
   {
-    "ref": "#",
+    "id": "20",
     "imageUrl": "/images/R6.webp",
     "name": "Tom Clancy's Rainbow Six Siege",
-    "categorie": "Tir tactique, Hero shooter",
+    "categorie": ["Tir tactique", "Hero shooter"],
     "date": "01/12/2015",
     "reseauxSociaux": [
       {
@@ -536,6 +613,10 @@
       }
     ],
     "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
-    "lien": ""
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+     "prix": "gratuit"
   }
 ]

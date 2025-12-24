@@ -53,6 +53,7 @@ nav {
   color: black;
   text-align: center;
   margin: 1rem !important;
+  text-decoration: none;
 }
 
 .mh {
@@ -149,79 +150,6 @@ nav {
   font-size: 1.2rem;
   padding: 10px;
   text-decoration: none;
-}
-
-/* la page en savoir plus */
-
-/* mon main */
-.page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  flex-wrap: wrap;
-  max-width: 100%;
-  height: auto;
-  width: 100%;
-  opacity: 0;
-  animation-name: montexte;
-  animation-duration: 4s;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-}
-
-/* c'est un jeu */
-.t {
-  width: 800px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 50px;
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  padding: 15px;
-  padding-bottom: 50px;
-}
-
-/* mon image de jeu et mon titre */
-.a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* mon image de jeu */
-.j {
-  width: 800px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* les réseaux sociaux */
-.s {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.soci {
-  width: 50px;
-}
-
-/* mon bouton */
-.b {
-  width: 4rem;
-  padding: 2px;
-  border-radius: 15px;
-  background-color: black;
-  border: 2px solid white;
-  color: #ffffff;
-  font-size: 1.2rem;
 }
 
 /* la page contact */

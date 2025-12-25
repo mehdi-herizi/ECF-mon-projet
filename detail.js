@@ -15,7 +15,7 @@ async function chargerJSON() {
     console.log(params1.get("id"))?.trim();
     const id = new URLSearchParams(window.location.search).get("id");
     const jeu = jeux.find((j) => j.id == id);
-    console.log('jeu:', jeu)
+    console.log("jeu:", jeu);
 
     if (!jeu) {
       gameList.innerHTML = "<p>Jeu introuvable</p>";
@@ -26,58 +26,58 @@ async function chargerJSON() {
     const image = document.createElement("img");
     image.src = jeu.imageUrl;
     image.classList.add("jeu");
-    console.log('image:', image)
+    console.log("image:", image);
 
     // div grandparent
     const monthDiv = document.createElement("div");
-    console.log('monthDiv:', monthDiv)
-//     // div parent
+    console.log("monthDiv:", monthDiv);
+    //     // div parent
     const deuxiemeDiv = document.createElement("div");
     deuxiemeDiv.classList.add("tbl");
-    console.log('deuxiemeDiv', deuxiemeDiv);
-    
-//     // div enfent
+    console.log("deuxiemeDiv", deuxiemeDiv);
+
+    //     // div enfent
     const troisiemeDiv = document.createElement("div");
     troisiemeDiv.classList.add("tableau");
-     console.log('troisiemeDiv:', troisiemeDiv)
-//     // titre
+    console.log("troisiemeDiv:", troisiemeDiv);
+    //     // titre
     const h3 = document.createElement("h1");
     h3.innerText = jeu.name;
-    console.log('h3:', h3)
-//     // date
+    console.log("h3:", h3);
+    //     // date
     const date = document.createElement("p");
     date.innerText = jeu.date;
-    console.log('date:', date)
-//     // catégorie
+    console.log("date:", date);
+    //     // catégorie
     const categorie = document.createElement("p");
     categorie.innerText = "🎮 " + jeu.categorie;
     categorie.style.fontWeight = "bold";
-     console.log('categorie:', categorie)
-//     // description
+    console.log("categorie:", categorie);
+    //     // description
     const description = document.createElement("p");
     description.innerText = jeu.content;
-     console.log('description:', description)
-//     // reseaux sociaux
+    console.log("description:", description);
+    //     // reseaux sociaux
     const MaDivReaseaux = document.createElement("div");
     MaDivReaseaux.classList.add("reseaux");
-  console.log('MaDivReaseaux:', MaDivReaseaux)
+    console.log("MaDivReaseaux:", MaDivReaseaux);
 
     const prix = document.createElement("p");
     prix.innerText = jeu.prix;
- console.log('prix:', prix)
+    console.log("prix:", prix);
 
-//     // ANCHOR EN SAVOIR PLUS (bouton)
+    //     // ANCHOR EN SAVOIR PLUS (bouton)
 
     const bouton = document.createElement("a");
     bouton.innerText = jeu.lien.LienName;
     bouton.href = jeu.lien.lienDescription + "?id=" + jeu.id;
     bouton.classList.add("bouton");
-    console.log('bouton:', bouton)
+    console.log("bouton:", bouton);
 
-//     // ..........................................................................
+    //     // ..........................................................................
     jeu.reseauxSociaux.forEach((reseau) => {
       const link = document.createElement("a");
-      console.log('link:', link)
+      console.log("link:", link);
       link.href = reseau.SocialMediaUrl;
 
       const img = document.createElement("img");
@@ -86,7 +86,7 @@ async function chargerJSON() {
       img.classList.add("sociaux");
       link.appendChild(img);
       MaDivReaseaux.appendChild(link);
-        console.log('img:', img)
+      console.log("img:", img);
     });
     // ..........................................................................
 
@@ -103,7 +103,6 @@ async function chargerJSON() {
     gameList.appendChild(monthDiv);
 
     // ..........................................................................
-
   } catch (error) {
     console.error(error);
   }

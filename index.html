@@ -4,42 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nexary</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <header>
-      <div>
-        <video
-          class="headerVideo"
-          autoplay
-          muted
-          loop
-          src="videos/elden-ring-header.mp4"
-        ></video>
-      </div>
-      <div id="logo">
-        <a href="index.html"
-          ><img
-            id="ogol"
-            src="images/nexary-blanc.png"
-            alt="logo"
-            draggable="false"
-        /></a>
-      </div>
-      <div class="cta">
-        <h1>Elden Ring</h1>
-        <p>lorem ipsum</p>
-        <p>prix</p>
-        <p>en savoir plus</p>
-      </div>
-      <nav>
-        <div class="btn">
-          <a href="index.html" class="tnb">catégorie</a>
-          <a href="contact.html" class="tnb">assistance</a>
+      <video
+        class="headerVideo"
+        autoplay
+        muted
+        loop
+        src="videos/elden-ring-header.mp4"
+      ></video>
+
+      <div class="hero">
+        <nav class="topnav">
+          <div id="topnav__logo">
+            <a href="index.html"
+              ><img
+                id="ogol"
+                src="images/nexary-blanc.png"
+                alt="logo"
+                draggable="false"
+            /></a>
+          </div>
+          <div class="btn">
+            <a href="catalogue.html" class="tnb">catalogue</a>
+            <a href="contact.html" class="tnb">assistance</a>
+          </div>
+          <div>
+            <a href="#" class="tnb">connexion</a>
+            <a href="#" class="tnb">inscription</a>
+          </div>
+        </nav>
+
+        <div class="cta">
+          <h1>Elden Ring</h1>
+       
+          <div class="cta__content">
+            <p>50€</p>
+      <a class="buttum" href="#">En savoir plus</a>
         </div>
-      </nav>
+        </div>
+      </div>
     </header>
-    <main id="categorie"></main>
+    <main id="contenent">
+      <section id="categorie1"></section>
+      <section id="categorie2"></section>
+      <section id="categorie3"></section>
+    </main>
     <footer>
       <div id="foot">
         <div class="liste">
@@ -71,6 +83,6 @@
         </div>
       </div>
     </footer>
-    <script src="index.js"></script>
+    <script src="js/index.js"></script>
   </body>
 </html>

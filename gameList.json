@@ -1,6 +1,7 @@
 [
   {
     "id": "1",
+        "tag":"Prochaines sorties",
     "imageUrl": "/images/world-fantasy-nexary.png",
     "name": "World Fantasy",
     "categorie": "MMORPG, aventure, action et énigme ",
@@ -28,7 +29,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   },
 
   {
@@ -60,7 +61,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "60€"
+    "prix": "60€"
   },
 
   {
@@ -92,7 +93,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "15€"
+    "prix": "15€"
   },
 
   {
@@ -124,11 +125,12 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "10€"
+    "prix": "10€"
   },
 
   {
     "id": "5",
+    "tag": "tendance",
     "imageUrl": "/images/ARCRaiders.webp",
     "name": "ARC Raiders",
     "categorie": "Extraction shooter, Tir à la troisième personne",
@@ -156,8 +158,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "40€"
-     
+    "prix": "40€"
   },
 
   {
@@ -189,7 +190,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "45€"
+    "prix": "45€"
   },
 
   {
@@ -221,7 +222,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "60€"
+    "prix": "60€"
   },
 
   {
@@ -253,7 +254,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "20€"
+    "prix": "20€"
   },
 
   {
@@ -285,7 +286,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "10€"
+    "prix": "10€"
   },
 
   {
@@ -317,11 +318,12 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "48€"
+    "prix": "48€"
   },
 
   {
     "id": "11",
+    "tag": "tendance",
     "imageUrl": "/images/Fortnite.webp",
     "name": "Fortnite",
     "categorie": "Survie, tir à la troisième personne, tower defense (Sauver le monde),Battle royale, tir à la troisième personne (Battle Royale),Sandbox, tir à la troisième personne (Créatif)",
@@ -349,11 +351,12 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   },
 
   {
     "id": "12",
+    "tag": "tendance",
     "imageUrl": "/images/GenshinImpact.webp",
     "name": "Genshin Impact",
     "categorie": "Action-RPG",
@@ -381,11 +384,12 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   },
 
   {
     "id": "13",
+    "tag": "Prochaines sorties",
     "imageUrl": "/images/GTA6.webp",
     "name": "Grand Theft Auto VI",
     "categorie": "Action-aventure, conduite, tir à la troisième personne",
@@ -413,11 +417,12 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "120€"
+    "prix": "120€"
   },
 
   {
     "id": "14",
+    "tag": "tendance",
     "imageUrl": "/images/LOL.webp",
     "name": "League of Legends",
     "categorie": "MOBA",
@@ -445,7 +450,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   },
 
   {
@@ -477,7 +482,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "20€"
+    "prix": "20€"
   },
 
   {
@@ -509,7 +514,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "15€"
+    "prix": "15€"
   },
 
   {
@@ -541,7 +546,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   },
 
   {
@@ -573,7 +578,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   },
 
   {
@@ -605,7 +610,7 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   },
 
   {
@@ -637,6 +642,6 @@
       "LienName": "en savoir plus",
       "lienDescription": "detail.html"
     },
-     "prix": "gratuit"
+    "prix": "gratuit"
   }
 ]

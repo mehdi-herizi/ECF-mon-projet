@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  margin: 0;
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0 0 16px 0;
+}
+/* ma tete de page  */
+header {
+  background-color: transparent;
+  max-width: 100%;
+  width: 100%;
+  /* padding-bottom: 50px; */
+}
+
+/* replacé tous mes elements */
+nav {
+  font-size: 20px;
+  position: absolute;
+  left: 45%;
+  top: 1rem;
+  background-color: #333232;
+  border: 2px solid rgb(49, 48, 48);
+  padding: 0.5rem;
+  border-radius: 25px;
+  top: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* c'est le logo  */
+#logo {
+  position: absolute;
+  
+  top: 0px;
+  width: 150px;
+  z-index: 1;
+}
+
+#ogol {
+  width: 200px;
+}
+
+/* les 2 liens */
+.btn {
+  color: rgb(255, 255, 255);
+  display: flex;
+justify-content: center;
+align-items: center;
+  gap: 3rem !important;
+  z-index: 1;
+}
+
+.tnb {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: larger;
+}

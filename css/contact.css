@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#catalogue{
+  position: absolute;
+  top: 5rem;
+}
+
+#genres{
+    
+}

@@ -10,9 +10,13 @@ async function chargerJSON() {
 
     const jeux = await response.json();
     console.log("JEUX :", jeux);
+
     // ..........................................................................
-    const filteredDataGames = jeux.filter
-    jeux.forEach((jeu) => {
+    
+    const filteredDataGames = jeux.filter((gameList) => gameList.tag=="tendance");
+    console.log(filteredDataGames);
+    
+    filteredDataGames.forEach((jeu) => {
       const image = document.createElement("img");
       image.src = jeu.imageUrl;
       image.classList.add("jeu");
@@ -48,7 +52,7 @@ async function chargerJSON() {
       const bouton = document.createElement("a");
       bouton.innerText = jeu.lien.LienName;
 
-      bouton.href = jeu.lien.lienDescription+"?id="+jeu.id;
+      bouton.href = jeu.lien.lienDescription + "?id=" + jeu.id;
 
       bouton.classList.add("bouton");
       // ..........................................................................
@@ -65,12 +69,12 @@ async function chargerJSON() {
       });
       // ..........................................................................
       monthDiv.appendChild(deuxiemeDiv);
-      deuxiemeDiv.appendChild(troisiemeDiv)
+      deuxiemeDiv.appendChild(troisiemeDiv);
       troisiemeDiv.appendChild(image);
       troisiemeDiv.appendChild(h3);
       troisiemeDiv.appendChild(categorie);
       troisiemeDiv.appendChild(MaDivReaseaux);
-       troisiemeDiv.appendChild(date);
+      troisiemeDiv.appendChild(date);
       troisiemeDiv.appendChild(description);
       troisiemeDiv.appendChild(prix);
       troisiemeDiv.appendChild(bouton);

@@ -4,7 +4,7 @@
         "tag":"Prochaines sorties",
     "imageUrl": "/images/world-fantasy-nexary.png",
     "name": "World Fantasy",
-    "categorie": "MMORPG, aventure, action et énigme ",
+    "categorie": ["none","mmorpg", "aventure", "action", "énigme"],
     "date": "20/12/2025",
     "reseauxSociaux": [
       {
@@ -36,7 +36,7 @@
     "id": "2",
     "imageUrl": "/images/jeux-nexary.png",
     "name": "Warfare Modern",
-    "categorie": "FPS et Arcade",
+    "categorie": ["none","fps", "arcade"],
     "date": "17/08/2023",
     "reseauxSociaux": [
       {
@@ -68,7 +68,7 @@
     "id": "3",
     "imageUrl": "/images/survive-jeu-nexary.png",
     "name": "Survive Washington",
-    "categorie": "aventure, action et énigme",
+    "categorie": ["none","aventure", "action", "énigme"],
     "date": "07/07/2008",
     "reseauxSociaux": [
       {
@@ -100,7 +100,7 @@
     "id": "4",
     "imageUrl": "/images/StarForge.png",
     "name": "StarForge Galactic Odysssy",
-    "categorie": "FPS, MMORPG et aventure",
+    "categorie": ["none","fps", "mmorpg", "aventure"],
     "date": "09/04/2025",
     "reseauxSociaux": [
       {
@@ -133,7 +133,7 @@
     "tag": "tendance",
     "imageUrl": "/images/ARCRaiders.webp",
     "name": "ARC Raiders",
-    "categorie": "Extraction shooter, Tir à la troisième personne",
+    "categorie": ["none","extraction shooter", "tir à la troisième personne"],
     "date": "30/10/2025",
     "reseauxSociaux": [
       {
@@ -165,7 +165,7 @@
     "id": "6",
     "imageUrl": "/images/ARK.webp",
     "name": "ARK: Survival Ascended",
-    "categorie": "Survie, Monde Ouvert, Multijoueurs et Action",
+    "categorie": ["none","survie", "monde ouvert", "multijoueurs" , "action"],
     "date": "26/10/2023",
     "reseauxSociaux": [
       {
@@ -197,7 +197,7 @@
     "id": "7",
     "imageUrl": "/images/assassinsCreedOdyssey.webp",
     "name": "Assassin's Creed Odyssey",
-    "categorie": "Action-aventure, RPG",
+    "categorie": ["none","action","aventure", "rpg"],
     "date": "05/10/2018",
     "reseauxSociaux": [
       {
@@ -229,7 +229,7 @@
     "id": "8",
     "imageUrl": "/images/BO2.webp",
     "name": "Call of Duty: Black Ops II",
-    "categorie": "Tir à la première personne",
+    "categorie": ["none","tir à la première personne"],
     "date": "13/12/2012",
     "reseauxSociaux": [
       {
@@ -261,7 +261,7 @@
     "id": "9",
     "imageUrl": "/images/COD4.webp",
     "name": "Call of Duty 4: Modern Warfare",
-    "categorie": "Tir à la première personne et Action ",
+    "categorie": ["none","tir à la première personne", "action"],
     "date": "06/11/2007",
     "reseauxSociaux": [
       {
@@ -293,7 +293,7 @@
     "id": "10",
     "imageUrl": "/images/Dayz.webp",
     "name": "DayZ",
-    "categorie": "Tir à la première personne, Survie",
+    "categorie": ["none","tir à la première personne", "survie"],
     "date": "13/12/2018",
     "reseauxSociaux": [
       {
@@ -326,7 +326,7 @@
     "tag": "tendance",
     "imageUrl": "/images/Fortnite.webp",
     "name": "Fortnite",
-    "categorie": "Survie, tir à la troisième personne, tower defense (Sauver le monde),Battle royale, tir à la troisième personne (Battle Royale),Sandbox, tir à la troisième personne (Créatif)",
+    "categorie": ["none","survie", "tir à la troisième personne", "tower defense (sauver le monde)","battle royale", "tir à la troisième personne (battle royale)","sandbox", "tir à la troisième personne (créatif)"],
     "date": "25/07/2017",
     "reseauxSociaux": [
       {
@@ -359,7 +359,7 @@
     "tag": "tendance",
     "imageUrl": "/images/GenshinImpact.webp",
     "name": "Genshin Impact",
-    "categorie": "Action-RPG",
+    "categorie": ["none","action","rpg"],
     "date": "28/09/2020",
     "reseauxSociaux": [
       {
@@ -392,7 +392,7 @@
     "tag": "Prochaines sorties",
     "imageUrl": "/images/GTA6.webp",
     "name": "Grand Theft Auto VI",
-    "categorie": "Action-aventure, conduite, tir à la troisième personne",
+    "categorie": ["none","action","aventure", "conduite", "tir à la troisième personne"],
     "date": "19/11/2026",
     "reseauxSociaux": [
       {
@@ -425,7 +425,7 @@
     "tag": "tendance",
     "imageUrl": "/images/LOL.webp",
     "name": "League of Legends",
-    "categorie": "MOBA",
+    "categorie": ["none","moba"],
     "date": "27/10/2009",
     "reseauxSociaux": [
       {
@@ -457,7 +457,7 @@
     "id": "15",
     "imageUrl": "/images/minecraft.webp",
     "name": "Minecraft",
-    "categorie": "Bac à sable,Aventure",
+    "categorie": ["none","bac à sable","aventure"],
     "date": "18/11/2011",
     "reseauxSociaux": [
       {
@@ -489,7 +489,7 @@
     "id": "16",
     "imageUrl": "/images/MW2.webp",
     "name": "Call of Duty: Modern Warfare 2",
-    "categorie": "Tir à la première personne (FPS)",
+    "categorie": ["none","tir à la première personne (fps)"],
     "date": "10/11/2009",
     "reseauxSociaux": [
       {
@@ -521,7 +521,7 @@
     "id": "17",
     "imageUrl": "/images/RocketLeague.jpg",
     "name": "Rocket League",
-    "categorie": "Course, football",
+    "categorie": ["none","course", "football"],
     "date": "07/07/2015",
     "reseauxSociaux": [
       {
@@ -553,7 +553,7 @@
     "id": "18",
     "imageUrl": "/images/Warframe.webp",
     "name": "Warframe",
-    "categorie": "TPS, Science-fiction",
+    "categorie": ["none","tps", "science-fiction"],
     "date": "25/03/2013",
     "reseauxSociaux": [
       {
@@ -585,7 +585,7 @@
     "id": "19",
     "imageUrl": "/images/wuwa.webp",
     "name": "Wuthering Waves",
-    "categorie": "Action-RPG",
+    "categorie": ["none","action","rpg"],
     "date": "22/05/2024",
     "reseauxSociaux": [
       {
@@ -617,7 +617,7 @@
     "id": "20",
     "imageUrl": "/images/R6.webp",
     "name": "Tom Clancy's Rainbow Six Siege",
-    "categorie": ["Tir tactique", "Hero shooter"],
+    "categorie": ["none","tir tactique", "hero shooter"],
     "date": "01/12/2015",
     "reseauxSociaux": [
       {

@@ -1,82 +1,87 @@
-
 * {
   box-sizing: border-box;
 }
 
-body {
-  background-color: black;
-  margin: 0;
-  max-width: 100%;
-  height: auto;
-  width: 100%;
-  position: relative;
+#catalogue {
   display: flex;
-  flex-wrap: wrap;
-}
-
-.contact {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: #ffffff solid;
-  padding: 16px;
-  min-height: 1000px;
-  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
-  margin-bottom: 32px;
-  flex-direction: column;
-  max-width: 800px;
+  color: #ffffff;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation-name: montexte;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
 
-/* mon formulaire */
-.place {
-  flex-direction: column;
-  top: 25%;
-}
-
-/* gérer tous mes elements */
-.form {
+/* 2 de mes jeux */
+.tbl {
   display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 700px;
-  padding: 50px;
-}
-
-/* nom */
-.titre {
-  font-size: x-large;
-}
-
-/* mon message */
-textarea {
-  resize: none;
-  padding-bottom: 200px;
-  width: 100%;
-}
-
-/* groupe mon message et mon bouton */
-.env {
-  display: flex;
+  align-items: center;
   justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 100%;
+}
+
+/* c'est un jeu */
+.tableau {
+  width: 600px;
+  display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  font-size: 20px;
+}
+
+/* mon image de jeu et mon titre */
+.article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}
+
+/* mon image de jeu */
+.jeu {
+  width: 600px;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+}
+
+/* les réseaux sociaux */
+.sociaux {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.soc {
+  width: 50px;
 }
 
 /* mon bouton */
-.envoyer input {
+.bouton {
+  width: 130px;
+  border-radius: 25px;
+  background-color: black;
+  border: 2px solid white;
+  color: #ffffff;
+  font-size: 1.2rem;
   padding: 10px;
-  border-radius: 20px;
-}
-
-.envoyer input:hover {
-  background-color: rgb(255, 132, 0);
-}
-
-.envoyer {
-  display: flex;
-  justify-content: center;
+  text-decoration: none;
 }
 
 /* mon pied de page */
@@ -98,6 +103,16 @@ footer {
   background-color: transparent;
   padding: 2rem;
 }
+
+@keyframes montexte {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 @media screen and (max-width: 400px) {
   body {
     max-width: 100%;
@@ -113,37 +128,35 @@ footer {
     flex-direction: column;
   }
 
-  textarea {
-    max-width: 100%;
-    width: 100%;
-    padding: 0px;
-  }
-
-  .contact {
+  #categorie {
     max-width: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 0px;
-    padding: 0px;
+  }
+
+  .tbl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 100%;
+  }
+
+  .tableau {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .article {
+    max-width: 100%;
+    width: 100%;
   }
 
   .jeu {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .place {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .titre {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .form {
     max-width: 100%;
     width: 100%;
   }
@@ -174,37 +187,29 @@ footer {
     flex-direction: column;
   }
 
-  textarea {
-    max-width: 100%;
-    width: 100%;
-    padding: 0px;
-  }
-
-  .contact {
+  #categorie {
     max-width: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin: 0px;
-    padding: 0px;
+  }
+
+  .tbl {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .tableau {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .article {
+    max-width: 100%;
+    width: 100%;
   }
 
   .jeu {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .place {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .titre {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .form {
     max-width: 100%;
     width: 100%;
   }

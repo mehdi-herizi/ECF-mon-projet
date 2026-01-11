@@ -1,4 +1,4 @@
-const gameList = document.getElementById("categorie");
+const gameList = document.getElementById("page");
 async function chargerJSON() {
   try {
     const response = await fetch("gameList.json");

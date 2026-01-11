@@ -1,4 +1,4 @@
-const gameList = document.getElementById("categorie");
+const gameList = document.getElementById("catalogue");
 
 async function chargerJSON() {
   try {
@@ -168,6 +168,6 @@ async function chargerJSON() {
 chargerJSON();
 //TODO faut que je mette categorie dans un tableau
 function cleanJeux() {
-  const maincat = document.getElementById("categorie");
+  const maincat = document.getElementById("catalogue");
   maincat.replaceChildren();
 }

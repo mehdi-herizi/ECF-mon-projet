@@ -643,5 +643,37 @@
       "lienDescription": "detail.html"
     },
     "prix": "gratuit"
+  },
+    {
+    "id": "21",
+        "tag":"Prochaines sorties",
+    "imageUrl": "/images/world-fantasy-nexary.png",
+    "name": "Fantasy",
+    "categorie": ["none","mmorpg", "aventure", "action", "énigme"],
+    "date": "20/12/2025",
+    "reseauxSociaux": [
+      {
+        "SocialMediaName": "twitch",
+        "socialMediaImage": "/images/twitch.png",
+        "SocialMediaUrl": "https://www.twitch.tv/cpt_pricemehdi13"
+      },
+      {
+        "SocialMediaName": "instagram",
+        "socialMediaImage": "/images/instagram.png",
+        "SocialMediaUrl": "https://www.instagram.com/versus13012/"
+      },
+      {
+        "SocialMediaName": "tiktok",
+        "socialMediaImage": "/images/tiktok.png",
+        "SocialMediaUrl": "https://www.tiktok.com/@cptprice536?lang=fr"
+      }
+    ],
+    "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
+    "content": "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.",
+    "lien": {
+      "LienName": "en savoir plus",
+      "lienDescription": "detail.html"
+    },
+    "prix": "gratuit"
   }
 ]

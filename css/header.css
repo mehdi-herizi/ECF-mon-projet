@@ -51,7 +51,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3rem !important;
+  gap: 3rem;
   z-index: 1;
 }
 
@@ -64,4 +64,13 @@ nav {
   align-items: center;
   font-size:25px;
   max-width: 100%;
+}
+@media screen and (max-width: 400px) {
+  .btn{
+    gap: 1rem;
+  }
+
+  .tnb{
+    font-size: 15px;
+  }
 }

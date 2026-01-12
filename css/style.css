@@ -231,6 +231,9 @@ footer {
     position: static;
   }
 
+  .tnb{
+    padding: 2px;
+  }
   header {
     max-width: 100%;
     width: 100%;

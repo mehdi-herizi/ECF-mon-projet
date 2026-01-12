@@ -42,6 +42,9 @@
   font-size: 20px;
 }
 
+.tableau p{
+  font-size: 5%;
+}
 /* mon image de jeu et mon titre */
 .article {
   display: flex;

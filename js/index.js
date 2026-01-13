@@ -1,4 +1,6 @@
+// je donne un id a mon element
 const gameList = document.getElementById("categorie1");
+// je recupere mon json avec fetch
 async function chargerJSON() {
   try {
     const response = await fetch("gameList.json");
@@ -12,11 +14,14 @@ async function chargerJSON() {
     console.log("JEUX :", jeux);
 
     // ..........................................................................
-    
-    const filteredDataGames = jeux.filter((gameList) => gameList.tag=="tendance");
+
+    const filteredDataGames = jeux.filter(
+      (gameList) => gameList.tag == "tendance"
+    );
     console.log(filteredDataGames);
-    
+    // la creation de mes elements pour mon main
     filteredDataGames.forEach((jeu) => {
+      // mon image
       const image = document.createElement("img");
       image.src = jeu.imageUrl;
       image.classList.add("jeu");
@@ -44,18 +49,18 @@ async function chargerJSON() {
       // reseaux sociaux
       const MaDivReaseaux = document.createElement("div");
       MaDivReaseaux.classList.add("reseaux");
-
+      // le prix
       const prix = document.createElement("p");
       prix.innerText = jeu.prix;
 
       // ANCHOR EN SAVOIR PLUS (bouton)
       const bouton = document.createElement("a");
       bouton.innerText = jeu.lien.LienName;
-
+    // mon bouton recupere l'id et le lien de ma page html
       bouton.href = jeu.lien.lienDescription + "?id=" + jeu.id;
-
       bouton.classList.add("bouton");
       // ..........................................................................
+       // foreach necessaire pour recuperer tous mes elements dans mes tableaux reseaux sociaux
       jeu.reseauxSociaux.forEach((reseau) => {
         const link = document.createElement("a");
         link.href = reseau.SocialMediaUrl;
@@ -68,6 +73,7 @@ async function chargerJSON() {
         MaDivReaseaux.appendChild(link);
       });
       // ..........................................................................
+          // pour afficher mes elements et leurs donne un parents
       monthDiv.appendChild(deuxiemeDiv);
       deuxiemeDiv.appendChild(troisiemeDiv);
       troisiemeDiv.appendChild(image);
@@ -87,4 +93,3 @@ async function chargerJSON() {
 }
 // ..........................................................................
 chargerJSON();
-//TODO faut que je mette categorie dans un tableau

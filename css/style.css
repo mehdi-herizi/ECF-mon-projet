@@ -31,14 +31,14 @@ header {
   max-width: 100%;
   width: 100%;
 }
-
+/* la video de mon jeu vitrine */
 .headerVideo {
   position: relative;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
+/* le logo et les liens */
 .hero {
   position: absolute;
   top: 0;
@@ -51,7 +51,7 @@ header {
   justify-content: space-between;
   align-items: flex-start;
 }
-
+/* mon patch */
 .cta {
   position: absolute;
   font-size: 1rem;
@@ -73,7 +73,6 @@ header {
 .cta__content p {
   margin: 0;
 }
-/* replacé tous mes elements */
 
 .topnav {
   display: flex;
@@ -85,7 +84,7 @@ header {
   width: 25%;
 }
 
-/* les 2 liens */
+/* les 4 liens */
 
 .tnb {
   color: rgb(255, 255, 255);
@@ -104,7 +103,7 @@ header {
   text-decoration: none;
   display: inline-block;
 }
-
+/* mon main */
 #categorie1 {
   display: flex;
   flex-direction: column;

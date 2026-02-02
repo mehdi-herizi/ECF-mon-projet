@@ -178,7 +178,6 @@ header {
 
 /* mon bouton */
 .bouton {
-  width: 130px;
   border-radius: 25px;
   background-color: black;
   border: 2px solid white;
@@ -227,7 +226,7 @@ footer {
     flex-direction: column;
   }
   .cta {
-    position: static;
+opacity: 0;
   }
 
   .tnb{

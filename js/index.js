@@ -43,9 +43,6 @@ async function chargerJSON() {
       const categorie = document.createElement("p");
       categorie.innerText = "🎮 " + jeu.categorie;
       categorie.style.fontWeight = "bold";
-      // description
-      const description = document.createElement("p");
-      description.innerText = jeu.description;
       // reseaux sociaux
       const MaDivReaseaux = document.createElement("div");
       MaDivReaseaux.classList.add("reseaux");
@@ -81,7 +78,6 @@ async function chargerJSON() {
       troisiemeDiv.appendChild(categorie);
       troisiemeDiv.appendChild(MaDivReaseaux);
       troisiemeDiv.appendChild(date);
-      troisiemeDiv.appendChild(description);
       troisiemeDiv.appendChild(prix);
       troisiemeDiv.appendChild(bouton);
       gameList.appendChild(monthDiv);

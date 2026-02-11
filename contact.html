@@ -30,46 +30,46 @@
     </header>
     <!-- pas finie -->
   <main class="contact">
-    <form class="place">
+    <form class="place" action="contact.php" method="post">
       <div class="form">
         <label class="titre">
           <strong> Contactez-nous </strong>
         </label>
       </div>
       <div class="form">
-        <label class="titre">
+        <label class="titre" for="firstname">
           <strong> Prénom </strong>
         </label>
-        <input name="g" type="text" />
+        <input name="firstname" type="text" id="firstname"/>
       </div>
       <div class="form">
-        <label class="titre">
+        <label class="titre" for="name">
           <strong> Nom </strong>
         </label>
-        <input name="g" type="text" />
+        <input name="name" type="text" id="name"/>
       </div>
       <div class="form">
-        <label class="titre">
+        <label class="titre" for="mail">
           <strong> Mail </strong>
         </label>
-        <input name="g" type="mail" />
+        <input name="mail" type="email" id="mail"/>
       </div>
       <div class="form">
-        <label class="titre">
+        <label class="titre" for="numeroDeTelephone">
           <strong> Telephone </strong>
         </label>
-        <input name="g" type="tel" />
+        <input name="numero" type="tel" id="numeroDeTelephone" />
       </div>
       <div class="form">
-        <label class="titre">
+        <label class="titre" for="message">
           <strong> Message </strong>
         </label>
       </div>
       <div class="env">
-        <textarea name="Message" id=""></textarea>
+        <textarea name="Message" id="message"></textarea>
 
         <div class="envoyer">
-          <input type="button" value="Envoyer">
+          <input type="submit" value="Envoyer">
         </div>
 
       </div>

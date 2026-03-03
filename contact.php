@@ -8,7 +8,6 @@ if (isset($_POST["name"])) {
     $mail = $_POST["mail"];
     $message = $_POST["Message"];
 
-    echo "<br> $nom <br> $prenom <br> $numero <br> $mail <br> $message";
 }
 
 ?>

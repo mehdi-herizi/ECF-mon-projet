@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = "veuillez remplir tous les champs";
     }
     if (count($errors) === 0) {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE mail = ?");
+        $stmt = $pdo->prepare("SELECT * FROM pb_user WHERE email = ?");
         $stmt->execute([$mail]);
         $user = $stmt->fetch();
 
@@ -20,10 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if (password_verify($passwordUser, $user["password"])) {
                 $_SESSION['name'] = $user['name'];
                 $_SESSION['firstname'] = $user['firstname'];
-                $_SESSION['mail'] = $user['mail'];
-                $_SESSION['id'] = $user['id'];
+                $_SESSION['email'] = $user['email'];
                 $_SESSION['role'] = $user['role'];
-                header('Location: exer16-dashboard.php');
+                header('Location: index.php');
                 exit;
             } else {
                 echo "mot de passe incorrect";

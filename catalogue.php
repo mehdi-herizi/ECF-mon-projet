@@ -1,3 +1,7 @@
+<?php 
+require 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +16,7 @@
     <header>
       <!-- mon logo -->
       <div id="logo">
-        <a href="index.html"
+        <a href="index.php"
           ><img
             id="ogol"
             src="images/nexary-blanc.png"
@@ -23,8 +27,8 @@
       <!-- mes boutons -->
       <nav>
         <div class="btn">
-          <a href="catalogue.html" class="tnb">catalogue</a>
-          <a href="contact.html" class="tnb">assistance</a>
+          <a href="catalogue.php" class="tnb">catalogue</a>
+          <a href="contact.php" class="tnb">assistance</a>
         </div>
       </nav>
     </header>

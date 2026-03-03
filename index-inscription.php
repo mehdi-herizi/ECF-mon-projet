@@ -57,9 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (count($errors) === 0) {
         // Requete SQL insertion
         try {
-            $stmt = $pdo->prepare("INSERT INTO pb_user (name, firstname,numerotelephone,birthdate, mail, password) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO pb_user (name, firstname,numerotelephone,birthdate, email, password) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->execute([$name, $firstName,$numerodetelephone,$birthdate, $mail, $passwordHash]);
-           header('Location: index.html');
+           header('Location: index.php');
                     exit;
             
         } catch (PDOException $e) {

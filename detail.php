@@ -1,3 +1,6 @@
+<?php 
+require 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +15,7 @@
   <body>
     <header>
       <div id="logo">
-        <a href="index.html"
+        <a href="index.php"
           ><img
             id="ogol"
             src="images/nexary-blanc.png"
@@ -22,8 +25,8 @@
       </div>
       <nav>
         <div class="btn">
-          <a href="catalogue.html" class="tnb">catalogue</a>
-          <a href="contact.html" class="tnb">assistance</a>
+          <a href="catalogue.php" class="tnb">catalogue</a>
+          <a href="contact.php" class="tnb">assistance</a>
         </div>
       </nav>
     </header>

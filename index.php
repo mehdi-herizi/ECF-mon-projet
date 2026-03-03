@@ -1,3 +1,7 @@
+<?php 
+require 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,7 +25,7 @@
       <div class="hero">
         <nav class="topnav">
           <div id="topnav__logo">
-            <a href="index.html"
+            <a href="index.php"
               ><img
                 id="ogol"
                 src="images/nexary-blanc.png"
@@ -30,10 +34,10 @@
             /></a>
           </div>
           <div class="btn">
-            <a href="catalogue.html" class="tnb">catalogue</a>
-            <a href="contact.html" class="tnb">assistance</a>
-             <a href="/ECF-mon-projet/php/index-connexion.php" class="tnb">connexion</a>
-            <a href="/ECF-mon-projet/php/index-inscription.php" class="tnb">inscription</a>
+            <a href="catalogue.php" class="tnb">catalogue</a>
+            <a href="contact.php" class="tnb">assistance</a>
+             <a href="index-connexion.php" class="tnb">connexion</a>
+            <a href="index-inscription.php" class="tnb">inscription</a>
           </div>
         </nav>
         <!-- un petit patch pour la vidéo -->

@@ -1,5 +1,12 @@
 <?php 
 require 'config.php';
+
+$stmt = $pdo->prepare("SELECT * FROM product");
+$stmt->execute();
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+foreach ($products as $product) {
+    echo $product['name'] . " - " . $product['price'] . "€<br>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +15,7 @@ require 'config.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="mon site sert a achete des jeux video ,c'est un e-commerce">
-    <title>Nexary</title>
+    <title>Master gaming</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -45,7 +52,7 @@ require 'config.php';
           <h1>Elden Ring</h1>
           <div class="cta__content">
             <p>50€</p>
-            <a class="buttum" href="#">En savoir plus</a>
+            <a class="buttum" href="">En savoir plus</a>
           </div>
         </div>
       </div>
@@ -56,37 +63,9 @@ require 'config.php';
       <section id="categorie2"></section>
       <section id="categorie3"></section>
     </main>
-    <footer>
-      <div id="foot">
-        <div class="liste">
-          <h5>lorem</h5>
-          <ul>
-            <li>lorem</li>
-            <li>lorem</li>
-            <li>lorem</li>
-            <li>lorem</li>
-          </ul>
-        </div>
-        <div class="liste">
-          <h5>lorem</h5>
-          <ul>
-            <li>lorem</li>
-            <li>lorem</li>
-            <li>lorem</li>
-            <li>lorem</li>
-          </ul>
-        </div>
-        <div class="liste">
-          <h5>lorem</h5>
-          <ul>
-            <li>lorem</li>
-            <li>lorem</li>
-            <li>lorem</li>
-            <li>lorem</li>
-          </ul>
-        </div>
-      </div>
-    </footer>
-    <script src="js/index.js"></script>
+    <?php 
+   require_once 'footer.php';
+   ?>
+    <!-- <script src="js/index.js"></script> -->
   </body>
 </html>

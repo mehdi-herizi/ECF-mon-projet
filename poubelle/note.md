@@ -1,0 +1,1 @@
+je voudrais associer dans la colonne picture mes images qui sont dans images

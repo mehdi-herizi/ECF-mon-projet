@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$dsn = "mysql:host=mysql-server;dbname=nexary;charset=utf8";
+$dsn = "mysql:host=mysql-server;dbname=Mastergaming;charset=utf8";
 $user = "root";
 $password = "root";
 

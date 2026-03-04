@@ -19,29 +19,15 @@ if (isset($_POST["name"])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="mon site sert a achete des jeux video ,c'est un e-commerce">
-  <title>Nexary</title>
+  <title>Master gaming</title>
   <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/contact.css">
 </head>
 
 <body>
-   <header>
-      <div id="logo">
-        <a href="index.php"
-          ><img
-            id="ogol"
-            src="images/nexary-blanc.png"
-            alt="logo"
-            draggable="false"
-        /></a>
-      </div>
-      <nav>
-        <div class="btn">
-          <a href="catalogue.php" class="tnb">catalogue</a>
-          <a href="contact.php" class="tnb">assistance</a>
-        </div>
-      </nav>
-    </header>
+   <?php 
+   require_once 'header.php';
+   ?>
     <!-- pas finie -->
   <main class="contact">
     <form class="place" action="" method="post">
@@ -89,38 +75,9 @@ if (isset($_POST["name"])) {
       </div>
     </form>
   </main>
-  <footer>
-
-    <div id="foot">
-      <div class="liste">
-        <h5>lorem</h5>
-        <ul>
-          <li>lorem</li>
-          <li>lorem</li>
-          <li>lorem</li>
-          <li>lorem</li>
-        </ul>
-      </div>
-      <div class="liste">
-        <h5>lorem</h5>
-        <ul>
-          <li>lorem</li>
-          <li>lorem</li>
-          <li>lorem</li>
-          <li>lorem</li>
-        </ul>
-      </div>
-      <div class="liste">
-        <h5>lorem</h5>
-        <ul>
-          <li>lorem</li>
-          <li>lorem</li>
-          <li>lorem</li>
-          <li>lorem</li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+  <?php 
+   require_once 'footer.php';
+   ?>
 </body>
 
 </html>

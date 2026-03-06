@@ -1,3 +1,12 @@
+<?php 
+require 'config.php';
+$stmt=$pdo->prepare("SELECT * FROM product");
+$stmt->execute();
+$products=$stmt->fetchAll();
+
+echo json_encode($products);
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +66,20 @@
         <option value="hero shooter">Hero shooter</option>
       </select>
     </div>
-
+    <div>
+    </div>
+  X<h2>Notre catalogue</h2>
+        <div class="products">
+          <?php foreach ($products as $product): ?>
+            <div class="product">
+              <img src="<?php echo $product['picture']; ?>" alt="<?php echo $product['name']; ?>">
+              <h3><?php echo $product['name']; ?></h3>
+              <p><?php echo $product['price']; ?>€</p>
+              <a href="detail.php?id=<?php echo $product['id_product']; ?>" class="buttum">En savoir plus</a>
+            </div>
+          <?php endforeach; ?>
+        </div>
+        </div>
     </main>
          
    
@@ -65,6 +87,6 @@
    <?php 
    require_once 'footer.php';
    ?>
-    <script src="js/catalogue.js"></script>
+    <!-- <script src="js/catalogue.js"></script> -->
   </body>
 </html>

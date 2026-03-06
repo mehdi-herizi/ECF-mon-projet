@@ -67,11 +67,9 @@ if (isset($_POST["name"])) {
       </div>
       <div class="env">
         <textarea name="Message" id="message"></textarea>
-
         <div class="envoyer">
           <input type="submit" value="Envoyer">
         </div>
-
       </div>
     </form>
   </main>

@@ -4,10 +4,20 @@ require 'config.php';
 $stmt = $pdo->prepare("SELECT * FROM product");
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-foreach ($products as $product) {
-    echo $product['name'] . " - " . $product['price'] . "€<br>";
-}
+
+$jeuxTendance = array_filter($products, function($product) {
+    return $product['tag'] === 'trending';
+});
+
+$jeuxQuiVontSortir = array_filter($products, function($product) {
+    return $product['tag'] === 'coming_soon';
+});
+
+$nouveauxJeux = array_filter($products, function($product) {
+    return $product['tag'] === 'new';
+});
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,16 +62,53 @@ foreach ($products as $product) {
           <h1>Elden Ring</h1>
           <div class="cta__content">
             <p>50€</p>
-            <a class="buttum" href="">En savoir plus</a>
+            <a class="buttum" href="detail.php?id=70">En savoir plus</a>
           </div>
         </div>
       </div>
     </header>
     <!-- pas fini -->
     <main id="contenent">
-      <section id="categorie1"></section>
-      <section id="categorie2"></section>
-      <section id="categorie3"></section>
+      <section id="categorie1">
+        <h2>Nos jeux les plus populaires</h2>
+        <div class="products-grid">
+          <?php foreach ($jeuxTendance as $product): ?>
+            <div class="product-card">
+              <img src="<?php echo $product['picture']; ?>" alt="<?php echo $product['name']; ?>">
+              <h3><?php echo $product['name']; ?></h3>
+
+              <p><?php echo $product['price']; ?>€</p>
+              <a href="detail.php?id=<?php echo $product['id_product']; ?>" class="buttum">En savoir plus</a>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </section>
+      <section id="categorie2">
+        <h2>Nos jeux à venir</h2>
+        <div class="products-grid">
+          <?php foreach ($jeuxQuiVontSortir as $product): ?>
+            <div class="product-card">
+              <img src="<?php echo $product['picture']; ?>" alt="<?php echo $product['name']; ?>">
+              <h3><?php echo $product['name']; ?></h3>
+              <p><?php echo $product['price']; ?>€</p>
+              <a href="detail.php?id=<?php echo $product['id_product']; ?>" class="buttum">En savoir plus</a>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </section>
+      <section id="categorie3">
+        <h2>Nouveaux jeux</h2>
+        <div class="products-grid">
+          <?php foreach ($nouveauxJeux as $product): ?>
+            <div class="product-card">
+              <img src="<?php echo $product['picture']; ?>" alt="<?php echo $product['name']; ?>">
+              <h3><?php echo $product['name']; ?></h3>
+              <p><?php echo $product['price']; ?>€</p>
+              <a href="detail.php?id=<?php echo $product['id_product']; ?>" class="buttum">En savoir plus</a>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </section>
     </main>
     <?php 
    require_once 'footer.php';

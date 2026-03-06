@@ -3,7 +3,8 @@ const gameList = document.getElementById("catalogue");
 // je recupere mon json avec fetch
 async function chargerJSON() {
   try {
-    const response = await fetch("gameList.json");
+    // const response = await fetch("gameList.json");
+        const response = await fetch("catalogue-test.php");
 
     if (!response.ok) {
       0;
@@ -15,13 +16,13 @@ async function chargerJSON() {
     // pour que mon genre (tous les jeux) soit par défault
     function pardefaut() {
       let genreSelected = "none";
-      const filtergenreGames = jeux.filter((gameList) =>
-        gameList.categorie.includes(genreSelected)
-      );
-      console.log(filtergenreGames);
+      // const filtergenreGames = jeux.filter((gameList) =>
+      //   gameList.categorie.includes(genreSelected)
+      // );
+      // console.log(filtergenreGames);
       // ..........................................................................
       // la creation de mes elements pour mon main
-      filtergenreGames.forEach((jeu) => {
+      jeux.forEach((jeu) => {
         // mon image
         const image = document.createElement("img");
         image.src = jeu.imageUrl;

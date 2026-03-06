@@ -45,8 +45,12 @@ CREATE TABLE product (
     picture VARCHAR(255) NULL,
     video VARCHAR(255) NULL,
     description TEXT NOT NULL,
-    excerpt VARCHAR(500) NOT NULL,
     id_category INT NOT NULL,
+    tag ENUM(
+        'trending',
+        'coming_soon',
+        'new'
+    ) NULL,
     PRIMARY KEY (id_product),
     FOREIGN KEY (id_category) REFERENCES category (id_category) ON DELETE CASCADE
 );
@@ -79,103 +83,999 @@ VALUES ('Action'),
     ('Survival'),
     ('Fighting'),
     ('Roguelike');
-    
--- INSERT INTO product (name, price, date_, picture, video, description, excerpt, id_category) VALUES
--- ('ARC Raiders', 39.99, '2023-09-01', 'images-jeux/ARC-Raiders.webp', 'https://www.youtube.com/watch?v=9slTF7NJ7UI', 'Dans ARC Raiders, vous naviguez entre la surface dominée par des machines impitoyables et le refuge souterrain grouillant de vie de Speranza. À l''abri dans votre atelier, vous pouvez fabriquer, réparer et améliorer votre équipement avant de remonter à la surface pour fouiller les vestiges d''un monde à la fois beau et désolé. Jouez en solo ou formez des équipes de trois joueurs maximum, et affrontez la menace constante des machines ARC, mais aussi les choix imprévisibles des autres survivants. Au final, vous seul décidez du type de Raider que vous deviendrez, et jusqu''où vous serez prêts à aller pour survivre.', 'RC Raiders est un jeu d''aventure et d''extraction multijoueur se déroulant dans un monde futuriste et meurtrier, ravagé par une mystérieuse menace mécanisée nommée l''ARC.', 1),
--- ('ARK: Survival Ascended', 44.99, '2024-10-23', 'images-jeux/ARK-Survival-Ascended.webp', 'https://www.youtube.com/watch?v=sYi6iy07GsE', 'Répondez à une nouvelle expérience de survie des dinosaures au-delà de vos rêves les plus fous… car Ark est repensé de la base à la prochaine génération de la technologie du jeu vidéo avec un moteur Unreal 5! Vous vous réveillez sur une île mystérieuse, vos sens submergés par la lumière du soleil aveuglante et des couleurs brillantes rebondissant sur chaque surface autour de vous. ARK: Survival Ascend comprend l''accès à tous les mondes d''Ark, notamment la Terre brûlée, l''aberration, l''extinction, et plus encore.', 'Ark est repensé dans cette prochaine génération de technologie de jeux vidéo avec Unreal Engine 5! Formez une tribu, apprivoisant et reprochent des centaines de dinosaures uniques et de créatures primitives.', 2),
--- ('Assassin''s Creed Odyssey', 59.99, '2018-10-05', 'images-jeux/Assassins-Creed-Odyssey.webp', 'https://www.youtube.com/watch?v=VUR4Xs1K2WU', 'Forgez votre propre odyssée dans un monde au bord du chaos, affrontez des créatures mythiques et devenez un héros spartiate légendaire. Plongez dans des affrontements épiques entre Sparte et Athènes, avec des batailles opposant jusqu''à 150 soldats.', 'Dans ce jeu d''action-aventure, mettez le cap sur la Grèce antique pour en changer le destin. Disputez des combats sauvages sur terre et sur mer, façonnez votre destin.', 2),
--- ('Call of Duty: Black Ops II', 59.99, '2012-12-13', 'images-jeux/Call-of-Duty-Black-Ops-II.webp', '', 'Repoussant encore plus loin les limites de la franchise phare, Call of Duty: Black Ops 2 propulse le joueur dans un futur proche, au cœur de la Guerre froide du 21e siècle.', 'Plongez dans un futur proche où technologie et conflits s''intensifient. Menez des missions tactiques à travers le monde et vivez une campagne riche en rebondissements.', 3),
--- ('Call of Duty 4: Modern Warfare', 19.99, '2007-11-06', 'images-jeux/Call-of-Duty-4-Modern-Warfare.webp', '', 'Call of Duty 4: Modern Warfare vous enrôle et vous fournit les armes les plus puissantes avant de vous envoyer aux 4 coins du globe combattre un ennemi menaçant l''équilibre du monde.', 'Call of Duty 4: Modern Warfare vous enrôle et vous fournit les armes les plus puissantes avant de vous envoyer combattre.', 3),
--- ('DayZ', 57.99, '2018-12-13', 'images-jeux/DayZ.webp', '', 'DayZ est un jeu de survie hardcore en monde ouvert. Vous débarquez dans une région post-apocalyptique avec un unique but : survivre.', 'Survivrez-vous longtemps dans ce monde post-apocalyptique ?', 15),
--- ('Fortnite', 0, '2017-07-25', 'images-jeux/Fortnite.webp', '', 'Tout ce que vous aimez, réuni dans Fortnite. Plongez au cœur de l''action que vous aimez tant.', 'Plongez au cœur de l''action que vous aimez tant. Soyez le dernier survivant dans Battle Royale.', 12),
--- ('Genshin Impact', 0, '2020-09-28', 'images-jeux/Genshin-Impact.webp', '', 'Genshin Impact est un jeu vidéo de rôle d''action développé et publié par miHoYo avec un environnement de monde ouvert de style animé.', 'Dans un monde fantastique nommé Teyvat, une sœur et un frère se retrouvent séparés.', 13),
--- ('Grand Theft Auto VI', 99.99, '2026-11-19', 'images-jeux/Grand-Theft-Auto-VI.webp', '', 'Grand Theft Auto VI est un jeu d''action-aventure à monde ouvert. L''histoire se concentrera sur les aventures d''un couple, Jason Duval et Lucia Caminos.', 'Jason Duval et Lucia Caminos ont toujours baigné dans le milieu criminel.', 1),
--- ('League of Legends', 0, '2009-10-27', 'images-jeux/League-of-Legends.webp', '', 'League of Legends est un jeu vidéo de type arène de bataille en ligne, free-to-play avec deux équipes de 5 joueurs.', 'Chaque partie de League of Legends est distincte et les ressources ne sont pas conservées.', 11),
--- ('Minecraft', 29.99, '2011-11-18', 'images-jeux/Minecraft.webp', '', 'Rassemblez des ressources. Le parcours commençant en frappant un arbre pour récolter du bois. Survivez à la nuit.', 'Construisez tout ce que vous pouvez imaginer, découvrez des mystères étranges et survivez à la nuit.', 14),
--- ('Call of Duty: Modern Warfare 2', 19.99, '2009-11-10', 'images-jeux/Call-of-Duty-Modern-Warfare-2.webp', '', 'Le jeu le plus attendu de l''année et la suite du jeu de tir subjectif le plus vendu au monde.', 'Call of Duty: Modern Warfare 2 comprend pour la première fois une bande originale de Hans Zimmer.', 3),
--- ('Rocket League', 0, '2015-07-07', 'images-jeux/Rocket-League.jpg', '', 'Téléchargez le jeu et participez à ce mélange détonant de football d''arcade et de chaos à quatre roues !', 'Bienvenue dans un mélange détonnant de football d''arcade et de chaos motorisé !', 6),
--- ('Warframe', 0, '2013-03-25', 'images-jeux/Warframe.webp', '', 'Réveillez-vous en tant que guerrier implacable et combattez aux côtés de vos amis.', 'Réveillez-vous en tant que guerrier implacable et combattez aux côtés de vos amis.', 3),
--- ('Wuthering Waves', 0, '2024-05-22', 'images-jeux/Wuthering-Waves.webp', '', 'Wuthering Waves est un jeu d''action-RPG en monde ouvert caractérisé par ses combats intensifs.', 'Explorez votre passé et embarquez dans une aventure qui pourrait bouleverser le monde.', 13),
--- ('Tom Clancy''s Rainbow Six Siege', 0, '2015-12-01', 'images-jeux/Tom-Clancys-Rainbow-Six-Siege.webp', '', 'Tom Clancy''s Rainbow Six Siege est la référence des jeux de tir tactiques en équipe.', 'Rainbow Six Siege est la référence des jeux de tir tactiques en équipe.', 3),
--- ('Sekiro: Shadows Die Twice', 59.99, '2019-03-22', 'images-jeux/Sekiro.webp', '', 'Sekiro est un action-RPG exigeant se déroulant dans un Japon féodal sombre.', 'Un action-RPG intense aux combats techniques exigeants.', 1),
--- ('Control', 39.99, '2019-08-27', 'images-jeux/Control.webp', '', 'Control est un jeu d''action surnaturel où vous incarnez Jesse Faden explorant une agence secrète.', 'Action paranormale immersive dans une agence secrète.', 1),
--- ('Subnautica', 29.99, '2018-01-23', 'images-jeux/Subnautica.webp', '', 'Subnautica est un jeu de survie sous-marine dans lequel vous explorez un océan extraterrestre.', 'Exploration et survie dans un monde sous-marin alien.', 15),
--- ('Cities: Skylines', 34.99, '2015-03-10', 'images-jeux/Cities-Skylines.webp', '', 'Cities: Skylines est une simulation de gestion urbaine approfondie.', 'Simulation complète de gestion de ville moderne.', 5),
--- ('Factorio', 30, '2020-08-14', 'images-jeux/Factorio.webp', '', 'Factorio est un jeu de stratégie et d''automatisation où vous construisez et optimisez une usine.', 'Automatisation industrielle poussée et stratégique.', 5),
--- ('Hades', 24.99, '2020-09-17', 'images-jeux/Hades.webp', '', 'Hades est un roguelike dynamique inspiré de la mythologie grecque.', 'Roguelike nerveux à forte rejouabilité.', 17),
--- ('Dead Cells', 24.99, '2018-08-07', 'images-jeux/Dead-Cells.webp', '', 'Dead Cells combine roguelike et plateforme avec des combats rapides et exigeants.', 'Action rapide et progression dynamique.', 16),
--- ('Cuphead', 19.99, '2017-09-29', 'images-jeux/Cuphead.webp', '', 'Cuphead est un jeu de plateforme inspiré des cartoons des années 1930.', 'Boss difficiles et style rétro unique.', 10),
--- ('Stardew Valley', 14.99, '2016-02-26', 'images-jeux/Stardew-Valley.webp', '', 'Stardew Valley est une simulation agricole mêlant gestion de ferme.', 'Gestion de ferme relaxante avec éléments RPG.', 5),
--- ('Terraria', 9.99, '2011-05-16', 'images-jeux/Terraria.webp', '', 'Terraria est un sandbox 2D axé sur l''exploration, le crafting et les combats.', 'Exploration et construction en 2D riche.', 17),
--- ('Among Us', 4.99, '2018-11-16', 'images-jeux/Among-Us.webp', '', 'Among Us est un jeu multijoueur de déduction sociale.', 'Tension, trahison et coopération en ligne.', 12),
--- ('Phasmophobia', 13.99, '2020-09-18', 'images-jeux/Phasmophobia.webp', '', 'Phasmophobia est un jeu d''horreur coopératif où vous enquêtez sur des lieux hantés.', 'Horreur coopérative immersive et stressante.', 8),
--- ('Outlast', 19.99, '2013-09-04', 'images-jeux/Outlast.webp', '', 'Outlast est un survival horror à la première personne.', 'Terreur pure sans possibilité de riposte.', 8),
--- ('The Forest', 19.99, '2018-04-30', 'images-jeux/The-Forest.webp', '', 'Après un crash d''avion, vous devez survivre dans une forêt peuplée de créatures.', 'Survie brutale et crafting en environnement hostile.', 15),
--- ('Valheim', 19.99, '2021-02-02', 'images-jeux/Valheim.webp', '', 'Valheim est un survival coopératif inspiré de la mythologie nordique.', 'Exploration viking et construction coopérative.', 15),
--- ('No Man''s Sky', 59.99, '2016-08-12', 'images-jeux/No-Mans-Sky.webp', '', 'No Man''s Sky propose un univers procédural quasi infini à explorer.', 'Exploration spatiale massive et sandbox.', 2),
--- ('Forza Horizon 5', 69.99, '2021-11-09', 'images-jeux/Forza-Horizon-5.webp', '', 'Forza Horizon 5 est un jeu de course en monde ouvert situé au Mexique.', 'Course arcade réaliste en monde ouvert.', 6),
--- ('FIFA 23', 69.99, '2022-09-30', 'images-jeux/FIFA-23.webp', '', 'FIFA 23 offre une simulation de football réaliste avec licences officielles.', 'Simulation de football compétitive.', 7),
--- ('NBA 2K24', 69.99, '2023-09-08', 'images-jeux/NBA-2K24.webp', '', 'NBA 2K24 propose une expérience de basketball immersive.', 'Basketball réaliste et compétitif.', 7),
--- ('Tekken 8', 69.99, '2024-01-26', 'images-jeux/Tekken-8.webp', '', 'Tekken 8 est un jeu de combat nouvelle génération.', 'Fighting technique et nerveux.', 16),
--- ('Street Fighter 6', 59.99, '2023-06-02', 'images-jeux/Street-Fighter-6.webp', '', 'Street Fighter 6 modernise la légendaire saga des combats de rue.', 'Le célèbre tournoi de combat revient avec des techniques modernes.', 16),
--- ('Monster Hunter: World', 29.99, '2018-01-26', 'images-jeux/Monster-Hunter-World.webp', '', 'Monster Hunter: World propose une expérience immersive.', 'Chassez des créatures gigantesques dans un monde vivant et dynamique.', 1),
--- ('Darkest Dungeon', 24.99, '2016-01-19', 'images-jeux/Darkest-Dungeon.webp', '', 'Darkest Dungeon est un RPG exigeant qui teste vos capacités stratégiques.', 'RPG tactique sombre où le stress et la peur sont vos ennemis.', 4),
--- ('RimWorld', 34.99, '2018-10-17', 'images-jeux/RimWorld.webp', '', 'RimWorld met le joueur au cœur de la gestion d''une colonie spatiale.', 'Construisez et gérez une colonie spatiale dans un monde imprévisible.', 5),
--- ('Planet Zoo', 44.99, '2019-11-05', 'images-jeux/Planet-Zoo.webp', '', 'Planet Zoo propose une simulation complète de gestion animale.', 'Créez et gérez votre propre zoo avec des animaux réalistes.', 5),
--- ('Satisfactory', 29.99, '2020-06-08', 'images-jeux/Satisfactory.webp', '', 'Satisfactory offre une expérience de construction industrielle.', 'Construisez et optimisez des usines en 3D.', 5),
--- ('Age of Empires IV', 59.99, '2021-10-28', 'images-jeux/Age-of-Empires-IV.webp', '', 'Age of Empires IV plonge le joueur dans l''histoire avec des campagnes détaillées.', 'Revivez des batailles historiques en temps réel.', 4),
--- ('Total War: Warhammer III', 59.99, '2022-02-17', 'images-jeux/Total-War-Warhammer-III.webp', '', 'Total War: Warhammer III combine gestion d''empire et batailles gigantesques.', 'Stratégie mêlant batailles massives et univers fantasy.', 4),
--- ('StarCraft II', 0, '2010-07-27', 'images-jeux/StarCraft-II.webp', '', 'StarCraft II est un RTS incontournable.', 'Stratégie sci-fi compétitive emblématique.', 4),
--- ('Diablo IV', 69.99, '2023-06-06', 'images-jeux/Diablo-IV.webp', '', 'Diablo IV vous entraîne dans un univers sombre et impitoyable.', 'RPG action sombre et intense dans un monde gothique.', 13),
--- ('Path of Exile', 0, '2013-10-23', 'images-jeux/Path-of-Exile.webp', '', 'Path of Exile est un RPG action-gratuit.', 'RPG free-to-play riche et complexe.', 13),
--- ('Fall Guys', 0, '2020-08-04', 'images-jeux/Fall-Guys.webp', '', 'Fall Guys est un jeu multijoueur fun et frénétique.', 'Battle royale coloré et chaotique.', 12),
--- ('Slay the Spire', 24.99, '2019-01-23', 'images-jeux/Slay-the-Spire.webp', '', 'Slay the Spire combine stratégie et cartes.', 'Roguelike stratégique avec construction de deck.', 17),
--- ('Celeste', 19.99, '2018-01-25', 'images-jeux/Celeste.webp', '', 'Celeste raconte l''histoire d''une jeune femme.', 'Plateforme exigeante et émotive.', 10),
--- ('Inside', 19.99, '2016-06-29', 'images-jeux/Inside.webp', '', 'Inside est un jeu de puzzle plateforme.', 'Puzzle plateforme sombre et immersif.', 10),
--- ('Limbo', 9.99, '2010-07-21', 'images-jeux/Limbo.webp', '', 'Limbo est un jeu d''aventure et de puzzle.', 'Aventure puzzle minimaliste et mystérieuse.', 10),
--- ('Rust', 39.99, '2018-02-08', 'images-jeux/Rust.webp', '', 'Rust plonge le joueur dans un univers post-apocalyptique.', 'Survival multijoueur brutal et impitoyable.', 15),
--- ('Ark: Survival Evolved', 19.99, '2017-08-29', 'images-jeux/Ark-Survival-Evolved.webp', '', 'Ark: Survival Evolved propose de survivre.', 'Survie dans un monde peuplé de dinosaures.', 15),
--- ('Sea of Thieves', 39.99, '2018-03-20', 'images-jeux/Sea-of-Thieves.webp', '', 'Sea of Thieves invite à vivre l''aventure d''un pirate.', 'Aventure pirate coopérative sur les mers.', 2),
--- ('Guild Wars 2', 0, '2012-08-28', 'images-jeux/Guild-Wars-2.webp', '', 'Guild Wars 2 propose un vaste monde en ligne.', 'MMORPG fantasy dynamique et immersif.', 11),
--- ('Black Desert Online', 9.99, '2016-03-03', 'images-jeux/Black-Desert-Online.webp', '', 'Black Desert Online combine graphismes impressionnants.', 'MMO avec système de combat dynamique et sandbox.', 11),
--- ('The Crew Motorfest', 69.99, '2023-09-14', 'images-jeux/The-Crew-Motorfest.webp', '', 'The Crew Motorfest offre un vaste monde ouvert.', 'Course arcade en monde ouvert.', 6),
--- ('Gran Turismo 7', 69.99, '2022-03-04', 'images-jeux/Gran-Turismo-7.webp', '', 'Gran Turismo 7 est une simulation automobile.', 'Simulation automobile réaliste et immersive.', 6),
--- ('Mortal Kombat 1', 69.99, '2023-09-19', 'images-jeux/Mortal-Kombat-1.webp', '', 'Mortal Kombat 1 propose des combats violents.', 'Fighting brutal et spectaculaire.', 16),
--- ('It Takes Two', 39.99, '2021-03-26', 'images-jeux/It-Takes-Two.webp', '', 'It Takes Two propose une expérience unique.', 'Aventure coopérative inventive pour deux joueurs.', 2),
--- ('Little Nightmares II', 29.99, '2021-02-11', 'images-jeux/Little-Nightmares-II.webp', '', 'Little Nightmares II entraîne le joueur.', 'Horreur puzzle atmosphérique et immersive.', 8),
--- ('Undertale', 9.99, '2015-09-15', 'images-jeux/Undertale.webp', '', 'Undertale est un RPG unique.', 'RPG indie narratif et original.', 13),
--- ('Vampire Survivors', 4.99, '2022-10-20', 'images-jeux/Vampire-Survivors.webp', '', 'Vampire Survivors est un jeu frénétique.', 'Roguelike minimaliste et addictif.', 17),
--- ('Project Zomboid', 19.99, '2013-11-08', 'images-jeux/Project-Zomboid.webp', '', 'Project Zomboid plonge le joueur.', 'Simulation de survie zombie réaliste.', 15),
--- ('Mount & Blade II: Bannerlord', 49.99, '2020-03-30', 'images-jeux/Mount-and-Blade-II-Bannerlord.webp', '', 'Mount & Blade II: Bannerlord offre un mélange.', 'Stratégie et action médiévale sandbox.', 4),
--- ('Hogwarts Legacy', 69.99, '2023-02-10', 'images-jeux/Hogwarts-Legacy.webp', '', 'Plongez dans l''univers de Poudlard.', 'RPG immersif se déroulant à Poudlard.', 2),
--- ('The Legend of Zelda: Tears of the Kingdom', 79.99, '2023-05-12', 'images-jeux/Zelda-Tears-of-the-Kingdom.webp', '', 'Retrouvez Link dans une aventure épique.', 'Suite épique de Breath of the Wild.', 2),
--- ('Starfield', 69.99, '2023-09-06', 'images-jeux/Starfield.webp', '', 'Vivez l''exploration spatiale ultime.', 'RPG spatial immersif.', 13),
--- ('Elden Ring', 59.99, '2022-02-25', 'images-jeux/Elden-Ring.webp', '', 'Entrez dans un vaste monde ouvert dark fantasy.', 'Dark fantasy et exploration ouverte.', 1),
--- ('Spider-Man 2 (PS5)', 69.99, '2023-10-20', 'images-jeux/Spider-Man-2.webp', '', 'Rejoignez Peter Parker et Miles Morales.', 'Action et aventure de Spider-Man.', 1),
--- ('Horizon Forbidden West: Burning Shores', 69.99, '2023-04-19', 'images-jeux/Horizon-Forbidden-West.webp', '', 'Plongez dans l''extension post-apocalyptique.', 'Extension post-apocalyptique.', 2),
--- ('Resident Evil 4 Remake', 59.99, '2023-03-24', 'images-jeux/Resident-Evil-4-Remake.webp', '', 'Redécouvrez le classique.', 'Survival-horror revisité.', 8),
--- ('Final Fantasy XVI', 69.99, '2023-06-22', 'images-jeux/Final-Fantasy-XVI.webp', '', 'Plongez dans un univers dark fantasy.', 'RPG dark fantasy.', 13),
--- ('Assassin''s Creed Mirage', 59.99, '2023-10-12', 'images-jeux/Assassins-Creed-Mirage.webp', '', 'Retour aux racines de la série.', 'Action-aventure historique.', 2),
--- ('God of War Ragnarök', 69.99, '2022-11-09', 'images-jeux/God-of-War-Ragnarok.webp', '', 'Suite mythologique spectaculaire.', 'Action mythologique épique.', 1),
--- ('Apex Legends', 0, '2019-02-04', 'images-jeux/Apex-Legends.webp', '', 'Battle royale dynamique et compétitif.', 'Battle royale free-to-play.', 3),
--- ('Valorant', 0, '2020-06-02', 'images-jeux/Valorant.webp', '', 'FPS tactique en équipe.', 'FPS tactique compétitif.', 3),
--- ('Call of Duty: Modern Warfare II (2022)', 69.99, '2022-10-28', 'images-jeux/Call-of-Duty-Modern-Warfare-II.webp', '', 'FPS moderne proposant une campagne.', 'FPS multijoueur moderne.', 3),
--- ('Overwatch 2', 39.99, '2022-10-04', 'images-jeux/Overwatch-2.webp', '', 'Jeu de tir en équipe.', 'FPS héroïque en équipe.', 3),
--- ('Destiny 2', 0, '2017-09-08', 'images-jeux/Destiny-2.webp', '', 'FPS-looter en ligne.', 'FPS-looter avec exploration spatiale.', 3),
--- ('GTA Online', 0, '2013-10-01', 'images-jeux/GTA-Online.webp', '', 'Open world multijoueur.', 'Open world multijoueur GTA.', 2),
--- ('Hollow Knight: Silksong', 29.99, '2026-11-18', 'images-jeux/Hollow-Knight-Silksong.webp', '', 'Suite du célèbre metroidvania.', 'Metroidvania exigeant et immersif.', 10),
--- ('Loop Hero', 24.99, '2021-03-04', 'images-jeux/Loop-Hero.webp', '', 'Rogue-lite original.', 'Rogue-lite stratégique unique.', 17),
--- ('Tunic', 29.99, '2022-03-16', 'images-jeux/Tunic.webp', '', 'Action-aventure inspirée de Zelda.', 'Aventure et exploration pixel-art.', 2),
--- ('Sifu', 39.99, '2022-02-08', 'images-jeux/Sifu.webp', '', 'Combattez dans un jeu d''arts martiaux.', 'Action et arts martiaux.', 1),
--- ('Stray', 49.99, '2022-07-19', 'images-jeux/Stray.webp', '', 'Explorez un monde cyberpunk.', 'Aventure cyberpunk féline.', 2),
--- ('Oxenfree II: Lost Signals', 39.99, '2022-07-27', 'images-jeux/Oxenfree-II.webp', '', 'Thriller narratif captivant.', 'Aventure narrative et mystérieuse.', 2),
--- ('Counter-Strike 2', 0, '2023-09-27', 'images-jeux/Counter-Strike-2.webp', '', 'Successeur de CS:GO.', 'FPS compétitif classique revisité.', 3),
--- ('Rainbow Six Extraction', 39.99, '2022-01-20', 'images-jeux/Rainbow-Six-Extraction.webp', '', 'FPS coop tactique.', 'FPS tactique coopératif.', 3),
--- ('Teamfight Tactics', 0, '2019-06-20', 'images-jeux/Teamfight-Tactics.webp', '', 'Auto-battler stratégique.', 'Jeu de stratégie automatique.', 12),
--- ('Brawlhalla', 0, '2017-10-17', 'images-jeux/Brawlhalla.webp', '', 'Combat multijoueur 2D.', 'Combat 2D fun et compétitif.', 16),
--- ('Paladins', 0, '2018-05-08', 'images-jeux/Paladins.webp', '', 'FPS héroïque free-to-play.', 'FPS héroïque free-to-play.', 3),
--- ('The Callisto Protocol', 69.99, '2022-12-02', 'images-jeux/The-Callisto-Protocol.webp', '', 'Survival-horror futuriste.', 'Survival-horror futuriste.', 8),
--- ('Alan Wake 2', 59.99, '2023-10-27', 'images-jeux/Alan-Wake-2.webp', '', 'Thriller psychologique.', 'Thriller psychologique immersif.', 8),
--- ('Redfall', 69.99, '2023-05-02', 'images-jeux/Redfall.webp', '', 'FPS coop dans un monde ouvert.', 'FPS coop contre vampires.', 3),
--- ('Avowed', 69.99, '2027-02-01', 'images-jeux/Avowed.webp', '', 'RPG fantasy développé par Obsidian.', 'RPG fantasy immersif.', 13),
--- ('Fable (Reboot)', 59.99, '2026-07-04', 'images-jeux/Fable-Reboot.webp', '', 'Reboot de la célèbre saga Fable.', 'RPG fantasy humoristique.', 13);
+
+INSERT INTO
+    product (
+        name,
+        price,
+        date_,
+        picture,
+        video,
+        description,
+        id_category,
+        tag
+    )
+VALUES (
+        'ARC Raiders',
+        39.99,
+        '2023-09-01',
+        'images-jeux/ARC-Raiders.webp',
+        'https://www.youtube.com/watch?v=9slTF7NJ7UI',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        1,
+        NULL
+    ),
+    (
+        'ARK: Survival Ascended',
+        44.99,
+        '2024-10-23',
+        'images-jeux/ARK-Survival-Ascended.webp',
+        'https://www.youtube.com/watch?v=sYi6iy07GsE',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        2,
+        'new'
+    ),
+    (
+        'Assassin''s Creed Odyssey',
+        59.99,
+        '2018-10-05',
+        'images-jeux/Assassins-Creed-Odyssey.webp',
+        'https://www.youtube.com/watch?v=VUR4Xs1K2WU',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        2,
+        NULL
+    ),
+    (
+        'Call of Duty: Black Ops II',
+        59.99,
+        '2012-12-13',
+        'images-jeux/Call-of-Duty-Black-Ops-II.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        3,
+        NULL
+    ),
+    (
+        'Call of Duty 4: Modern Warfare',
+        19.99,
+        '2007-11-06',
+        'images-jeux/Call-of-Duty-4-Modern-Warfare.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        3,
+        NULL
+    ),
+    (
+        'DayZ',
+        57.99,
+        '2018-12-13',
+        'images-jeux/DayZ.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        15,
+        NULL
+    ),
+    (
+        'Fortnite',
+        0,
+        '2017-07-25',
+        'images-jeux/Fortnite.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        12,
+        'trending'
+    ),
+    (
+        'Genshin Impact',
+        0,
+        '2020-09-28',
+        'images-jeux/Genshin-Impact.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        13,
+        'trending'
+    ),
+    (
+        'Grand Theft Auto VI',
+        99.99,
+        '2026-11-19',
+        'images-jeux/Grand-Theft-Auto-VI.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        1,
+        'coming_soon'
+    ),
+    (
+        'League of Legends',
+        0,
+        '2009-10-27',
+        'images-jeux/League-of-Legends.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        11,
+        'trending'
+    ),
+    (
+        'Minecraft',
+        29.99,
+        '2011-11-18',
+        'images-jeux/Minecraft.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        14,
+        'trending'
+    ),
+    (
+        'Call of Duty: Modern Warfare 2',
+        19.99,
+        '2009-11-10',
+        'images-jeux/Call-of-Duty-Modern-Warfare-2.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        3,
+        'trending'
+    ),
+    (
+        'Rocket League',
+        0,
+        '2015-07-07',
+        'images-jeux/Rocket-League.jpg',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        6,
+        'trending'
+    ),
+    (
+        'Warframe',
+        0,
+        '2013-03-25',
+        'images-jeux/Warframe.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        3,
+        'trending'
+    ),
+    (
+        'Wuthering Waves',
+        0,
+        '2024-05-22',
+        'images-jeux/Wuthering-Waves.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        13,
+        'new'
+    ),
+    (
+        'Tom Clancy''s Rainbow Six Siege',
+        0,
+        '2015-12-01',
+        'images-jeux/Tom-Clancys-Rainbow-Six-Siege.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        3,
+        'trending'
+    ),
+    (
+        'Sekiro: Shadows Die Twice',
+        59.99,
+        '2019-03-22',
+        'images-jeux/Sekiro.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        1,
+        NULL
+    ),
+    (
+        'Subnautica',
+        29.99,
+        '2018-01-23',
+        'images-jeux/Subnautica.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        15,
+        NULL
+    ),
+    (
+        'Factorio',
+        30,
+        '2020-08-14',
+        'images-jeux/Factorio.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        5,
+        NULL
+    ),
+    (
+        'Dead Cells',
+        24.99,
+        '2018-08-07',
+        'images-jeux/Dead-Cells.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        16,
+        NULL
+    ),
+    (
+        'Cuphead',
+        19.99,
+        '2017-09-29',
+        'images-jeux/Cuphead.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        10,
+        NULL
+    ),
+    (
+        'Stardew Valley',
+        14.99,
+        '2016-02-26',
+        'images-jeux/Stardew-Valley.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        5,
+        NULL
+    ),
+    (
+        'Terraria',
+        9.99,
+        '2011-05-16',
+        'images-jeux/Terraria.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        17,
+        NULL
+    ),
+    (
+        'Among Us',
+        4.99,
+        '2018-11-16',
+        'images-jeux/Among-Us.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        12,
+        NULL
+    ),
+    (
+        'Phasmophobia',
+        13.99,
+        '2020-09-18',
+        'images-jeux/Phasmophobia.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        8,
+        NULL
+    ),
+    (
+        'Outlast',
+        19.99,
+        '2013-09-04',
+        'images-jeux/Outlast.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        8,
+        NULL
+    ),
+    (
+        'The Forest',
+        19.99,
+        '2018-04-30',
+        'images-jeux/The-Forest.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        15,
+        NULL
+    ),
+    (
+        'Valheim',
+        19.99,
+        '2021-02-02',
+        'images-jeux/Valheim.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        15,
+        NULL
+    ),
+    (
+        'Forza Horizon 5',
+        69.99,
+        '2021-11-09',
+        'images-jeux/Forza-Horizon-5.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        6,
+        'trending'
+    ),
+    (
+        'FIFA 23',
+        69.99,
+        '2022-09-30',
+        'images-jeux/FIFA-23.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        7,
+        'trending'
+    ),
+    (
+        'NBA 2K24',
+        69.99,
+        '2023-09-08',
+        'images-jeux/NBA-2K24.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        7,
+        'trending'
+    ),
+    (
+        'Tekken 8',
+        69.99,
+        '2024-01-26',
+        'images-jeux/Tekken-8.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        16,
+        'trending'
+    ),
+    (
+        'Street Fighter 6',
+        59.99,
+        '2023-06-02',
+        'images-jeux/Street-Fighter-6.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        16,
+        'trending'
+    ),
+    (
+        'Monster Hunter: World',
+        29.99,
+        '2018-01-26',
+        'images-jeux/Monster-Hunter-World.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        1,
+        NULL
+    ),
+    (
+        'Valorant',
+        0,
+        '2020-06-02',
+        'images-jeux/Valorant.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        3,
+        'trending'
+    ),
+    (
+        'RimWorld',
+        34.99,
+        '2018-10-17',
+        'images-jeux/RimWorld.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        5,
+        NULL
+    ),
+    (
+        'Diablo IV',
+        69.99,
+        '2023-06-06',
+        'images-jeux/Diablo-IV.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        13,
+        'trending'
+    ),
+    (
+        'Rust',
+        39.99,
+        '2018-02-08',
+        'images-jeux/Rust.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        15,
+        NULL
+    ),
+    (
+        'Ark: Survival Evolved',
+        19.99,
+        '2017-08-29',
+        'images-jeux/Ark-Survival-Evolved.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        15,
+        NULL
+    ),
+    (
+        'Sea of Thieves',
+        39.99,
+        '2018-03-20',
+        'images-jeux/Sea-of-Thieves.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        2,
+        NULL
+    ),
+    (
+        'Guild Wars 2',
+        0,
+        '2012-08-28',
+        'images-jeux/Guild-Wars-2.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        11,
+        NULL
+    ),
+    (
+        'Black Desert Online',
+        9.99,
+        '2016-03-03',
+        'images-jeux/Black-Desert-Online.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        11,
+        NULL
+    ),
+    (
+        'The Crew Motorfest',
+        69.99,
+        '2023-09-14',
+        'images-jeux/The-Crew-Motorfest.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        6,
+        'trending'
+    ),
+    (
+        'Gran Turismo 7',
+        69.99,
+        '2022-03-04',
+        'images-jeux/Gran-Turismo-7.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        6,
+        'trending'
+    ),
+    (
+        'Mortal Kombat 1',
+        69.99,
+        '2023-09-19',
+        'images-jeux/Mortal-Kombat-1.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        16,
+        'trending'
+    ),
+    (
+        'It Takes Two',
+        39.99,
+        '2021-03-26',
+        'images-jeux/It-Takes-Two.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        2,
+        NULL
+    ),
+    (
+        'Elden Ring',
+        59.99,
+        '2022-02-25',
+        'images-jeux/Elden-Ring.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        1,
+        'trending'
+    ),
+    (
+        'Vampire Survivors',
+        4.99,
+        '2022-10-20',
+        'images-jeux/Vampire-Survivors.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        17,
+        NULL
+    ),
+    (
+        'Mount & Blade II: Bannerlord',
+        49.99,
+        '2020-03-30',
+        'images-jeux/Mount-and-Blade-II-Bannerlord.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        4,
+        NULL
+    ),
+    (
+    'The Witness',
+    19.99,
+    '2016-01-26',
+    'images-jeux/The-Witness.webp',
+    '',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus.',
+    9,
+    NULL
+),
+    (
+        'God of War Ragnarök',
+        69.99,
+        '2022-11-09',
+        'images-jeux/God-of-War-Ragnarok.webp',
+        '',
+        '
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit turpis vitae ante maximus mollis id et dui. Phasellus convallis justo id ligula sagittis eleifend. Vestibulum vel finibus lectus. Nullam ac felis nibh. Aenean eu porta lorem. Fusce vestibulum lorem id porta accumsan. Curabitur sit amet ultrices mauris. Nunc tempus nibh facilisis dolor pretium, tempor pretium leo suscipit. Ut consectetur nunc nisi, quis ornare lorem fringilla ac. Sed fringilla risus sodales, eleifend lectus ac, interdum lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris et egestas purus, id egestas nisi.
+
+Cras non mattis purus. Vivamus dignissim pulvinar orci, eu interdum quam hendrerit eget. Nunc elementum imperdiet volutpat. Phasellus enim nibh, lacinia sed orci eu, laoreet lacinia ligula. Morbi ullamcorper finibus magna eu interdum. Aenean nec dolor sed nunc dapibus malesuada vitae in massa. Nam semper mi risus, dictum vehicula nisi hendrerit ut. Ut posuere pulvinar ipsum in semper. Cras magna enim, hendrerit eget nisi ac, rutrum malesuada tortor. Pellentesque rutrum pretium mauris, sed tincidunt nunc dapibus non. Nunc semper neque felis, auctor fringilla justo faucibus ac. Aliquam imperdiet dapibus orci, ut bibendum libero iaculis id. Duis at mauris non felis scelerisque maximus. Ut nec nisl urna. Quisque ullamcorper arcu quis ante laoreet, vitae semper ex accumsan. Ut auctor id nisl vel rhoncus.
+
+Nulla egestas massa in libero blandit, vel auctor mi feugiat. In non nulla vitae turpis sollicitudin consectetur a eget lacus. Mauris arcu ex, vestibulum in hendrerit id, blandit eu erat. Nullam nec commodo ex, vel hendrerit mi. Mauris vitae dolor ac purus dignissim varius. In vel faucibus erat, a commodo ante. Phasellus a nisi non arcu volutpat imperdiet vitae ac neque. Pellentesque convallis nunc et mi fermentum pharetra. Nullam tincidunt libero eu est finibus rhoncus. Proin eu lacus sed erat malesuada rhoncus vitae sed odio. Nullam tempus euismod elit, sit amet scelerisque ante tristique vel. In ac libero at diam pulvinar bibendum. Pellentesque gravida neque in ipsum sagittis bibendum.
+
+Sed libero lectus, facilisis et volutpat in, congue vel ex. Morbi ac facilisis diam, eget pellentesque lectus. Vestibulum in ex in eros vulputate accumsan. Donec maximus velit tortor, at euismod purus commodo et. Curabitur vitae consequat lectus. Suspendisse vitae nunc elit. Quisque nec bibendum urna, maximus lobortis metus. Integer tincidunt pulvinar dui, sed euismod metus pulvinar vitae. Aenean lacus augue, consequat quis commodo sed, imperdiet nec risus. Aliquam imperdiet, nisi id aliquam pellentesque, libero magna consequat est, ac facilisis nunc enim id ipsum. Nunc ullamcorper interdum quam, sed facilisis mi porttitor non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer maximus tortor dui, pulvinar pretium neque tempus quis. Nullam fringilla, urna eu commodo eleifend, nunc velit egestas felis, vel consequat purus leo vel orci. Sed fringilla pellentesque magna.
+
+Nullam eget faucibus risus. Ut tellus tellus, scelerisque sit amet risus nec, mattis condimentum augue. Donec orci justo, aliquet a quam sed, pulvinar sagittis augue. Mauris venenatis dolor eu lacus mattis, vel accumsan velit laoreet. Nulla dapibus vulputate volutpat. Sed eget dictum elit. Morbi a volutpat justo. Suspendisse non diam lorem. Nulla hendrerit ut nisi sed mattis. Morbi vitae consequat velit, sit amet sollicitudin quam. Vestibulum dignissim eleifend mi, a tincidunt libero congue faucibus. Fusce semper posuere sapien, hendrerit molestie risus congue vitae. Ut eu auctor turpis. In hac habitasse platea dictumst. Etiam condimentum urna sit amet arcu venenatis, at commodo augue fermentum.',
+        1,
+        'trending'
+    );
+
+    -- DayZ : Fighting (16) → Survival (15)
+UPDATE product SET id_category = 15 WHERE name = 'DayZ';
+
+-- Subnautica : Fighting (16) → Survival (15)
+UPDATE product SET id_category = 15 WHERE name = 'Subnautica';
+
+-- The Forest : Fighting (16) → Survival (15)
+UPDATE product SET id_category = 15 WHERE name = 'The Forest';
+
+-- Valheim : Fighting (16) → Survival (15)
+UPDATE product SET id_category = 15 WHERE name = 'Valheim';
+
+-- Rust : Fighting (16) → Survival (15)
+UPDATE product SET id_category = 15 WHERE name = 'Rust';
+
+-- Ark: Survival Evolved : Fighting (16) → Survival (15)
+UPDATE product SET id_category = 15 WHERE name = 'Ark: Survival Evolved';
+
+-- Cuphead : MMO (11) → Plateforme (10)
+UPDATE product SET id_category = 10 WHERE name = 'Cuphead';
+
+-- Among Us : RPG (13) → Indie (12)
+UPDATE product SET id_category = 12 WHERE name = 'Among Us';

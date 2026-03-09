@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="">
+<body class="max-w-6xl mx-auto px-4 py-24 min-h-screen bg-gray-900">
 
   
 <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-[9999]">

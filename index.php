@@ -25,7 +25,7 @@ $nouveauxJeux = getGamesByTag($pdo, 'new');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="mon site sert a achete des jeux video ,c'est un e-commerce">
     <title>Master gaming</title>
-    <link rel="stylesheet" href="css/style.css" />
+    
 <link rel="stylesheet" href="css/output.css">
 <style>
   #menu-toggle:checked ~ label span:nth-child(1) {
@@ -39,7 +39,7 @@ $nouveauxJeux = getGamesByTag($pdo, 'new');
 }
 </style>
   </head>
-  <body>
+  <body class="bg-[#09090b] text-white">
   <header class="relative w-full bg-black flex flex-col">
     <div class="relative w-full aspect-video md:h-[80vh]">
         <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop src="videos-header/elden-ring-header.mp4"></video>
@@ -101,28 +101,17 @@ $nouveauxJeux = getGamesByTag($pdo, 'new');
             </div>
         </div>
     </div>
-      <div class="relative md:absolute md:bottom-0 md:left-0 bg-black md:bg-black/70 p-4 md:p-10 text-center w-full md:w-auto md:min-w-[300px] border-t border-white/10 md:border-r backdrop-blur-md">
-
-        <h1 class="text-lg md:text-5xl font-black text-white mb-2 md:mb-4 uppercase italic tracking-tighter">
-
-            Elden Ring
-
-        </h1>
-
-        <div class="flex flex-row items-center justify-center gap-4">
-
-            <p class="text-xl md:text-2xl font-bold text-blue-500">59.99€</p>
-
-            <a href="detail.php?id=47"
-
-               class="rounded-full border border-white text-white px-4 py-1.5 hover:bg-white hover:text-black transition-all font-bold text-[10px] md:text-base uppercase tracking-widest">
-
-                En savoir plus
-
-            </a>
-
-        </div>
-
+      <div class="absolute bottom-10 right-12 z-20 max-w-[300px] bg-black/80 p-6 rounded-[30px] border border-white/10 backdrop-blur-md shadow-2xl">
+    <h1 class="text-4xl font-black uppercase italic text-white tracking-tighter mb-4 leading-none">
+        ELDEN RING
+    </h1>
+    <div class="flex flex-col gap-3">
+        <span class="text-2xl font-black text-blue-500 italic">59.99€</span>
+        <a href="detail.php?id=..." class="text-center px-5 py-2 border border-white/20 hover:border-blue-500 hover:bg-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest text-white transition-all">
+            En savoir plus
+        </a>
+    </div>
+</div>
     </div>
     </header>
     <!-- pas fini -->

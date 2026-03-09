@@ -1,70 +1,83 @@
+<?php 
+require_once 'config.php';
 
+$idCategory = null;
+$Prix = null;
+
+if (isset($_GET['SelectionnerGenre']) && $_GET['SelectionnerGenre'] !== 'tout')
+    $idCategory = (int)$_GET['SelectionnerGenre'];
+
+$stmtCategories = $pdo->query("SELECT id_category, name FROM category ORDER BY name ASC");
+$categories = $stmtCategories->fetchAll();
+
+$conditions = [];
+$params = [];
+
+if ($idCategory) {
+    $conditions[] = "p.id_category = ?";
+    $params[] = $idCategory;
+}
+
+$sql = "SELECT p.*, c.name AS category_name FROM product p 
+        JOIN category c ON p.id_category = c.id_category";
+
+if (!empty($conditions)) {
+    $sql .= " WHERE " . implode(" AND ", $conditions);
+}
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$resultats = $stmt->fetchAll();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="mon site sert a achete des jeux video ,c'est un e-commerce">
+    <meta name="description" content="Mon site sert à acheter des jeux vidéo, c'est un e-commerce">
     <title>Master gaming</title>
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/catalogue.css" />
   </head>
   <body>
-    <?php 
-    require_once 'header.php';
-    ?>
-    <!-- mon systeme de categorie -->
+    <?php require_once 'header.php'; ?>
+
     <main id="catalogue">
- <div id="categorie">
-      <select name="" id="genres">
-        <option value="none">Tous les jeux</option>
-        <option value="fps">FPS</option>
-        <option value="aventure">Aventure</option>
-        <option value="action">Action</option>
-        <option value="rpg">RPG</option>
-        <option value="mmorpg">MMORPG</option>
-        <option value="énigme">énigme</option>
-        <option value="arcade">Arcade</option>
-        <option value="extraction shooter">Extraction shooter</option>
-        <option value="tir à la troisième personne">
-          Tir à la troisième personne
-        </option>
-        <option value="survie">Survie</option>
-        <option value="monde ouvert">monde Ouvert</option>
-        <option value="multijoueurs">Multijoueurs</option>
-        <option value="tower defense (sauver le monde)">
-          Tower defense (sauver le monde)
-        </option>
-        <option value="battle royale">Battle Royale</option>
-        <option value="tir à la troisième personne (battle royale)">
-          Tir à la troisième personne (battle royale)
-        </option>
-        <option value="tir à la troisième personne (créatif)">
-          Tir à la troisième personne (créatif)
-        </option>
-        <option value="sandbox">Sandbox</option>
-        <option value="conduite">Conduite</option>
-        <option value="moba">MOBA</option>
-        <option value="bac à sable">Bac à sable</option>
-        <option value="tir à la première personne (fps)">
-          Tir à la première personne (fps)
-        </option>
-        <option value="course">Course</option>
-        <option value="football">Football</option>
-        <option value="tps">TPS</option>
-        <option value="science-fiction">Science-fiction</option>
-        <option value="tir tactique">Tir tactique</option>
-        <option value="hero shooter">Hero shooter</option>
-      </select>
-    </div>
+      <form method="get">
+        <select name="SelectionnerGenre" id="genre">
+          <option value="tout" <?= !$idCategory ? 'selected' : '' ?>>Toutes les catégories</option>
+          <?php foreach ($categories as $cat): ?>
+            <option value="<?= $cat['id_category'] ?>"
+              <?= $idCategory === (int)$cat['id_category'] ? 'selected' : '' ?>>
+              <?= htmlspecialchars($cat['name']) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+        <button type="submit">Filtrer</button>
+      </form>
+
+      <div>
+        <?php if (count($resultats) > 0): ?>
+          <div class="product-grid">
+            <?php foreach ($resultats as $produit): ?>
+              <div class="product-card">
+                <!-- ✅ $produit['picture'] et non $images['picture'] -->
+                <img src="<?= htmlspecialchars($produit['picture']) ?>" 
+                     alt="<?= htmlspecialchars($produit['name']) ?>">
+                <h3><?= htmlspecialchars($produit['name']) ?></h3>
+                <p><?= htmlspecialchars($produit['category_name']) ?></p>
+                <p><?= number_format($produit['price'], 2) ?> €</p>
+                <a href="detail.php?id=<?= $produit['id_product'] ?>">Voir les détails</a>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        <?php else: ?>
+          <p>Aucun produit trouvé pour cette catégorie.</p>
+        <?php endif; ?>
+      </div>
 
     </main>
-         
-   
-    <!-- footer pas terminé amelioration en vue -->
-   <?php 
-   require_once 'footer.php';
-   ?>
-    <script src="js/catalogue.js"></script>
+
+    <?php require_once 'footer.php'; ?>
   </body>
 </html>

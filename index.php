@@ -36,7 +36,7 @@ $nouveauxJeux = array_filter($products, function($product) {
         autoplay
         muted
         loop
-        src="videos/elden-ring-header.mp4"
+        src="videos-header/elden-ring-header.mp4"
       ></video>
       <!-- mon logo et mes boutons -->
       <div class="hero">

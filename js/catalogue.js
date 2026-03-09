@@ -1,7 +1,9 @@
 // je donne un id a mon element
+
 const gameList = document.getElementById("catalogue");
 // je recupere mon json avec fetch
-async function chargerJSON() {
+console.log("Game List Element:", gameList);
+(async function chargerJSON() {
   try {
     // const response = await fetch("gameList.json");
         const response = await fetch("catalogue-test.php");
@@ -25,4 +27,4 @@ async function chargerJSON() {
   }
   catch (error) {
     console.error("Erreur lors du chargement du JSON :", error);
-  }}
+  }})();

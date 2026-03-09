@@ -43,7 +43,9 @@ $resultats = $stmt->fetchAll();
     <?php require_once 'header.php'; ?>
 
     <main id="catalogue">
-      <form method="get">
+     
+<div>
+ <form class="filter-form" method="get">
         <select name="SelectionnerGenre" id="genre">
           <option value="tout" <?= !$idCategory ? 'selected' : '' ?>>Toutes les catégories</option>
           <?php foreach ($categories as $cat): ?>
@@ -55,7 +57,7 @@ $resultats = $stmt->fetchAll();
         </select>
         <button type="submit">Filtrer</button>
       </form>
-
+</div>
       <div>
         <?php if (count($resultats) > 0): ?>
           <div class="product-grid">
@@ -67,7 +69,7 @@ $resultats = $stmt->fetchAll();
                 <h3><?= htmlspecialchars($produit['name']) ?></h3>
                 <p><?= htmlspecialchars($produit['category_name']) ?></p>
                 <p><?= number_format($produit['price'], 2) ?> €</p>
-                <a href="detail.php?id=<?= $produit['id_product'] ?>">Voir les détails</a>
+                <a class="product-button" href="detail.php?id=<?= $produit['id_product'] ?>">Voir les détails</a>
               </div>
             <?php endforeach; ?>
           </div>

@@ -27,6 +27,7 @@ $nouveauxJeux = array_filter($products, function($product) {
     <meta name="description" content="mon site sert a achete des jeux video ,c'est un e-commerce">
     <title>Master gaming</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
   </head>
   <body>
     <header>
@@ -69,7 +70,10 @@ $nouveauxJeux = array_filter($products, function($product) {
     </header>
     <!-- pas fini -->
     <main id="contenent">
-      <section id="categorie1">
+      <h1 class="text-3xl font-bold underline text-blue-600 ">
+  Hello world!
+</h1>
+      <section id="trending">
         <h2>Nos jeux les plus populaires</h2>
         <div class="products-grid">
           <?php foreach ($jeuxTendance as $product): ?>
@@ -83,7 +87,7 @@ $nouveauxJeux = array_filter($products, function($product) {
           <?php endforeach; ?>
         </div>
       </section>
-      <section id="categorie2">
+      <section id="coming_soon">
         <h2>Nos jeux à venir</h2>
         <div class="products-grid">
           <?php foreach ($jeuxQuiVontSortir as $product): ?>
@@ -97,7 +101,7 @@ $nouveauxJeux = array_filter($products, function($product) {
           <?php endforeach; ?>
         </div>
       </section>
-      <section id="categorie3">
+      <section id="nouveaux_jeux">
         <h2>Nouveaux jeux</h2>
         <div class="products-grid">
           <?php foreach ($nouveauxJeux as $product): ?>

@@ -9,9 +9,6 @@ body {
   height: auto;
   width: 100%;
   position: relative;
-  display: flex;
-  justify-content: center;
-    align-items: center;
   flex-wrap: wrap;
   color: #ffffff;
 }
@@ -105,7 +102,7 @@ header {
   display: inline-block;
 }
 /* mon main */
-#categorie1 {
+#contenent {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -121,71 +118,6 @@ header {
   animation-fill-mode: forwards;
   animation-timing-function: linear;
   position: relative;
-}
-
-/* 2 de mes jeux */
-.tbl {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 2rem;
-  padding: 2rem;
-}
-
-/* c'est un jeu */
-.tableau {
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  font-size: 20px;
-}
-
-/* mon image de jeu et mon titre */
-.article {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-}
-
-/* mon image de jeu */
-.jeu {
-  width: 600px;
-  max-height: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* les réseaux sociaux */
-.sociaux {
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.soc {
-  width: 50px;
-}
-
-/* mon bouton */
-.bouton {
-  border-radius: 25px;
-  background-color: black;
-  border: 2px solid white;
-  color: #ffffff;
-  font-size: 1.2rem;
-  padding: 10px;
-  text-decoration: none;
 }
 
 /* mon pied de page */

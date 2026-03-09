@@ -1,15 +1,10 @@
 <?php
-// Initialisation de la session.
-// Si vous utilisez un autre nom
-// session_name("autrenom")
 session_start();
 
-// Détruit toutes les variables de session
+// 1. On vide toutes les variables de session
 $_SESSION = array();
 
-// Si vous voulez détruire complètement la session, effacez également
-// le cookie de session.
-// Note : cela détruira la session et pas seulement les données de session !
+// 2. On supprime le cookie de session dans le navigateur
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -18,21 +13,10 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Finalement, on détruit la session.
+// 3. On détruit la session côté serveur
 session_destroy();
-header("Location: index.html");
+
+// 4. Redirection (Attention : tu utilises index.php maintenant, pas index.html)
+header("Location: index.php"); 
 exit();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="logout.php" method="post">
-    <button type="submit">Se déconnecter</button>
-</form>
-</body>
-</html>

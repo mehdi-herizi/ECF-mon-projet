@@ -4,66 +4,75 @@ CREATE DATABASE IF NOT EXISTS Mastergaming;
 
 USE Mastergaming;
 
-CREATE TABLE pb_user (
-    id_user INT AUTO_INCREMENT,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    name VARCHAR(50) NOT NULL,
-    firstname VARCHAR(50) NOT NULL,
-    birthdate DATE NOT NULL,
-    phone VARCHAR(20),
-    role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
-    password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id_user)
+-- 1. Table des catégories
+CREATE TABLE IF NOT EXISTS `category` (
+  `id_category` int(11) NOT NULL AUTO_INCREMENT,
+  `name_category` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_category`)
 );
 
-CREATE TABLE pb_order (
-    id_order INT AUTO_INCREMENT,
-    status ENUM(
-        'pending',
-        'paid',
-        'shipped',
-        'cancelled'
-    ) NOT NULL DEFAULT 'pending',
-    order_date DATETIME NOT NULL,
-    id_user INT NOT NULL,
-    PRIMARY KEY (id_order),
-    FOREIGN KEY (id_user) REFERENCES pb_user (id_user) ON DELETE CASCADE
+-- 2. Table des produits (jeux)
+CREATE TABLE IF NOT EXISTS `product` (
+  `id_product` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `is_active` tinyint(1) DEFAULT '1',
+  `date_` date NOT NULL,
+  `picture` varchar(255) DEFAULT NULL,
+  `video` varchar(255) DEFAULT NULL,
+  `description` text NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `tag` enum('trending','coming_soon','new') DEFAULT NULL,
+  PRIMARY KEY (`id_product`),
+  KEY `fk_category` (`id_category`),
+  CONSTRAINT `fk_category` FOREIGN KEY (`id_category`) REFERENCES `category` (`id_category`) ON DELETE CASCADE
 );
 
-CREATE TABLE category (
-    id_category INT AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    PRIMARY KEY (id_category)
+-- 3. Table des utilisateurs
+CREATE TABLE IF NOT EXISTS `pb_user` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `birthdate` date DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `role` varchar(50) DEFAULT 'user',
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_user`)
 );
 
-CREATE TABLE product (
-    id_product INT AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    is_active BOOLEAN DEFAULT TRUE,
-    date_ DATETIME NOT NULL,
-    picture VARCHAR(255) NULL,
-    video VARCHAR(255) NULL,
-    description TEXT NOT NULL,
-    id_category INT NOT NULL,
-    tag ENUM(
-        'trending',
-        'coming_soon',
-        'new'
-    ) NULL,
-    PRIMARY KEY (id_product),
-    FOREIGN KEY (id_category) REFERENCES category (id_category) ON DELETE CASCADE
+-- 4. Table des commandes
+CREATE TABLE IF NOT EXISTS `pb_order` (
+  `id_order` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(50) NOT NULL,
+  `order_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `id_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_order`),
+  KEY `fk_user` (`id_user`),
+  CONSTRAINT `fk_user` FOREIGN KEY (`id_user`) REFERENCES `pb_user` (`id_user`) ON DELETE CASCADE
 );
 
-CREATE TABLE order_product (
-    id_order INT NOT NULL,
-    id_product INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (id_order, id_product),
-    FOREIGN KEY (id_order) REFERENCES pb_order (id_order) ON DELETE CASCADE,
-    FOREIGN KEY (id_product) REFERENCES product (id_product) ON DELETE CASCADE
+-- 5. Table de liaison Commandes/Produits (Détails de la commande)
+CREATE TABLE IF NOT EXISTS `order_product` (
+  `id_order` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id_order`,`id_product`),
+  KEY `fk_product_order` (`id_product`),
+  CONSTRAINT `fk_order` FOREIGN KEY (`id_order`) REFERENCES `pb_order` (`id_order`) ON DELETE CASCADE,
+  CONSTRAINT `fk_product_order` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE
 );
-
+CREATE TABLE IF NOT EXISTS `contact_messages` (
+  `id_message` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `message` text NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_read` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id_message`)
+);
 INSERT INTO
     category (name)
 VALUES ('Action'),
@@ -1079,3 +1088,4 @@ UPDATE product SET id_category = 10 WHERE name = 'Cuphead';
 
 -- Among Us : RPG (13) → Indie (12)
 UPDATE product SET id_category = 12 WHERE name = 'Among Us';
+ALTER TABLE pb_user ADD COLUMN profile_picture VARCHAR(255) DEFAULT 'default-avatar.png';

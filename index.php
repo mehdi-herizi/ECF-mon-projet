@@ -76,7 +76,7 @@ $nouveauxJeux = array_filter($products, function($product) {
             <div class="product-card">
               <img src="<?php echo $product['picture']; ?>" alt="<?php echo $product['name']; ?>">
               <h3><?php echo $product['name']; ?></h3>
-
+              <p><?php echo $product['date_']; ?></p>
               <p><?php echo $product['price']; ?>€</p>
               <a href="detail.php?id=<?php echo $product['id_product']; ?>" class="buttum">En savoir plus</a>
             </div>
@@ -90,6 +90,7 @@ $nouveauxJeux = array_filter($products, function($product) {
             <div class="product-card">
               <img src="<?php echo $product['picture']; ?>" alt="<?php echo $product['name']; ?>">
               <h3><?php echo $product['name']; ?></h3>
+              <p><?php echo $product['date_']; ?></p>
               <p><?php echo $product['price']; ?>€</p>
               <a href="detail.php?id=<?php echo $product['id_product']; ?>" class="buttum">En savoir plus</a>
             </div>
@@ -103,7 +104,9 @@ $nouveauxJeux = array_filter($products, function($product) {
             <div class="product-card">
               <img src="<?php echo $product['picture']; ?>" alt="<?php echo $product['name']; ?>">
               <h3><?php echo $product['name']; ?></h3>
+              <p><?php echo $product['date_']; ?></p>
               <p><?php echo $product['price']; ?>€</p>
+              
               <a href="detail.php?id=<?php echo $product['id_product']; ?>" class="buttum">En savoir plus</a>
             </div>
           <?php endforeach; ?>

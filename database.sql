@@ -73,8 +73,16 @@ CREATE TABLE IF NOT EXISTS `contact_messages` (
   `is_read` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id_message`)
 );
+CREATE TABLE IF NOT EXISTS `wishlist` (
+    `id_user` int(11) NOT NULL,
+    `id_product` int(11) NOT NULL,
+    `added_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id_user`, `id_product`),
+    CONSTRAINT `fk_wishlist_user` FOREIGN KEY (`id_user`) REFERENCES `pb_user` (`id_user`) ON DELETE CASCADE,
+    CONSTRAINT `fk_wishlist_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE
+);
 INSERT INTO
-    category (name)
+    category (name_category)
 VALUES ('Action'),
     ('Aventure'),
     ('Shooter'),
@@ -1089,3 +1097,5 @@ UPDATE product SET id_category = 10 WHERE name = 'Cuphead';
 -- Among Us : RPG (13) → Indie (12)
 UPDATE product SET id_category = 12 WHERE name = 'Among Us';
 ALTER TABLE pb_user ADD COLUMN profile_picture VARCHAR(255) DEFAULT 'default-avatar.png';
+
+ALTER TABLE pb_order MODIFY status VARCHAR(50);

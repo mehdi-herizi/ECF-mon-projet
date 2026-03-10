@@ -15,12 +15,12 @@ $parPage      = 12;
 $pageCourante = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $offset       = ($pageCourante - 1) * $parPage;
 
-// Conditions filtre + recherche
+// Conditions filtre + recherche (via product_category)
 $conditions = [];
 $params     = [];
 
 if ($idCategory) {
-    $conditions[] = "p.id_category = ?";
+    $conditions[] = "EXISTS (SELECT 1 FROM product_category pc WHERE pc.id_product = p.id_product AND pc.id_category = ?)";
     $params[]     = $idCategory;
 }
 if ($recherche !== '') {
@@ -31,16 +31,19 @@ if ($recherche !== '') {
 $whereClause = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "";
 
 // Total pour pagination
-$stmtTotal = $pdo->prepare("SELECT COUNT(*) FROM product p $whereClause");
+$stmtTotal = $pdo->prepare("SELECT COUNT(DISTINCT p.id_product) FROM product p $whereClause");
 $stmtTotal->execute($params);
 $total      = $stmtTotal->fetchColumn();
 $totalPages = ceil($total / $parPage);
 
-// Jeux paginés
-$sql = "SELECT p.*, c.name_category AS category_name 
-        FROM product p 
-        JOIN category c ON p.id_category = c.id_category
+// Jeux paginés — catégories concaténées via GROUP_CONCAT
+$sql = "SELECT p.*,
+               GROUP_CONCAT(c.name_category ORDER BY c.name_category SEPARATOR ', ') AS category_name
+        FROM product p
+        LEFT JOIN product_category pc ON p.id_product = pc.id_product
+        LEFT JOIN category c ON pc.id_category = c.id_category
         $whereClause
+        GROUP BY p.id_product
         LIMIT ? OFFSET ?";
 
 $stmtJeux = $pdo->prepare($sql);

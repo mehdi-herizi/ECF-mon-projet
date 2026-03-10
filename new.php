@@ -19,10 +19,13 @@ $totalPages = ceil($total / $parPage);
 
 // Jeux de la page courante
 $stmt = $pdo->prepare("
-    SELECT p.*, c.name_category
+    SELECT p.*,
+           GROUP_CONCAT(c.name_category ORDER BY c.name_category SEPARATOR ', ') AS name_category
     FROM product p
-    LEFT JOIN category c ON p.id_category = c.id_category
+    LEFT JOIN product_category pc ON p.id_product = pc.id_product
+    LEFT JOIN category c ON pc.id_category = c.id_category
     WHERE p.tag = ?
+    GROUP BY p.id_product
     LIMIT ? OFFSET ?
 ");
 $stmt->bindValue(1, $tag,    PDO::PARAM_STR);

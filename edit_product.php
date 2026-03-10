@@ -2,7 +2,7 @@
 require_once 'config.php';
 
 // Sécurité admin
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'super_admin') {
     header('Location: index.php');
     exit;
 }
@@ -25,34 +25,54 @@ if (!$product) {
     exit;
 }
 
-// Récupération des catégories
+// Récupération de toutes les catégories
 $categories = $pdo->query("SELECT * FROM category ORDER BY name_category ASC")->fetchAll();
+
+// Catégories actuellement assignées à ce produit
+$stmtCats = $pdo->prepare("SELECT id_category FROM product_category WHERE id_product = ?");
+$stmtCats->execute([$id]);
+$selectedCategories = $stmtCats->fetchAll(PDO::FETCH_COLUMN); // tableau d'ids
 
 $success = null;
 $error   = null;
 
 // Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name  = trim($_POST['name']);
-    $price = trim($_POST['price']);
-    $desc  = trim($_POST['description']);
-    $cat   = (int)$_POST['id_category'];
-    $tag   = trim($_POST['tag']);
-    $img   = trim($_POST['picture']);
-    $video = trim($_POST['video']);
+    $name       = trim($_POST['name']);
+    $price      = trim($_POST['price']);
+    $desc       = trim($_POST['description']);
+    $tag        = trim($_POST['tag']);
+    $img        = trim($_POST['picture']);
+    $video      = trim($_POST['video']);
+    $newCats    = isset($_POST['categories']) ? array_map('intval', $_POST['categories']) : [];
 
     if (empty($name) || empty($price)) {
         $error = "Le nom et le prix sont obligatoires.";
+    } elseif (empty($newCats)) {
+        $error = "Veuillez sélectionner au moins une catégorie.";
     } else {
         try {
+            $pdo->beginTransaction();
+
+            // Mise à jour du produit (sans id_category)
             $stmt = $pdo->prepare("UPDATE product SET 
                 name = ?, price = ?, description = ?, 
-                id_category = ?, tag = ?, picture = ?, video = ? 
+                tag = ?, picture = ?, video = ? 
                 WHERE id_product = ?");
-            $stmt->execute([$name, $price, $desc, $cat, $tag, $img, $video, $id]);
+            $stmt->execute([$name, $price, $desc, $tag ?: null, $img, $video, $id]);
+
+            // Mise à jour des catégories dans product_category
+            $pdo->prepare("DELETE FROM product_category WHERE id_product = ?")->execute([$id]);
+            $insStmt = $pdo->prepare("INSERT INTO product_category (id_product, id_category) VALUES (?, ?)");
+            foreach ($newCats as $catId) {
+                $insStmt->execute([$id, $catId]);
+            }
+
+            $pdo->commit();
             header('Location: admin.php?msg=updated');
             exit;
         } catch (PDOException $e) {
+            $pdo->rollBack();
             $error = "Erreur lors de la mise à jour : " . $e->getMessage();
         }
     }
@@ -122,18 +142,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                class="w-full bg-gray-700 rounded-2xl p-4 outline-none focus:ring-2 focus:ring-blue-500 text-white font-bold transition-all border border-white/5">
                     </div>
 
-                    <!-- Catégorie -->
-                    <div>
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-2">Catégorie</label>
-                        <select name="id_category"
-                                class="w-full bg-gray-700 rounded-2xl p-4 outline-none focus:ring-2 focus:ring-blue-500 text-white font-bold transition-all border border-white/5 cursor-pointer">
+                    <!-- Catégories (multi-sélection) -->
+                    <div class="md:col-span-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-3">Catégories * <span class="text-gray-600 normal-case">(plusieurs possibles)</span></label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             <?php foreach ($categories as $cat): ?>
-                                <option value="<?= $cat['id_category'] ?>" class="bg-gray-800"
-                                    <?= $product['id_category'] == $cat['id_category'] ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($cat['name_category']) ?>
-                                </option>
+                                <label class="flex items-center gap-3 bg-gray-700 hover:bg-gray-600 p-3 rounded-xl cursor-pointer border border-white/5 hover:border-blue-500 transition-all group">
+                                    <input type="checkbox" name="categories[]"
+                                           value="<?= $cat['id_category'] ?>"
+                                           <?= in_array($cat['id_category'], $selectedCategories) ? 'checked' : '' ?>
+                                           class="w-4 h-4 accent-blue-600 cursor-pointer">
+                                    <span class="text-xs font-bold text-gray-300 group-hover:text-white transition-colors">
+                                        <?= htmlspecialchars($cat['name_category']) ?>
+                                    </span>
+                                </label>
                             <?php endforeach; ?>
-                        </select>
+                        </div>
                     </div>
 
                     <!-- Tag -->

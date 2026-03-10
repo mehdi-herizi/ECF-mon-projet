@@ -8,10 +8,13 @@ if ($id_game <= 0) {
     exit;
 }
 
-$query = "SELECT p.*, c.name_category 
-          FROM product p 
-          LEFT JOIN category c ON p.id_category = c.id_category 
-          WHERE p.id_product = :id";
+$query = "SELECT p.*,
+               GROUP_CONCAT(c.name_category ORDER BY c.name_category SEPARATOR ', ') AS name_category
+          FROM product p
+          LEFT JOIN product_category pc ON p.id_product = pc.id_product
+          LEFT JOIN category c ON pc.id_category = c.id_category
+          WHERE p.id_product = :id
+          GROUP BY p.id_product";
 $stmt = $pdo->prepare($query);
 $stmt->execute(['id' => $id_game]);
 $game = $stmt->fetch(PDO::FETCH_ASSOC);

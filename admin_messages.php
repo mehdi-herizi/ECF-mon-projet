@@ -2,7 +2,7 @@
 require_once 'config.php';
 
 // Sécurité : Seul l'admin peut voir les messages
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'super_admin') {
     header('Location: index.php');
     exit;
 }

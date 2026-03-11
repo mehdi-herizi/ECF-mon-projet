@@ -2,6 +2,11 @@
 // 1. Inclure ta connexion (Vérifie si c'est config.php ou config/db.php)
 require_once 'config.php'; 
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'super_admin') {
+    header('Location: index.php');
+    exit;
+}
+
 $recherche = isset($_GET['q']) ? trim($_GET['q']) : '';
 
 if ($recherche !== '') {

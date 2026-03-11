@@ -2,6 +2,6 @@
 
 - refaire le looping
 - remttre a jour le dictionnaire de donnée
-- regarder `__dir__` dans le require
-- readme.md
+- faire le fichier readme.md
+- réapprendre les requetes sql
 

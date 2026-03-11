@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mysql-server
--- Généré le : mar. 10 mars 2026 à 10:43
+-- Généré le : mer. 11 mars 2026 à 09:26
 -- Version du serveur : 8.4.8
 -- Version de PHP : 8.2.29
 
@@ -77,7 +77,7 @@ CREATE TABLE `contact_messages` (
 --
 
 INSERT INTO `contact_messages` (`id_message`, `firstname`, `name`, `email`, `phone`, `message`, `created_at`, `is_read`) VALUES
-(4, 'mehdi', 'herizi', 'mehdih13014@gmail.com', '0767857731', 'je t&#039;aime\r\n', '2026-03-10 10:29:11', 0);
+(22, 'mehdi', 'herizi', 'mehdih13014@gmail.com', '0767857731', 'g', '2026-03-11 08:59:50', 0);
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,13 @@ INSERT INTO `order_product` (`id_order`, `id_product`, `quantity`) VALUES
 (2, 51, 1),
 (3, 47, 1),
 (4, 34, 1),
-(5, 7, 1);
+(6, 3, 1),
+(7, 4, 1),
+(8, 6, 1),
+(9, 8, 1),
+(10, 9, 1),
+(11, 1, 1),
+(12, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -124,7 +130,13 @@ INSERT INTO `pb_order` (`id_order`, `status`, `order_date`, `id_user`) VALUES
 (2, 'termine', '2026-03-10 08:09:43', 1),
 (3, 'termine', '2026-03-10 08:10:09', 1),
 (4, 'termine', '2026-03-10 08:46:39', 1),
-(5, 'termine', '2026-03-10 10:25:57', 3);
+(6, 'termine', '2026-03-10 12:18:38', 4),
+(7, 'termine', '2026-03-10 12:19:23', 4),
+(8, 'termine', '2026-03-10 15:14:28', 1),
+(9, 'termine', '2026-03-10 18:04:16', 6),
+(10, 'termine', '2026-03-10 18:05:10', 6),
+(11, 'termine', '2026-03-10 21:33:01', 6),
+(12, 'termine', '2026-03-10 21:56:12', 6);
 
 -- --------------------------------------------------------
 
@@ -149,9 +161,10 @@ CREATE TABLE `pb_user` (
 --
 
 INSERT INTO `pb_user` (`id_user`, `email`, `name`, `firstname`, `birthdate`, `phone`, `role`, `password`, `profile_picture`) VALUES
-(1, 'mehdih13014@gmail.com', 'herizi', 'mehdi', '2005-08-17', '0767857731', 'super_admin', '$2y$12$pbha7KZeG57TA.99sARXFu3p8syfqmuxcbqSInl7jXLWpjWRsJKtG', 'avatar_1_1773068366.jpeg'),
+(1, 'mehdih13014@gmail.com', 'herizi', 'mehdi', '2005-08-17', '0767857731', 'admin', '$2y$12$pbha7KZeG57TA.99sARXFu3p8syfqmuxcbqSInl7jXLWpjWRsJKtG', 'avatar_1_1773068366.jpeg'),
 (2, 'nicolas.Malet@externe.afpa.fr', 'MALET', 'Nicolas', '1981-08-17', '0621281226', 'super_admin', '$2y$12$Mdj5gsIZ87SZCK8/EwT6nuESnlK5u5Gfs7VEROnyZGtk56RhtpwNa', 'avatar_2_1773067955.webp'),
-(3, 'chalendard.remy@gmail.com', 'chalendard', 'remy', '1994-12-14', '0600000000', 'admin', '$2y$12$vuKGAT6KgmxTlAE7BDByKODA3RHOQ6QEf/NTf/9iVedPZNxYPfihy', 'avatar_3_1773138318.jpeg');
+(4, 'fenzialex@gmail.com', 'alex', 'Fenzi', '2004-03-05', '0700000000', 'user', '$2y$12$N0hPwg.Awf545iDbuDuWfuHObJBmE3HLXJiyrBamFPuRNXJuj.v.C', 'default-avatar.png'),
+(6, 'kenza.herizi@gmail.com', 'herizi', 'Kenza', '1998-10-13', '0789357774', 'super_admin', '$2y$12$HWHa3yU5oV2RVjt3kTfDc.uUu9lF6023M.y6b1/5WyZYotOXgMMUq', 'default-avatar.png');
 
 -- --------------------------------------------------------
 
@@ -319,8 +332,10 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id_user`, `id_product`, `added_at`) VALUES
+(1, 6, '2026-03-10 15:14:24'),
 (1, 9, '2026-03-10 08:14:12'),
-(3, 7, '2026-03-10 10:25:42');
+(4, 2, '2026-03-10 12:18:09'),
+(6, 8, '2026-03-10 18:04:06');
 
 --
 -- Index pour les tables déchargées
@@ -395,19 +410,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT pour la table `contact_messages`
 --
 ALTER TABLE `contact_messages`
-  MODIFY `id_message` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_message` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `pb_order`
 --
 ALTER TABLE `pb_order`
-  MODIFY `id_order` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_order` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `pb_user`
 --
 ALTER TABLE `pb_user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `product`

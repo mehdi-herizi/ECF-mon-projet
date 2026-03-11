@@ -33,9 +33,17 @@ $nouveauxJeux      = getGamesByTag($pdo, 'new');
   <title>Master Gaming</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    #menu-toggle:checked~label span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
-    #menu-toggle:checked~label span:nth-child(2) { opacity: 0; }
-    #menu-toggle:checked~label span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+    #menu-toggle:checked~label span:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+
+    #menu-toggle:checked~label span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked~label span:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
   </style>
 </head>
 
@@ -65,37 +73,41 @@ $nouveauxJeux      = getGamesByTag($pdo, 'new');
             <a href="contact.php" class="text-white text-xl md:text-xs uppercase font-black tracking-widest hover:text-blue-500 transition">Assistance</a>
 
             <?php if (isset($_SESSION['id_user'])): ?>
-                <a href="profil.php" class="md:hidden text-white text-xl uppercase font-black tracking-widest">Mon Profil</a>
-                <?php if ($_SESSION['role'] === 'super_admin'): ?>
-                    <a href="super_admin.php" class="md:hidden text-purple-500 text-xl uppercase font-black tracking-widest">⚡ Super Admin</a>
-                <?php endif; ?>
-                <a href="logout.php" class="md:hidden text-red-500 text-xl uppercase font-black tracking-widest">Déconnexion</a>
+              <a href="profil.php" class="md:hidden text-white text-xl uppercase font-black tracking-widest">Mon Profil</a>
+              <a href="settings.php" class="md:hidden text-white text-xl uppercase font-black tracking-widest">⚙️ Paramètres</a>
+              <?php if ($_SESSION['role'] === 'super_admin'): ?>
+                <a href="super_admin.php" class="md:hidden text-purple-500 text-xl uppercase font-black tracking-widest">⚡ Super Admin</a>
+              <?php endif; ?>
+              <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_admin'): ?>
+                <a href="admin.php" class="md:hidden text-purple-500 text-xl uppercase font-black tracking-widest">🛠️ Dashboard Admin</a>
+              <?php endif; ?>
+              <a href="logout.php" class="md:hidden text-red-500 text-xl uppercase font-black tracking-widest">Déconnexion</a>
 
-                <div class="relative group hidden md:block">
-                    <button class="flex items-center gap-3 bg-white/5 p-1 pr-4 rounded-full border border-white/10 group-hover:border-blue-500 transition-all">
-                        <?php
-                        $headerAvatar = (!empty($_SESSION['profile_picture'])) ? 'uploads/avatars/' . $_SESSION['profile_picture'] : 'images/default-avatar.png';
-                        ?>
-                        <img src="<?= $headerAvatar ?>?t=<?= time() ?>" class="w-8 h-8 rounded-full object-cover border border-blue-500" alt="Profil">
-                        <span class="text-white text-[10px] font-black uppercase tracking-widest italic hidden md:inline">
-                            <?= htmlspecialchars($_SESSION['firstname'] ?? 'Profil') ?>
-                        </span>
-                    </button>
-                    
-                    <div class="absolute right-0 mt-2 w-56 bg-gray-900 border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden z-[100]">
-                        <a href="profil.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-300 hover:bg-blue-600 hover:text-white transition">👤 Mon Profil</a>
-                        
-                        <?php if ($_SESSION['role'] === 'super_admin'): ?>
-                            <a href="super_admin.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-purple-400 bg-purple-500/5 hover:bg-purple-600 hover:text-white transition border-t border-white/5">⚡ Super Admin</a>
-                        <?php endif; ?>
+              <div class="relative group hidden md:block">
+                <button class="flex items-center gap-3 bg-white/5 p-1 pr-4 rounded-full border border-white/10 group-hover:border-blue-500 transition-all">
+                  <?php
+                  $headerAvatar = (!empty($_SESSION['profile_picture'])) ? 'uploads/avatars/' . $_SESSION['profile_picture'] : 'images/default-avatar.png';
+                  ?>
+                  <img src="<?= $headerAvatar ?>?t=<?= time() ?>" class="w-8 h-8 rounded-full object-cover border border-blue-500" alt="Profil">
+                  <span class="text-white text-[10px] font-black uppercase tracking-widest italic hidden md:inline">
+                    <?= htmlspecialchars($_SESSION['firstname'] ?? 'Profil') ?>
+                  </span>
+                </button>
 
-                        <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_admin'): ?>
-                            <a href="admin.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-blue-400 hover:bg-blue-600 hover:text-white transition border-t border-white/5">🛠️ Dashboard Admin</a>
-                        <?php endif; ?>
+                <div class="absolute right-0 mt-2 w-56 bg-gray-900 border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden z-[100]">
+                  <a href="profil.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-300 hover:bg-blue-600 hover:text-white transition">👤 Mon Profil</a>
+                  <a href="settings.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-300 hover:bg-blue-600 hover:text-white transition">⚙️ Paramètres</a>
+                  <?php if ($_SESSION['role'] === 'super_admin'): ?>
+                    <a href="super_admin.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-purple-400 bg-purple-500/5 hover:bg-purple-600 hover:text-white transition border-t border-white/5">⚡ Super Admin</a>
+                  <?php endif; ?>
 
-                        <a href="logout.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-red-500 hover:bg-red-600 hover:text-white transition border-t border-white/5">🚀 Déconnexion</a>
-                    </div>
+                  <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_admin'): ?>
+                    <a href="admin.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-blue-400 hover:bg-blue-600 hover:text-white transition border-t border-white/5">🛠️ Dashboard Admin</a>
+                  <?php endif; ?>
+
+                  <a href="logout.php" class="block px-6 py-4 text-[10px] font-black uppercase tracking-widest text-red-500 hover:bg-red-600 hover:text-white transition border-t border-white/5">🚀 Déconnexion</a>
                 </div>
+              </div>
 
             <?php else: ?>
               <div class="flex flex-col md:flex-row items-center gap-4">
@@ -168,4 +180,5 @@ $nouveauxJeux      = getGamesByTag($pdo, 'new');
 
   <?php require_once 'footer.php'; ?>
 </body>
+
 </html>

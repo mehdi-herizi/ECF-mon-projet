@@ -5,12 +5,12 @@
             <div class="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/20 blur-[100px] rounded-full"></div>
 
 
-            
+
             <button id="backToTop"
                 class="fixed bottom-8 right-8 z-[9999] p-4 bg-blue-600/20 backdrop-blur-md border border-blue-500/50 text-blue-500 rounded-2xl shadow-[0_0_20px_rgba(37,99,235,0.3)] opacity-0 translate-y-10 invisible transition-all duration-500 hover:bg-blue-600 hover:text-white hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] group"
                 onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
-                >
+                
                 <svg class="w-6 h-6 transform group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path>
                 </svg>

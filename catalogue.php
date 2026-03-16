@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'config.php';
 
 $idCategory = null;
@@ -64,12 +64,14 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalogue - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-900 text-white font-sans">
 
     <?php require_once 'header.php'; ?>
@@ -92,7 +94,7 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                         <input type="hidden" name="q" value="<?= htmlspecialchars($recherche) ?>">
                     <?php endif; ?>
                     <select name="SelectionnerGenre" id="genre" onchange="this.form.submit()"
-                            class="bg-transparent text-white px-4 py-2 outline-none cursor-pointer font-bold uppercase text-xs tracking-widest">
+                        class="bg-transparent text-white px-4 py-2 outline-none cursor-pointer font-bold uppercase text-xs tracking-widest">
                         <option value="tout" class="bg-gray-800" <?= !$idCategory ? 'selected' : '' ?>>Tous les genres</option>
                         <?php foreach ($categories as $cat): ?>
                             <option value="<?= $cat['id_category'] ?>" class="bg-gray-800"
@@ -105,7 +107,13 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                         Filtrer
                     </button>
                 </form>
+                <script>
+                    document.getElementById('genre').addEventListener('change', function() {
+                        this.form.submit();
+                    });
+                </script>
             </div>
+
 
             <!-- Barre de recherche -->
             <form method="get" class="w-full">
@@ -114,15 +122,15 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                 <?php endif; ?>
                 <div class="flex items-center gap-2 bg-gray-800 border border-white/10 rounded-2xl px-4 py-3 shadow-xl focus-within:border-blue-500 transition-all">
                     <svg class="w-5 h-5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
                     </svg>
                     <input type="text" name="q"
-                           value="<?= htmlspecialchars($recherche) ?>"
-                           placeholder="Rechercher un jeu..."
-                           class="flex-1 bg-transparent text-white placeholder-gray-500 outline-none font-bold text-sm tracking-wide">
+                        value="<?= htmlspecialchars($recherche) ?>"
+                        placeholder="Rechercher un jeu..."
+                        class="flex-1 bg-transparent text-white placeholder-gray-500 outline-none font-bold text-sm tracking-wide">
                     <?php if ($recherche !== ''): ?>
                         <a href="catalogue.php<?= $idCategory ? '?SelectionnerGenre=' . $idCategory : '' ?>"
-                           class="text-gray-500 hover:text-red-500 transition-colors text-xs font-black uppercase">
+                            class="text-gray-500 hover:text-red-500 transition-colors text-xs font-black uppercase">
                             ✕ Effacer
                         </a>
                     <?php endif; ?>
@@ -148,8 +156,8 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                     <div class="group bg-gray-800 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all duration-300 shadow-2xl flex flex-col">
                         <div class="relative aspect-[4/3] overflow-hidden">
                             <img src="<?= htmlspecialchars($produit['picture']) ?>"
-                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                 alt="<?= htmlspecialchars($produit['name']) ?>">
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                alt="<?= htmlspecialchars($produit['name']) ?>">
                             <div class="absolute top-4 right-4">
                                 <span class="bg-black/60 backdrop-blur-md text-blue-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/10">
                                     <?= htmlspecialchars($produit['category_name']) ?>
@@ -165,7 +173,7 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                                     <?= number_format($produit['price'], 2) ?> <span class="text-blue-500 text-sm">€</span>
                                 </p>
                                 <a href="detail.php?id=<?= $produit['id_product'] ?>"
-                                   class="bg-white text-black hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all">
+                                    class="bg-white text-black hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all">
                                     Détails
                                 </a>
                             </div>
@@ -179,24 +187,24 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                 <div class="flex justify-center items-center gap-2 mt-16">
                     <?php if ($pageCourante > 1): ?>
                         <a href="?page=<?= $pageCourante - 1 . $queryString ?>"
-                           class="px-4 py-2 bg-gray-800 hover:bg-blue-600 rounded-xl font-black text-xs uppercase tracking-widest transition-all border border-white/10">
+                            class="px-4 py-2 bg-gray-800 hover:bg-blue-600 rounded-xl font-black text-xs uppercase tracking-widest transition-all border border-white/10">
                             ← Précédent
                         </a>
                     <?php endif; ?>
 
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <a href="?page=<?= $i . $queryString ?>"
-                           class="w-10 h-10 flex items-center justify-center rounded-xl font-black text-xs transition-all border
+                            class="w-10 h-10 flex items-center justify-center rounded-xl font-black text-xs transition-all border
                            <?= $i === $pageCourante
-                               ? 'bg-blue-600 border-blue-600 text-white'
-                               : 'bg-gray-800 border-white/10 text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600' ?>">
+                                ? 'bg-blue-600 border-blue-600 text-white'
+                                : 'bg-gray-800 border-white/10 text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600' ?>">
                             <?= $i ?>
                         </a>
                     <?php endfor; ?>
 
                     <?php if ($pageCourante < $totalPages): ?>
                         <a href="?page=<?= $pageCourante + 1 . $queryString ?>"
-                           class="px-4 py-2 bg-gray-800 hover:bg-blue-600 rounded-xl font-black text-xs uppercase tracking-widest transition-all border border-white/10">
+                            class="px-4 py-2 bg-gray-800 hover:bg-blue-600 rounded-xl font-black text-xs uppercase tracking-widest transition-all border border-white/10">
                             Suivant →
                         </a>
                     <?php endif; ?>
@@ -219,4 +227,5 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
 
     <?php require_once 'footer.php'; ?>
 </body>
+
 </html>

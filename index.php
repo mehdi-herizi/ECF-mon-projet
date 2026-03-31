@@ -1,106 +1,73 @@
 <?php
-require 'config.php';
+session_start();
+require_once 'config/config.php';
+require_once ROOT . 'app/models/Database.php';
 
+$pdo = Database::getInstance();
+$action = $_GET['action'] ?? 'home';
 
-function getGamesByTag($pdo, $tag, $limit = 8)
-{
-  $query = "SELECT p.*,
-               GROUP_CONCAT(c.name_category ORDER BY c.name_category SEPARATOR ', ') AS name_category
-            FROM product p
-            LEFT JOIN product_category pc ON p.id_product = pc.id_product
-            LEFT JOIN category c ON pc.id_category = c.id_category
-            WHERE p.tag = :tag
-            GROUP BY p.id_product
-            LIMIT :limit";
-  $stmt = $pdo->prepare($query);
-  $stmt->bindValue(':tag', $tag, PDO::PARAM_STR);
-  $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-  $stmt->execute();
-  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+switch ($action) {
+    case 'home':
+        require_once ROOT . 'app/controllers/HomeController.php';
+        $controller = new HomeController($pdo);
+        $controller->index();
+        break;
+
+    default:
+        http_response_code(404);
+        echo "Page introuvable";
+        break;
+    case 'login':
+        require_once ROOT . 'app/controllers/AuthController.php';
+        $controller = new AuthController($pdo);
+        $controller->login();
+        break;
+
+    case 'register':
+        require_once ROOT . 'app/controllers/AuthController.php';
+        $controller = new AuthController($pdo);
+        $controller->register();
+        break;
+
+    case 'logout':
+        require_once ROOT . 'app/controllers/AuthController.php';
+        $controller = new AuthController($pdo);
+        $controller->logout();
+        break;
+
+    case 'catalogue':
+        require_once ROOT . 'app/controllers/ProductController.php';
+        $controller = new ProductController($pdo);
+        $controller->catalogue();
+        break;
+
+    case 'detail':
+        require_once ROOT . 'app/controllers/ProductController.php';
+        $controller = new ProductController($pdo);
+        $controller->detail();
+        break;
+
+    case 'panier':
+    require_once ROOT . 'app/controllers/CartController.php';
+    $controller = new CartController($pdo);
+    $controller->index();
+    break;
+
+case 'panier_add':
+    require_once ROOT . 'app/controllers/CartController.php';
+    $controller = new CartController($pdo);
+    $controller->add();
+    break;
+
+case 'panier_remove':
+    require_once ROOT . 'app/controllers/CartController.php';
+    $controller = new CartController($pdo);
+    $controller->remove();
+    break;
+
+case 'panier_clear':
+    require_once ROOT . 'app/controllers/CartController.php';
+    $controller = new CartController($pdo);
+    $controller->clear();
+    break;
 }
-
-$jeuxTendance      = getGamesByTag($pdo, 'trending');
-$jeuxQuiVontSortir = getGamesByTag($pdo, 'coming_soon');
-$nouveauxJeux      = getGamesByTag($pdo, 'new');
-?>
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Master Gaming — votre e-commerce pour acheter les meilleurs jeux vidéo.">
-  <title>Master Gaming</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    #menu-toggle:checked~label span:nth-child(1) {
-      transform: translateY(10px) rotate(45deg);
-    }
-
-    #menu-toggle:checked~label span:nth-child(2) {
-      opacity: 0;
-    }
-
-    #menu-toggle:checked~label span:nth-child(3) {
-      transform: translateY(-10px) rotate(-45deg);
-    }
-  </style>
-</head>
-
-<body class="bg-gray-900 text-white font-sans">
-
-<?php 
-require_once 'header_index.php';
-?>
-
-  <main class="p-4 md:p-12 space-y-32 bg-gray-900">
-    <?php
-    $sections = [
-      "Nos jeux les plus populaires" => ['jeux' => $jeuxTendance,      'page' => 'trending.php'],
-      "Nos jeux à venir"             => ['jeux' => $jeuxQuiVontSortir, 'page' => 'coming_soon.php'],
-      "Nouveaux jeux"                => ['jeux' => $nouveauxJeux,      'page' => 'new.php'],
-    ];
-
-    foreach ($sections as $titre => $data):
-      $listeJeux = $data['jeux'];
-      $pageLien  = $data['page'];
-      if (empty($listeJeux) || !is_array($listeJeux)) continue;
-    ?>
-      <section class="max-w-7xl mx-auto w-full">
-        <a href="<?= $pageLien ?>" class="group flex items-center justify-end gap-4 mb-12 w-fit ml-auto">
-          <span class="text-blue-500 text-2xl md:text-4xl opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-          <h2 class="text-3xl md:text-5xl font-black text-white border-r-8 border-blue-600 pr-6 uppercase italic tracking-tighter group-hover:text-blue-500 transition-colors">
-            <?= htmlspecialchars($titre) ?>
-          </h2>
-        </a>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <?php foreach ($listeJeux as $product): ?>
-            <article class="group">
-              <a href="detail.php?id=<?= (int)$product['id_product'] ?>" class="relative block aspect-video overflow-hidden rounded-3xl bg-black shadow-2xl">
-                <img src="<?= htmlspecialchars($product['picture']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-40">
-                <div class="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
-                  <h3 class="text-sm font-black text-white mb-2 uppercase tracking-widest"><?= htmlspecialchars($product['name']) ?></h3>
-                  <div class="flex flex-wrap justify-center gap-2">
-                    <span class="bg-blue-600 px-3 py-1 rounded-full font-bold text-xs"><?= htmlspecialchars($product['price']) ?>€</span>
-                    <span class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] uppercase"><?= htmlspecialchars($product['name_category'] ?? 'Jeu') ?></span>
-                  </div>
-                </div>
-              </a>
-            </article>
-          <?php endforeach; ?>
-        </div>
-
-        <div class="text-center mt-10">
-          <a href="<?= $pageLien ?>" class="inline-block border border-blue-600 text-blue-500 hover:bg-blue-600 hover:text-white px-10 py-3 rounded-full font-black uppercase text-xs tracking-widest transition-all">
-            Voir tout →
-          </a>
-        </div>
-      </section>
-    <?php endforeach; ?>
-  </main>
-
-  <?php require_once 'footer.php'; ?>
-</body>
-
-</html>

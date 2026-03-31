@@ -83,7 +83,6 @@ $allProducts = $stmt->fetchAll();
                     </p>
                 <?php endif; ?>
             </form>
-
             <div class="bg-gray-800 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">

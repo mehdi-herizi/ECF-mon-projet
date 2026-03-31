@@ -1,12 +1,5 @@
 <footer class="w-full bg-transparent pt-20 pb-10">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="bg-[#0f172a] backdrop-blur-xl border border-white/10 rounded-[40px] p-8 md:p-12 shadow-2xl relative overflow-hidden">
-
-            <div class="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/20 blur-[100px] rounded-full"></div>
-
-
-
-            <button id="backToTop"
+    <button id="backToTop"
                 class="fixed bottom-8 right-8 z-[9999] p-4 bg-blue-600/20 backdrop-blur-md border border-blue-500/50 text-blue-500 rounded-2xl shadow-[0_0_20px_rgba(37,99,235,0.3)] opacity-0 translate-y-10 invisible transition-all duration-500 hover:bg-blue-600 hover:text-white hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] group"
                 onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 
@@ -15,6 +8,10 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"></path>
                 </svg>
             </button>
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="bg-[#0f172a] backdrop-blur-xl border border-white/10 rounded-[40px] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/20 blur-[100px] rounded-full"></div>
 
             <div class="max-w-7xl mx-auto px-4 pb-12">
                 <div class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-[40px] p-8 md:p-12 shadow-2xl relative overflow-hidden">

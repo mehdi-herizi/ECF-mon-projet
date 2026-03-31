@@ -1,83 +1,16 @@
-<?php
-require_once 'config.php';
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
 
-$idCategory = null;
-if (isset($_GET['SelectionnerGenre']) && $_GET['SelectionnerGenre'] !== 'tout') {
-    $idCategory = (int)$_GET['SelectionnerGenre'];
-}
-
-$recherche = isset($_GET['q']) ? trim($_GET['q']) : '';
-
-$stmtCategories = $pdo->query("SELECT id_category, name_category FROM category ORDER BY name_category ASC");
-$categories = $stmtCategories->fetchAll();
-
-$parPage      = 12;
-$pageCourante = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-$offset       = ($pageCourante - 1) * $parPage;
-
-// Conditions filtre + recherche (via product_category)
-$conditions = [];
-$params     = [];
-
-if ($idCategory) {
-    $conditions[] = "EXISTS (SELECT 1 FROM product_category pc WHERE pc.id_product = p.id_product AND pc.id_category = ?)";
-    $params[]     = $idCategory;
-}
-if ($recherche !== '') {
-    $conditions[] = "p.name LIKE ?";
-    $params[]     = '%' . $recherche . '%';
-}
-
-$whereClause = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "";
-
-// Total pour pagination
-$stmtTotal = $pdo->prepare("SELECT COUNT(DISTINCT p.id_product) FROM product p $whereClause");
-$stmtTotal->execute($params);
-$total      = $stmtTotal->fetchColumn();
-$totalPages = ceil($total / $parPage);
-
-// Jeux paginés — catégories concaténées via GROUP_CONCAT
-$sql = "SELECT p.*,
-               GROUP_CONCAT(c.name_category ORDER BY c.name_category SEPARATOR ', ') AS category_name
-        FROM product p
-        LEFT JOIN product_category pc ON p.id_product = pc.id_product
-        LEFT JOIN category c ON pc.id_category = c.id_category
-        $whereClause
-        GROUP BY p.id_product
-        LIMIT ? OFFSET ?";
-
-$stmtJeux = $pdo->prepare($sql);
-$paramIndex = 1;
-foreach ($params as $p) {
-    $stmtJeux->bindValue($paramIndex++, $p, is_int($p) ? PDO::PARAM_INT : PDO::PARAM_STR);
-}
-$stmtJeux->bindValue($paramIndex++, $parPage, PDO::PARAM_INT);
-$stmtJeux->bindValue($paramIndex,   $offset,  PDO::PARAM_INT);
-$stmtJeux->execute();
-$resultats = $stmtJeux->fetchAll();
-
-// Conserver filtres dans l'URL de pagination
-$queryParams = [];
-if ($idCategory)      $queryParams['SelectionnerGenre'] = $idCategory;
-if ($recherche !== '') $queryParams['q']                 = $recherche;
-$queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
-?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalogue - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-gray-900 text-white font-sans">
 
-    <?php require_once 'header.php'; ?>
-
     <main class="max-w-7xl mx-auto px-4 py-12">
-
         <div class="flex flex-col gap-6 mb-12">
 
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -89,34 +22,29 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                 </h1>
 
                 <!-- Filtre genre -->
-                <form method="get" class="flex items-center gap-2 bg-gray-800 p-2 rounded-2xl border border-white/10 shadow-xl">
+                <form method="get" action="">
+                    <input type="hidden" name="action" value="catalogue">
                     <?php if ($recherche !== ''): ?>
                         <input type="hidden" name="q" value="<?= htmlspecialchars($recherche) ?>">
                     <?php endif; ?>
-                    <select name="SelectionnerGenre" id="genre" onchange="this.form.submit()"
-                        class="bg-transparent text-white px-4 py-2 outline-none cursor-pointer font-bold uppercase text-xs tracking-widest">
-                        <option value="tout" class="bg-gray-800" <?= !$idCategory ? 'selected' : '' ?>>Tous les genres</option>
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?= $cat['id_category'] ?>" class="bg-gray-800"
-                                <?= $idCategory === (int)$cat['id_category'] ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($cat['name_category']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-black uppercase text-xs transition-all">
-                        Filtrer
-                    </button>
+                    <div class="flex items-center gap-2 bg-gray-800 p-2 rounded-2xl border border-white/10 shadow-xl">
+                        <select name="SelectionnerGenre" id="genre" onchange="this.form.submit()"
+                            class="bg-transparent text-white px-4 py-2 outline-none cursor-pointer font-bold uppercase text-xs tracking-widest">
+                            <option value="tout" class="bg-gray-800" <?= !$idCategory ? 'selected' : '' ?>>Tous les genres</option>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?= $cat['id_category'] ?>" class="bg-gray-800"
+                                    <?= $idCategory === (int)$cat['id_category'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($cat['name_category']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </form>
-                <script>
-                    document.getElementById('genre').addEventListener('change', function() {
-                        this.form.submit();
-                    });
-                </script>
             </div>
 
-
             <!-- Barre de recherche -->
-            <form method="get" class="w-full">
+            <form method="get" action="">
+                <input type="hidden" name="action" value="catalogue">
                 <?php if ($idCategory): ?>
                     <input type="hidden" name="SelectionnerGenre" value="<?= $idCategory ?>">
                 <?php endif; ?>
@@ -129,7 +57,7 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                         placeholder="Rechercher un jeu..."
                         class="flex-1 bg-transparent text-white placeholder-gray-500 outline-none font-bold text-sm tracking-wide">
                     <?php if ($recherche !== ''): ?>
-                        <a href="catalogue.php<?= $idCategory ? '?SelectionnerGenre=' . $idCategory : '' ?>"
+                        <a href="?action=catalogue<?= $idCategory ? '&SelectionnerGenre=' . $idCategory : '' ?>"
                             class="text-gray-500 hover:text-red-500 transition-colors text-xs font-black uppercase">
                             ✕ Effacer
                         </a>
@@ -140,14 +68,12 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                 </div>
             </form>
 
-            <!-- Résultat de recherche actif -->
             <?php if ($recherche !== ''): ?>
                 <p class="text-gray-400 text-sm">
                     Résultats pour <span class="text-white font-black italic">"<?= htmlspecialchars($recherche) ?>"</span>
                     — <?= $total ?> jeu<?= $total > 1 ? 'x' : '' ?> trouvé<?= $total > 1 ? 's' : '' ?>
                 </p>
             <?php endif; ?>
-
         </div>
 
         <?php if (count($resultats) > 0): ?>
@@ -172,7 +98,7 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                                 <p class="text-2xl font-black text-white">
                                     <?= number_format($produit['price'], 2) ?> <span class="text-blue-500 text-sm">€</span>
                                 </p>
-                                <a href="detail.php?id=<?= $produit['id_product'] ?>"
+                                <a href="?action=detail&id=<?= $produit['id_product'] ?>"
                                     class="bg-white text-black hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all">
                                     Détails
                                 </a>
@@ -182,28 +108,25 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                 <?php endforeach; ?>
             </div>
 
-            <!-- PAGINATION -->
             <?php if ($totalPages > 1): ?>
                 <div class="flex justify-center items-center gap-2 mt-16">
                     <?php if ($pageCourante > 1): ?>
-                        <a href="?page=<?= $pageCourante - 1 . $queryString ?>"
+                        <a href="?action=catalogue&page=<?= $pageCourante - 1 . $queryString ?>"
                             class="px-4 py-2 bg-gray-800 hover:bg-blue-600 rounded-xl font-black text-xs uppercase tracking-widest transition-all border border-white/10">
                             ← Précédent
                         </a>
                     <?php endif; ?>
 
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <a href="?page=<?= $i . $queryString ?>"
+                        <a href="?action=catalogue&page=<?= $i . $queryString ?>"
                             class="w-10 h-10 flex items-center justify-center rounded-xl font-black text-xs transition-all border
-                           <?= $i === $pageCourante
-                                ? 'bg-blue-600 border-blue-600 text-white'
-                                : 'bg-gray-800 border-white/10 text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600' ?>">
+                            <?= $i === $pageCourante ? 'bg-blue-600 border-blue-600 text-white' : 'bg-gray-800 border-white/10 text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600' ?>">
                             <?= $i ?>
                         </a>
                     <?php endfor; ?>
 
                     <?php if ($pageCourante < $totalPages): ?>
-                        <a href="?page=<?= $pageCourante + 1 . $queryString ?>"
+                        <a href="?action=catalogue&page=<?= $pageCourante + 1 . $queryString ?>"
                             class="px-4 py-2 bg-gray-800 hover:bg-blue-600 rounded-xl font-black text-xs uppercase tracking-widest transition-all border border-white/10">
                             Suivant →
                         </a>
@@ -219,13 +142,12 @@ $queryString = !empty($queryParams) ? '&' . http_build_query($queryParams) : '';
                 <p class="text-gray-400 text-xl font-bold italic uppercase">
                     <?= $recherche !== '' ? 'Aucun jeu ne correspond à votre recherche.' : 'Aucun jeu trouvé dans cette catégorie.' ?>
                 </p>
-                <a href="catalogue.php" class="text-blue-500 hover:underline mt-4 inline-block">Voir tout le catalogue</a>
+                <a href="?action=catalogue" class="text-blue-500 hover:underline mt-4 inline-block">Voir tout le catalogue</a>
             </div>
         <?php endif; ?>
 
     </main>
 
-    <?php require_once 'footer.php'; ?>
+<?php require_once ROOT . 'app/views/partials/footer.php'; ?>
 </body>
-
 </html>

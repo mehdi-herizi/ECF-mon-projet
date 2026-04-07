@@ -68,4 +68,18 @@ class ProductController
 
     require_once ROOT . 'app/views/detail.php';
 }
+public function tagPage(string $tag, string $titre): void
+{
+    $productModel = new Product($this->pdo);
+    $parPage      = 12;
+    $pageCourante = max(1, (int)($_GET['page'] ?? 1));
+    $offset       = ($pageCourante - 1) * $parPage;
+
+    $total      = $productModel->countByTag($tag);
+    $totalPages = ceil($total / $parPage);
+    $jeux       = $productModel->getByTagPaginated($tag, $parPage, $offset);
+    $titreePage = $titre;
+
+    require_once ROOT . 'app/views/tag_page.php';
+}
 }

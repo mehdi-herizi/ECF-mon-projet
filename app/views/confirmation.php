@@ -1,30 +1,5 @@
-<?php
-require_once 'config.php';
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
 
-if (!isset($_SESSION['id_user'])) {
-    header('Location: connexion.php');
-    exit;
-}
-
-$id_order = isset($_GET['order']) ? (int)$_GET['order'] : 0;
-
-if ($id_order <= 0) {
-    header('Location: index.php');
-    exit;
-}
-
-// Récupérer les jeux de la commande
-$stmt = $pdo->prepare("
-    SELECT p.name, p.price, p.picture
-    FROM order_product op
-    JOIN product p ON op.id_product = p.id_product
-    WHERE op.id_order = ?
-");
-$stmt->execute([$id_order]);
-$jeux = $stmt->fetchAll();
-
-$total = array_sum(array_column($jeux, 'price'));
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -35,8 +10,6 @@ $total = array_sum(array_column($jeux, 'price'));
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
 
-    <?php require_once 'header.php'; ?>
-
     <main class="max-w-3xl mx-auto px-4 py-24 text-center">
 
         <div class="text-6xl mb-6">🎮</div>
@@ -44,7 +17,7 @@ $total = array_sum(array_column($jeux, 'price'));
             Commande <span class="text-blue-500">Confirmée !</span>
         </h1>
         <p class="text-gray-400 text-sm uppercase tracking-widest mb-12">
-            Commande n°<?= $id_order ?> — Merci pour votre achat
+            Commande n°<?= $idOrder ?> — Merci pour votre achat
         </p>
 
         <div class="bg-gray-800 rounded-[30px] border border-white/10 p-8 text-left space-y-4 mb-10">
@@ -64,12 +37,12 @@ $total = array_sum(array_column($jeux, 'price'));
             </div>
         </div>
 
-        <a href="catalogue.php" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-black px-10 py-4 rounded-full uppercase tracking-widest transition-all shadow-lg shadow-blue-900/40">
+        <a href="?action=catalogue" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-black px-10 py-4 rounded-full uppercase tracking-widest transition-all shadow-lg shadow-blue-900/40">
             Continuer mes achats
         </a>
 
     </main>
 
-    <?php require_once 'footer.php'; ?>
+<?php require_once ROOT . 'app/views/partials/footer.php'; ?>
 </body>
 </html>

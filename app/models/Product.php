@@ -109,4 +109,88 @@ public function isAlreadyPurchased(int $idUser, int $idProduct): bool
     $stmt->execute([$idUser, $idProduct]);
     return $stmt->fetchColumn() > 0;
 }
+public function searchAll(string $recherche = ''): array
+{
+    $sql = "SELECT p.*,
+                GROUP_CONCAT(c.name_category ORDER BY c.name_category SEPARATOR ', ') AS name_category
+            FROM product p
+            LEFT JOIN product_category pc ON p.id_product = pc.id_product
+            LEFT JOIN category c ON pc.id_category = c.id_category";
+
+    if ($recherche !== '') {
+        $sql .= " WHERE p.name LIKE ?";
+        $sql .= " GROUP BY p.id_product ORDER BY p.id_product DESC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['%' . $recherche . '%']);
+    } else {
+        $sql .= " GROUP BY p.id_product ORDER BY p.id_product DESC";
+        $stmt = $this->pdo->query($sql);
+    }
+
+    return $stmt->fetchAll();
+}
+public function create(string $name, float $price, string $desc, string $tag, string $picture, string $video, array $categories): void
+{
+    $date = date('Y-m-d');
+    $stmt = $this->pdo->prepare("INSERT INTO product (name, price, description, tag, picture, video, date_, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, 1)");
+    $stmt->execute([$name, $price, $desc, $tag, $picture, $video, $date]);
+    $idProduct = (int)$this->pdo->lastInsertId();
+
+    $insStmt = $this->pdo->prepare("INSERT INTO product_category (id_product, id_category) VALUES (?, ?)");
+    foreach ($categories as $catId) {
+        $insStmt->execute([$idProduct, $catId]);
+    }
+}
+public function update(int $id, string $name, float $price, string $desc, string $tag, string $picture, string $video, array $categories): void
+{
+    $this->pdo->beginTransaction();
+
+    $stmt = $this->pdo->prepare("UPDATE product SET name = ?, price = ?, description = ?, tag = ?, picture = ?, video = ? WHERE id_product = ?");
+    $stmt->execute([$name, $price, $desc, $tag ?: null, $picture, $video, $id]);
+
+    $this->pdo->prepare("DELETE FROM product_category WHERE id_product = ?")->execute([$id]);
+    $insStmt = $this->pdo->prepare("INSERT INTO product_category (id_product, id_category) VALUES (?, ?)");
+    foreach ($categories as $catId) {
+        $insStmt->execute([$id, $catId]);
+    }
+
+    $this->pdo->commit();
+}
+
+public function getSelectedCategories(int $id): array
+{
+    $stmt = $this->pdo->prepare("SELECT id_category FROM product_category WHERE id_product = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+
+public function delete(int $id): void
+{
+    $this->pdo->prepare("DELETE FROM product WHERE id_product = ?")->execute([$id]);
+}
+public function getByTagPaginated(string $tag, int $limit, int $offset): array
+{
+    $stmt = $this->pdo->prepare("
+        SELECT p.*,
+            GROUP_CONCAT(c.name_category ORDER BY c.name_category SEPARATOR ', ') AS name_category
+        FROM product p
+        LEFT JOIN product_category pc ON p.id_product = pc.id_product
+        LEFT JOIN category c ON pc.id_category = c.id_category
+        WHERE p.tag = ?
+        GROUP BY p.id_product
+        LIMIT ? OFFSET ?
+    ");
+    $stmt->bindValue(1, $tag,    PDO::PARAM_STR);
+    $stmt->bindValue(2, $limit,  PDO::PARAM_INT);
+    $stmt->bindValue(3, $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+public function countByTag(string $tag): int
+{
+    $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM product WHERE tag = ?");
+    $stmt->execute([$tag]);
+    return (int)$stmt->fetchColumn();
+}
 }

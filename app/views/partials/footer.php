@@ -17,7 +17,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
                         <div class="col-span-1 md:col-span-1">
-                            <img src="public/images/logo-master-gaming.png" alt="Master Gaming" class="h-10 mb-6">
+                            <img src="images/logo-master-gaming.png" alt="Master Gaming" class="h-10 mb-6">
                             <p class="text-gray-400 text-xs font-medium leading-relaxed italic">
                                 La destination ultime pour les passionnés de gaming. Accédez aux meilleurs titres PC avec une expérience fluide et sécurisée.
                             </p>
@@ -56,7 +56,7 @@
                             &copy; <?= date('Y') ?> Master Gaming. All rights reserved.
                         </p>
                         <div class="flex items-center gap-6">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
+                          <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.1.0/min/flat/visa.svg" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-6 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
                         </div>

@@ -1,7 +1,9 @@
 <?php
 session_start();
+define('APP_RUNNING', true);
 require_once 'config/config.php';
 require_once ROOT . 'app/models/Database.php';
+
 
 $pdo    = Database::getInstance();
 $action = $_GET['action'] ?? 'home';

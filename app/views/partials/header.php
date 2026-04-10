@@ -2,7 +2,7 @@
     <div class="bg-black/80 backdrop-blur-xl border border-white/10 px-6 py-2 rounded-full flex justify-between items-center shadow-2xl">
 
         <a href="?action=home" class="flex-shrink-0 w-2xs">
-            <img src="public/images/logo-master-gaming.png" alt="logo" class="h-16 md:h-20 w-auto hover:scale-105 transition-transform">
+            <img src="images/logo-master-gaming.png" alt="logo" class="h-16 md:h-20 w-auto hover:scale-105 transition-transform">
         </a>
 
         <nav class="hidden md:flex items-center gap-8">
@@ -27,8 +27,8 @@
                     <button class="flex items-center gap-2 bg-white/5 p-1 pr-3 rounded-full border border-white/10 group-hover:border-blue-500 transition-all">
                         <?php
                         $headerAvatar = !empty($_SESSION['profile_picture'])
-                            ? 'public/uploads/avatars/' . $_SESSION['profile_picture']
-                            : 'public/images/default-avatar.png';
+                            ? 'uploads/avatars/' . $_SESSION['profile_picture']
+                            : 'images/default-avatar.png';
                         ?>
                         <img src="<?= htmlspecialchars($headerAvatar) ?>" class="w-8 h-8 rounded-full object-cover border border-blue-500 shadow-lg shadow-blue-500/20" alt="Avatar">
                         <span class="text-[10px] font-black uppercase text-white italic tracking-widest hidden md:inline">

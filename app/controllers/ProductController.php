@@ -1,5 +1,6 @@
 <?php
 require_once ROOT . 'app/models/Product.php';
+require_once ROOT . 'app/models/User.php';
 
 class ProductController
 {

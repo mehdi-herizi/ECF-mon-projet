@@ -1,6 +1,6 @@
 <?php
 require_once ROOT . 'app/models/Product.php';
-
+require_once ROOT . 'app/models/Message.php';
 class AdminController
 {
     private PDO $pdo;
@@ -27,7 +27,7 @@ class AdminController
         $productModel = new Product($this->pdo);
         $allProducts  = $productModel->searchAll($recherche);
 
-        require_once ROOT . 'app/views/admin/index.php';
+        require_once ROOT . 'app/views/admin/admin.php';
     }
     public function addProduct(): void
 {
@@ -131,6 +131,8 @@ public function messages(): void
     $this->checkAdmin();
 
     $messageModel = new Message($this->pdo);
+
+    
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
         $messageModel->delete((int)$_POST['delete_id']);

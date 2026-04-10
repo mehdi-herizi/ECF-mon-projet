@@ -1,11 +1,11 @@
 <header class="relative w-full bg-black flex flex-col">
     <div class="relative w-full aspect-video md:h-[80vh]">
-        <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop src="public/videos-header/elden-ring-header.mp4"></video>
+        <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop src="videos-header/elden-ring-header.mp4"></video>
 
         <div class="absolute inset-x-0 top-0 flex justify-between items-center p-3 md:p-8 bg-gradient-to-b from-black/90 to-transparent z-50">
             <div class="w-1/3 md:w-1/4">
                 <a href="?action=home">
-                    <img src="public/images/logo-master-gaming.png" alt="logo" class="w-full max-w-[100px] md:max-w-[200px]">
+                    <img src="images/logo-master-gaming.png" alt="logo" class="w-full max-w-[100px] md:max-w-[200px]">
                 </a>
             </div>
 
@@ -36,8 +36,8 @@
                             <button class="flex items-center gap-3 bg-white/5 p-1 pr-4 rounded-full border border-white/10 group-hover:border-blue-500 transition-all">
                                 <?php
                                 $headerAvatar = !empty($_SESSION['profile_picture'])
-                                    ? 'public/uploads/avatars/' . $_SESSION['profile_picture']
-                                    : 'public/images/default-avatar.png';
+                                    ? 'uploads/avatars/' . $_SESSION['profile_picture']
+                                    : 'images/default-avatar.png';
                                 ?>
                                 <img src="<?= htmlspecialchars($headerAvatar) ?>" class="w-8 h-8 rounded-full object-cover border border-blue-500" alt="Profil">
                                 <span class="text-white text-[10px] font-black uppercase tracking-widest italic hidden md:inline">

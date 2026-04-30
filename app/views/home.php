@@ -33,7 +33,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <?php foreach ($listeJeux as $product): ?>
                     <article class="group">
-                        <a href="?action=product&id=<?= (int)$product['id_product'] ?>" class="relative block aspect-video overflow-hidden rounded-3xl bg-black shadow-2xl">
+                        <a href="?action=detail&id=<?= (int)$product['id_product'] ?>" class="relative block aspect-video overflow-hidden rounded-3xl bg-black shadow-2xl">
                             <img src="<?= htmlspecialchars($product['picture']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:opacity-40">
                             <div class="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center">
                                 <h3 class="text-sm font-black text-white mb-2 uppercase tracking-widest"><?= htmlspecialchars($product['name']) ?></h3>

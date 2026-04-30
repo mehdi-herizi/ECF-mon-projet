@@ -1,3 +1,4 @@
+<meta name="description" content="<?= $metaDescription ?? 'Master Gaming - Achetez vos jeux vidéo en ligne' ?>">
 <header class="relative w-full bg-black flex flex-col">
     <div class="relative w-full aspect-video md:h-[80vh]">
         <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop src="videos-header/elden-ring-header.mp4"></video>
@@ -36,8 +37,8 @@
                             <button class="flex items-center gap-3 bg-white/5 p-1 pr-4 rounded-full border border-white/10 group-hover:border-blue-500 transition-all">
                                 <?php
                                 $headerAvatar = !empty($_SESSION['profile_picture'])
-                                    ? 'uploads/avatars/' . $_SESSION['profile_picture']
-                                    : 'images/default-avatar.png';
+                                    ? 'public/uploads/avatars/' . $_SESSION['profile_picture']
+                                    : 'public/images/default-avatar.png';
                                 ?>
                                 <img src="<?= htmlspecialchars($headerAvatar) ?>" class="w-8 h-8 rounded-full object-cover border border-blue-500" alt="Profil">
                                 <span class="text-white text-[10px] font-black uppercase tracking-widest italic hidden md:inline">

@@ -1,9 +1,13 @@
 <?php
 session_start();
 define('APP_RUNNING', true);
-require_once 'config/config.php';
-require_once ROOT . 'app/models/Database.php';
 
+// 1. On définit ROOT sur le dossier actuel (la nouvelle racine)
+define('ROOT', __DIR__ . '/'); 
+
+// 2. On appelle les fichiers directement depuis cette racine
+require_once ROOT . 'config/config.php';       // Plus simple
+require_once ROOT . 'app/models/database.php'; // On enlève le "config/../"
 
 $pdo    = Database::getInstance();
 $action = $_GET['action'] ?? 'home';

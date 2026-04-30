@@ -40,10 +40,10 @@ class UserController
 
                 if (in_array($ext, $allowed)) {
                     $uploadDir = ROOT . 'public/uploads/avatars/';
-                    if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
-
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0775, true);
+                    }
                     $newName = "avatar_" . $idUser . "_" . time() . "." . $ext;
-
                     if (move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadDir . $newName)) {
                         $userModel->updateAvatar($idUser, $newName);
                         $_SESSION['profile_picture'] = $newName;
@@ -59,60 +59,61 @@ class UserController
 
         require_once ROOT . 'app/views/profil.php';
     }
+
     public function settings(): void
-{
-    if (!isset($_SESSION['id_user'])) {
-        header('Location: ?action=login');
-        exit;
-    }
-
-    $idUser    = $_SESSION['id_user'];
-    $userModel = new User($this->pdo);
-    $error     = null;
-    $success   = null;
-
-    if (isset($_POST['update_password'])) {
-        $current = $_POST['current_password'] ?? '';
-        $new     = $_POST['new_password'] ?? '';
-        $confirm = $_POST['confirm_password'] ?? '';
-
-        if ($new !== $confirm) {
-            $error = "Les nouveaux mots de passe ne correspondent pas.";
-        } elseif (strlen($new) < 8) {
-            $error = "Le nouveau mot de passe doit faire au moins 8 caractères.";
-        } else {
-            $hash = $userModel->getPassword($idUser);
-            if (password_verify($current, $hash)) {
-                $userModel->updatePassword($idUser, $new);
-                $success = "Mot de passe mis à jour avec succès !";
-            } else {
-                $error = "Le mot de passe actuel est incorrect.";
-            }
+    {
+        if (!isset($_SESSION['id_user'])) {
+            header('Location: ?action=login');
+            exit;
         }
-    }
 
-    if (isset($_POST['update_email'])) {
-        $newEmail = filter_var($_POST['new_email'] ?? '', FILTER_SANITIZE_EMAIL);
-        $password = $_POST['confirm_pass_email'] ?? '';
+        $idUser    = $_SESSION['id_user'];
+        $userModel = new User($this->pdo);
+        $error     = null;
+        $success   = null;
 
-        if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
-            $error = "Format d'email invalide.";
-        } else {
-            $hash = $userModel->getPassword($idUser);
-            if (password_verify($password, $hash)) {
-                try {
-                    $userModel->updateEmail($idUser, $newEmail);
-                    $_SESSION['email'] = $newEmail;
-                    $success = "Adresse email modifiée avec succès !";
-                } catch (PDOException $e) {
-                    $error = "Cet email est déjà utilisé par un autre compte.";
+        if (isset($_POST['update_password'])) {
+            $current = $_POST['current_password'] ?? '';
+            $new     = $_POST['new_password'] ?? '';
+            $confirm = $_POST['confirm_password'] ?? '';
+
+            if ($new !== $confirm) {
+                $error = "Les nouveaux mots de passe ne correspondent pas.";
+            } elseif (strlen($new) < 8) {
+                $error = "Le nouveau mot de passe doit faire au moins 8 caractères.";
+            } else {
+                $hash = $userModel->getPassword($idUser);
+                if (password_verify($current, $hash)) {
+                    $userModel->updatePassword($idUser, $new);
+                    $success = "Mot de passe mis à jour avec succès !";
+                } else {
+                    $error = "Le mot de passe actuel est incorrect.";
                 }
-            } else {
-                $error = "Mot de passe incorrect pour confirmer le changement d'email.";
             }
         }
-    }
 
-    require_once ROOT . 'app/views/settings.php';
-}
+        if (isset($_POST['update_email'])) {
+            $newEmail = filter_var($_POST['new_email'] ?? '', FILTER_SANITIZE_EMAIL);
+            $password = $_POST['confirm_pass_email'] ?? '';
+
+            if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+                $error = "Format d'email invalide.";
+            } else {
+                $hash = $userModel->getPassword($idUser);
+                if (password_verify($password, $hash)) {
+                    try {
+                        $userModel->updateEmail($idUser, $newEmail);
+                        $_SESSION['email'] = $newEmail;
+                        $success = "Adresse email modifiée avec succès !";
+                    } catch (PDOException $e) {
+                        $error = "Cet email est déjà utilisé par un autre compte.";
+                    }
+                } else {
+                    $error = "Mot de passe incorrect pour confirmer le changement d'email.";
+                }
+            }
+        }
+
+        require_once ROOT . 'app/views/settings.php';
+    }
 }

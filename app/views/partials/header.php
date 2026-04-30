@@ -1,3 +1,4 @@
+<meta name="description" content="<?= $metaDescription ?? 'Master Gaming - Achetez vos jeux vidéo en ligne' ?>">
 <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-[9999]">
     <div class="bg-black/80 backdrop-blur-xl border border-white/10 px-6 py-2 rounded-full flex justify-between items-center shadow-2xl">
 
@@ -27,8 +28,8 @@
                     <button class="flex items-center gap-2 bg-white/5 p-1 pr-3 rounded-full border border-white/10 group-hover:border-blue-500 transition-all">
                         <?php
                         $headerAvatar = !empty($_SESSION['profile_picture'])
-                            ? 'uploads/avatars/' . $_SESSION['profile_picture']
-                            : 'images/default-avatar.png';
+                            ? 'public/uploads/avatars/' . $_SESSION['profile_picture']
+                            : 'public/images/default-avatar.png';
                         ?>
                         <img src="<?= htmlspecialchars($headerAvatar) ?>" class="w-8 h-8 rounded-full object-cover border border-blue-500 shadow-lg shadow-blue-500/20" alt="Avatar">
                         <span class="text-[10px] font-black uppercase text-white italic tracking-widest hidden md:inline">
@@ -56,7 +57,8 @@
                     </div>
                 </div>
             <?php else: ?>
-                <a href="?action=login" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-600/30">Login</a>
+                <a href="?action=login" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-600/30"> 🚀 Connexion</a>
+                <a href="?action=register" class="hidden md:block bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-green-600/30"> 🌱 S'inscrire</a>
             <?php endif; ?>
 
             <div class="md:hidden relative">
@@ -70,18 +72,20 @@
                 <nav class="fixed inset-0 h-screen w-full bg-black backdrop-blur-2xl flex-col items-center justify-center gap-6 hidden peer-checked:flex z-[10000]">
                     <a href="?action=home" class="text-white text-2xl font-black uppercase tracking-widest">Accueil</a>
                     <a href="?action=catalogue" class="text-white text-2xl font-black uppercase tracking-widest">Catalogue</a>
+                    <a href="?action=contact" class="text-white text-2xl font-black uppercase tracking-widest">Assistance</a>
                     <?php if (isset($_SESSION['email'])): ?>
-                        <a href="?action=profil" class="text-white text-2xl font-black uppercase tracking-widest">Mon Profil</a>
+                        <a href="?action=profil" class="text-white text-2xl font-black uppercase tracking-widest">👤 Mon Profil</a>
                         <a href="?action=settings" class="text-white text-2xl font-black uppercase tracking-widest">⚙️ Paramètres</a>
                         <?php if ($_SESSION['role'] === 'super_admin'): ?>
                             <a href="?action=super_admin" class="text-purple-500 text-2xl font-black uppercase tracking-widest">⚡ Super Admin</a>
                         <?php endif; ?>
                         <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'super_admin'): ?>
-                            <a href="?action=admin" class="text-yellow-500 text-2xl font-black uppercase tracking-widest">Admin Dashboard</a>
+                            <a href="?action=admin" class="text-yellow-500 text-2xl font-black uppercase tracking-widest">🛠️ Dashboard Admin</a>
                         <?php endif; ?>
-                        <a href="?action=logout" class="text-red-500 text-2xl font-black uppercase tracking-widest">Déconnexion</a>
+                        <a href="?action=logout" class="text-red-500 text-2xl font-black uppercase tracking-widest">🚀 Déconnexion</a>
                     <?php else: ?>
-                        <a href="?action=login" class="text-white text-2xl font-black uppercase tracking-widest">Connexion</a>
+                        <a href="?action=login" class="text-white text-2xl font-black uppercase tracking-widest">🚀 Connexion</a>
+                        <a href="?action=register" class="text-white text-2xl font-black uppercase tracking-widest">🌱 S'inscrire</a>
                     <?php endif; ?>
                 </nav>
             </div>

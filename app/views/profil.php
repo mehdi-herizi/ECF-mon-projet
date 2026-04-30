@@ -2,11 +2,13 @@
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Mon Profil - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-900 text-white font-sans min-h-screen">
 
     <main class="max-w-7xl mx-auto px-4 py-12 space-y-16">
@@ -39,8 +41,8 @@
                     <div class="flex flex-col items-center sm:flex-row gap-8 mb-8">
                         <div class="relative group">
                             <?php $avatarPath = !empty($user['profile_picture'])
-                                ? 'public/uploads/avatars/' . $user['profile_picture']
-                                : 'public/images/default-avatar.png'; ?>
+                                ? '/master-gaming/public/uploads/avatars/' . $user['profile_picture']
+                                : '/master-gaming/public/images/default-avatar.png'; ?>
                             <img src="<?= $avatarPath ?>" class="w-32 h-32 rounded-3xl object-cover border-4 border-blue-600 shadow-2xl shadow-blue-900/40">
                             <label for="avatar-upload" class="absolute inset-0 flex items-center justify-center bg-black/60 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[10px] font-black uppercase text-white p-2 text-center">Changer</label>
                             <input type="file" id="avatar-upload" name="avatar" class="hidden" onchange="this.form.submit()">
@@ -92,7 +94,7 @@
             <h2 class="text-3xl font-black uppercase italic tracking-tighter mb-8 border-l-4 border-blue-600 pl-4">Ma Bibliothèque</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <?php foreach ($mesCommandes as $co): ?>
-                    <div class="bg-gray-800 p-4 rounded-2xl border border-white/5 flex items-center gap-4 transition-all hover:bg-gray-700/50">
+                    <div class="bg-gray-800 p-4 rounded-2xl border border-white/5 flex items-center gap-4 transition-all hover:hover:bg-gray-700/50">
                         <img src="<?= htmlspecialchars($co['picture']) ?>" class="w-16 h-16 rounded-xl object-cover shadow-lg">
                         <div class="flex-1">
                             <p class="text-[10px] text-gray-500 font-bold uppercase"><?= date('d/m/Y', strtotime($co['order_date'])) ?></p>
@@ -109,6 +111,7 @@
 
     </main>
 
-<?php require_once ROOT . 'app/views/partials/footer.php'; ?>
+    <?php require_once ROOT . 'app/views/partials/footer.php'; ?>
 </body>
+
 </html>

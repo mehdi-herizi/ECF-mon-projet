@@ -1,15 +1,29 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
 
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+$success = $success ?? false;
+$error   = $error   ?? '';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin - Modifier le jeu <?= htmlspecialchars($product['name']) ?> sur Master Gaming. Mettez à jour les détails du produit, changez l'image, la vidéo, les catégories et le prix de ce jeu pour offrir la meilleure expérience à vos clients.">
     <title>Modifier <?= htmlspecialchars($product['name']) ?> - Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#09090b] text-white min-h-screen p-6 md:p-12">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <div class="max-w-3xl mx-auto space-y-6">
 
         <div class="bg-gray-800/80 p-8 rounded-3xl border border-white/10 shadow-2xl flex justify-between items-center">

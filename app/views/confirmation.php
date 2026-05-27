@@ -1,15 +1,23 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$idOrder = $idOrder ?? 0;
+$jeux    = $jeux    ?? [];
+$total   = $total   ?? 0;
+?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Votre commande a été confirmée chez Master Gaming. Retrouvez tous les détails de votre achat ici.">
     <title>Commande confirmée - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <main class="max-w-3xl mx-auto px-4 py-24 text-center">
 
         <div class="text-6xl mb-6">🎮</div>

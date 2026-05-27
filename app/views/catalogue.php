@@ -1,15 +1,28 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
 
+
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalogue - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Découvrez le catalogue de Master Gaming : des centaines de jeux vidéo PC à portée de clic. Action, RPG, FPS et plus encore. Trouvez votre prochain jeu dès aujourd'hui !">
 </head>
 <body class="bg-gray-900 text-white font-sans">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <main class="max-w-7xl mx-auto px-4 py-12">
         <div class="flex flex-col gap-6 mb-12">
 
@@ -79,7 +92,8 @@
         <?php if (count($resultats) > 0): ?>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 <?php foreach ($resultats as $produit): ?>
-                    <div class="group bg-gray-800 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all duration-300 shadow-2xl flex flex-col">
+                    <a href="?action=detail&id=<?= $produit['id_product'] ?>">
+<div class="group bg-gray-800 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all duration-300 shadow-2xl flex flex-col">
                         <div class="relative aspect-[4/3] overflow-hidden">
                             <img src="<?= htmlspecialchars($produit['picture']) ?>"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -98,13 +112,11 @@
                                 <p class="text-2xl font-black text-white">
                                     <?= number_format($produit['price'], 2) ?> <span class="text-blue-500 text-sm">€</span>
                                 </p>
-                                <a href="?action=detail&id=<?= $produit['id_product'] ?>"
-                                    class="bg-white text-black hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl font-black uppercase text-[10px] tracking-widest transition-all">
-                                    Détails
-                                </a>
                             </div>
                         </div>
                     </div>
+                    </a>
+                    
                 <?php endforeach; ?>
             </div>
 

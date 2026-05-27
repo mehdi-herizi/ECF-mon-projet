@@ -1,15 +1,17 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panier - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Découvrez votre panier sur Master Gaming. Vérifiez les jeux sélectionnés, le total de votre commande et procédez à l'achat en toute sécurité.">
 </head>
 <body class="bg-gray-900 text-white font-sans">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
 <main class="max-w-6xl mx-auto px-4 py-24 min-h-screen bg-gray-900">
     <h2 class="text-4xl font-black uppercase italic tracking-tighter border-l-8 border-blue-600 pl-6 mb-12 text-white">
         Mon <span class="text-blue-500">Panier</span>

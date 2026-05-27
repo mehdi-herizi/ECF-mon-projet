@@ -1,14 +1,29 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
 
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+$success = $success ?? false;
+$error   = $error   ?? '';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin - Ajouter un jeu sur Master Gaming. Remplissez le formulaire pour ajouter un nouveau jeu à votre catalogue. Définissez le nom, le prix, les catégories, l'image et la description pour offrir la meilleure expérience à vos clients gamers.">
     <title>Ajouter un Jeu - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white p-10">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <div class="max-w-2xl mx-auto bg-gray-800 p-8 rounded-3xl border border-white/10">
         <h2 class="text-3xl font-black mb-6 uppercase">Ajouter un produit</h2>
 

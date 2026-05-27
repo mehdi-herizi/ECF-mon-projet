@@ -1,16 +1,33 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+$success = $success ?? false;
+$error   = $error   ?? '';
+$user          = $user          ?? [];
+$wishlistItems = $wishlistItems ?? [];
+$mesCommandes  = $mesCommandes  ?? [];
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
+    <meta name="description" content="Gérez votre profil sur Master Gaming. Modifiez vos informations personnelles et suivez vos commandes.">
     <title>Mon Profil - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-900 text-white font-sans min-h-screen">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <main class="max-w-7xl mx-auto px-4 py-12 space-y-16">
 
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">

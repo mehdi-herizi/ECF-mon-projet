@@ -1,14 +1,29 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
 
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+$success = $success ?? false;
+$error   = $error   ?? '';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Détails de l'utilisateur <?= htmlspecialchars($user['firstname'] . ' ' . $user['name']) ?> sur Master Gaming. Consultez l'historique des achats, la wishlist et les informations de contact de ce membre de la communauté.">
     <title>Détails Utilisateur — <?= htmlspecialchars($user['firstname']) ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#09090b] text-white min-h-screen">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <main class="max-w-7xl mx-auto p-6 md:p-12 space-y-8">
 
         <a href="?action=super_admin" class="inline-flex items-center text-gray-500 hover:text-purple-400 transition-colors font-bold text-sm uppercase tracking-widest">

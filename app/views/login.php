@@ -1,13 +1,25 @@
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Gaming - Connexion</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Connectez-vous à votre compte Master Gaming pour accéder à votre bibliothèque de jeux, suivre vos commandes et profiter d'offres exclusives.">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen flex items-center justify-center p-4">
-
     <div class="w-full max-w-md bg-gray-800 rounded-3xl shadow-2xl border border-white/10 p-8">
 
         <div class="text-center mb-10">
@@ -51,6 +63,5 @@
             </p>
         </div>
     </div>
-
 </body>
 </html>

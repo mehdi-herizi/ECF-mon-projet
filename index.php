@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(E_ERROR | E_WARNING); // Cache les notices/undefined vars
 define('APP_RUNNING', true);
 
 // 1. On définit ROOT sur le dossier actuel (la nouvelle racine)

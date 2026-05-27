@@ -2,6 +2,10 @@
 .vscode
 copilot
 node_modules
-poubelle
-poubelle2
-screenshot
+poubelle/
+poubelle2/
+.htaccess
+package.json
+poubelle-pagephp/
+.gitignore
+Screenshots/

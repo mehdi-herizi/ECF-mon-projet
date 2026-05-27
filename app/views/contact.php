@@ -1,15 +1,30 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
+
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+$success = $success ?? false;
+$error   = $error   ?? '';
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assistance - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Contactez le support de Master Gaming pour toute question ou assistance. Notre équipe est là pour vous aider avec vos commandes, jeux et plus encore.">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen flex flex-col">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <main class="flex-grow flex items-center justify-center py-12 px-4">
         <div class="w-full max-w-2xl bg-gray-800 rounded-3xl shadow-2xl border border-white/10 overflow-hidden relative">
 

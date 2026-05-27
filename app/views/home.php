@@ -1,10 +1,20 @@
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$data = $data ?? [
+    'jeuxTendance'      => [],
+    'jeuxQuiVontSortir' => [],
+    'nouveauxJeux'      => [],
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catalogue - Master Gaming</title>
+    <title>Accueil - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Master Gaming — Achetez vos jeux vidéo PC au meilleur prix. Action, RPG, FPS et plus encore.">
 </head>
 <body class="bg-gray-900 text-white font-sans">
     <?php require_once ROOT . 'app/views/partials/header_index.php'; ?>

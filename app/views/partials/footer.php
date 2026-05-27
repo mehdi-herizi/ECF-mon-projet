@@ -56,9 +56,9 @@
                             &copy; <?= date('Y') ?> Master Gaming. All rights reserved.
                         </p>
                         <div class="flex items-center gap-6">
-                          <img src="https://cdn.jsdelivr.net/npm/payment-icons@1.1.0/min/flat/visa.svg" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-6 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
+                          <img alt="moyen de paiement" src="https://cdn.jsdelivr.net/npm/payment-icons@1.1.0/min/flat/visa.svg" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
+                            <img alt="moyen de paiement" src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-6 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
+                            <img alt="moyen de paiement" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-4 opacity-30 grayscale hover:grayscale-0 transition-all cursor-pointer">
                         </div>
                     </div>
                 </div>

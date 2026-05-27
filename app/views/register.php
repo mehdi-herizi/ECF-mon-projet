@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Gaming - Inscription</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Rejoignez Master Gaming aujourd'hui ! Inscrivez-vous pour accéder à des offres exclusives, suivre vos commandes et profiter de votre bibliothèque de jeux.">
 </head>
-<body class="bg-gray-900 text-white font-sans min-h-screen flex items-center justify-center p-4">
 
+<body class="bg-gray-900 text-white font-sans min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-gray-800 rounded-3xl shadow-2xl border border-white/10 p-8">
 
         <div class="text-center mb-8">
@@ -71,11 +74,15 @@
                 S'inscrire
             </button>
         </form>
-
-        <p class="text-center text-xs text-gray-500 mt-6">
-            Déjà membre ? <a href="?action=login" class="text-blue-500 hover:underline">Connecte-toi</a>
-        </p>
+        <div>
+            <p class="text-center text-xs text-gray-500 mt-6">
+                Déjà membre ? <a href="?action=login" class="text-blue-500 hover:underline">Connecte-toi</a>
+            </p>
+            <p class="text-center text-xs mt-2">
+                <a href="?action=home" class="text-gray-600 hover:text-gray-400">Retour à l'accueil</a>
+            </p>
+        </div>
     </div>
-
 </body>
+
 </html>

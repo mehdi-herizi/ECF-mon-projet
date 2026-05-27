@@ -1,15 +1,32 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+$success = $success ?? false;
+$error   = $error   ?? '';
+$titreePage = $titreePage ?? '';
+$tag        = $tag        ?? '';
+$jeux       = $jeux       ?? [];
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez les jeux avec le tag <?= htmlspecialchars($tag) ?> sur Master Gaming.">
     <title><?= htmlspecialchars($titreePage) ?> - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <main class="max-w-7xl mx-auto px-4 py-12">
 
         <div class="flex items-center justify-between mb-12">

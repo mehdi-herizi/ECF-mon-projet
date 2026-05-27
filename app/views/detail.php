@@ -1,15 +1,34 @@
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
+<?php
+if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+$recherche    = $recherche    ?? '';
+$idCategory   = $idCategory   ?? null;
+$categories   = $categories   ?? [];
+$resultats    = $resultats    ?? [];
+$total        = $total        ?? 0;
+$totalPages   = $totalPages   ?? 1;
+$pageCourante = $pageCourante ?? 1;
+$queryString  = $queryString  ?? '';
+$success = $success ?? false;
+$error   = $error   ?? '';
+$game        = $game        ?? [];
+$dejaAchete  = $dejaAchete  ?? false;
+$dejaAuPanier = $dejaAuPanier ?? false;
+$inWishlist  = $inWishlist  ?? false;
+?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($game['name']) ?> - Master Gaming</title>
+    <meta name="description" content="<?= htmlspecialchars($game['description'] ?? 'Découvrez ce jeu vidéo exceptionnel sur Master Gaming.') ?>">
+    <title><?= htmlspecialchars($game['name']) ?>jeu - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
-
+<?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <div class="relative h-[60vh] w-full overflow-hidden">
         <img src="<?= htmlspecialchars($game['picture']) ?>" class="absolute inset-0 w-full h-full object-cover blur-sm opacity-30 scale-110">
         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>

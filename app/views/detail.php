@@ -30,7 +30,7 @@ $inWishlist  = $inWishlist  ?? false;
 <body class="bg-gray-900 text-white font-sans min-h-screen">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <div class="relative h-[60vh] w-full overflow-hidden">
-        <img src="<?= htmlspecialchars($game['picture']) ?>" class="absolute inset-0 w-full h-full object-cover blur-sm opacity-30 scale-110">
+        <img alt="image de fond du jeu en question" src="<?= htmlspecialchars($game['picture']) ?>" class="absolute inset-0 w-full h-full object-cover blur-sm opacity-30 scale-110">
         <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
         <div class="relative max-w-7xl mx-auto px-4 h-full flex flex-col justify-end pb-12">
             <span class="bg-blue-600 self-start px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-4 shadow-lg shadow-blue-600/20">
@@ -66,7 +66,7 @@ $inWishlist  = $inWishlist  ?? false;
                             <video src="<?= htmlspecialchars($game['video']) ?>" class="w-full h-full object-cover" autoplay muted loop></video>
                         <?php endif; ?>
                     <?php else: ?>
-                        <img src="<?= htmlspecialchars($game['picture']) ?>" class="w-full h-full object-cover">
+                        <img alt="photo de profil de l'utilisateur" src="<?= htmlspecialchars($game['picture']) ?>" class="w-full h-full object-cover">
                     <?php endif; ?>
                 </div>
 

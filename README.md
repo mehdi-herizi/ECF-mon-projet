@@ -32,10 +32,10 @@ there is also an admin side and super admin, the admin will be able to remove ga
 
 3. Configure the connection in `config.php` :
 ```php
-   define('DB_HOST', 'mysql-serveur');
-   define('DB_NAME', 'mastergaming');
-   define('DB_USER', 'root');
-   define('DB_PASS', 'ton_mot_de_passe');
+   define('DB_HOST', $_ENV['DB_HOST']);
+   define('DB_NAME', $_ENV['DB_DATABASE']);
+   define('DB_USER', $_ENV['DB_USER']);
+   define('DB_PASS', $_ENV['DB_PASS']);
 ```
 
 4. Launch the server and open `http://localhost/master-gaming/`

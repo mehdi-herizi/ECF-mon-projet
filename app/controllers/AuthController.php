@@ -60,6 +60,14 @@ class AuthController
 
             if (empty($name))      $errors[] = "Veuillez entrer un nom";
             if (empty($firstname)) $errors[] = "Veuillez entrer un prénom";
+            if (empty($phone))     $errors[] = "Veuillez entrer un numéro de téléphone";
+            if (empty($birthdate)) $errors[] = "Veuillez entrer une date de naissance ";
+
+            $stmt = $this->pdo->prepare("SELECT id_user FROM pb_user WHERE email = ?");
+            $stmt->execute([$mail]);
+            if ($stmt->fetch()) {
+               $errors[] = "Cet email est déjà utilisé";
+            }
 
             if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = "Format de mail invalide";
@@ -67,6 +75,10 @@ class AuthController
 
             if (empty($password) || $password !== $passwordConfirmed) {
                 $errors[] = "Les mots de passe ne correspondent pas";
+            }
+
+            if (strlen($password) < 8) {
+                $errors[] = "Le mot de passe doit contenir au moins 8 caractères";
             }
 
             if (empty($errors)) {
@@ -85,19 +97,24 @@ class AuthController
     }
 
     public function logout(): void
-{
-    $_SESSION = [];
+    {
+        $_SESSION = [];
 
-    if (ini_get("session.use_cookies")) {
-        $params = session_get_cookie_params();
-        setcookie(session_name(), '', time() - 42000,
-            $params["path"], $params["domain"],
-            $params["secure"], $params["httponly"]
-        );
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+
+        session_destroy();
+        header("Location: ?action=home");
+        exit();
     }
-
-    session_destroy();
-    header("Location: ?action=home");
-    exit();
-}
 }

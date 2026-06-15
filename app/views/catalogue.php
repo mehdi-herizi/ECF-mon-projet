@@ -1,7 +1,8 @@
-
-
 <?php
-if (!defined('APP_RUNNING')) { header('Location: /master-gaming/?action=home'); exit; }
+if (!defined('APP_RUNNING')) {
+    header('Location: /master-gaming/?action=home');
+    exit;
+}
 $recherche    = $recherche    ?? '';
 $idCategory   = $idCategory   ?? null;
 $categories   = $categories   ?? [];
@@ -13,6 +14,7 @@ $queryString  = $queryString  ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <link rel="icon" href="image-favicon/favicon-master-gaming.png" type="image/png">
     <meta charset="UTF-8" />
@@ -21,8 +23,9 @@ $queryString  = $queryString  ?? '';
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="description" content="Découvrez le catalogue de Master Gaming : des centaines de jeux vidéo PC à portée de clic. Action, RPG, FPS et plus encore. Trouvez votre prochain jeu dès aujourd'hui !">
 </head>
+
 <body class="bg-gray-900 text-white font-sans">
-<?php require_once ROOT . 'app/views/partials/header.php'; ?>
+    <?php require_once ROOT . 'app/views/partials/header.php'; ?>
     <main class="max-w-7xl mx-auto px-4 py-12">
         <div class="flex flex-col gap-6 mb-12">
 
@@ -93,30 +96,30 @@ $queryString  = $queryString  ?? '';
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 <?php foreach ($resultats as $produit): ?>
                     <a href="?action=detail&id=<?= $produit['id_product'] ?>">
-<div class="group bg-gray-800 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all duration-300 shadow-2xl flex flex-col">
-                        <div class="relative aspect-[4/3] overflow-hidden">
-                            <img src="<?= htmlspecialchars($produit['picture']) ?>"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                alt="<?= htmlspecialchars($produit['name']) ?>">
-                            <div class="absolute top-4 right-4">
-                                <span class="bg-black/60 backdrop-blur-md text-blue-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/10">
-                                    <?= htmlspecialchars($produit['category_name']) ?>
-                                </span>
+                        <div class="group bg-gray-800 rounded-3xl overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all duration-300 shadow-2xl flex flex-col">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img src="<?= htmlspecialchars($produit['picture']) ?>"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    alt="<?= htmlspecialchars($produit['name']) ?>">
+                                <div class="absolute top-4 right-4">
+                                    <span class="bg-black/60 backdrop-blur-md text-blue-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/10">
+                                        <?= htmlspecialchars($produit['category_name']) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="text-xl font-bold mb-2 group-hover:text-blue-500 transition-colors uppercase italic truncate">
+                                    <?= htmlspecialchars($produit['name']) ?>
+                                </h3>
+                                <div class="mt-auto flex justify-between items-center pt-4">
+                                    <p class="text-2xl font-black text-white">
+                                        <?= number_format($produit['price'], 2) ?> <span class="text-blue-500 text-sm">€</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-500 transition-colors uppercase italic truncate">
-                                <?= htmlspecialchars($produit['name']) ?>
-                            </h3>
-                            <div class="mt-auto flex justify-between items-center pt-4">
-                                <p class="text-2xl font-black text-white">
-                                    <?= number_format($produit['price'], 2) ?> <span class="text-blue-500 text-sm">€</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                     </a>
-                    
+
                 <?php endforeach; ?>
             </div>
 
@@ -160,6 +163,7 @@ $queryString  = $queryString  ?? '';
 
     </main>
 
-<?php require_once ROOT . 'app/views/partials/footer.php'; ?>
+    <?php require_once ROOT . 'app/views/partials/footer.php'; ?>
 </body>
+
 </html>

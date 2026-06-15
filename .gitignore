@@ -9,3 +9,4 @@ package.json
 poubelle-pagephp/
 .gitignore
 Screenshots/
+config/

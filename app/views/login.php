@@ -17,6 +17,8 @@ $queryString  = $queryString  ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Gaming - Connexion</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
     <meta name="description" content="Connectez-vous à votre compte Master Gaming pour accéder à votre bibliothèque de jeux, suivre vos commandes et profiter d'offres exclusives.">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen flex items-center justify-center p-4">

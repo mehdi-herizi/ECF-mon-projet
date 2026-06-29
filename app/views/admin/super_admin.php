@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="description" content="Espace Super Admin de Master Gaming. Gérez les utilisateurs, modifiez les rôles et surveillez l'activité de votre communauté de gamers.">
     <title>Super Admin — Gestion Utilisateurs</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-[#09090b] text-white font-sans min-h-screen">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>

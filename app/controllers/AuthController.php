@@ -62,6 +62,9 @@ class AuthController
             if (empty($firstname)) $errors[] = "Veuillez entrer un prénom";
             if (empty($phone))     $errors[] = "Veuillez entrer un numéro de téléphone";
             if (empty($birthdate)) $errors[] = "Veuillez entrer une date de naissance ";
+            if (empty($mail))      $errors[] = "Veuillez entrer un email";
+            if (empty($password))  $errors[] = "Veuillez entrer un mot de passe";
+            if (empty($passwordConfirmed)) $errors[] = "Veuillez confirmer votre mot de passe";
 
             $stmt = $this->pdo->prepare("SELECT id_user FROM pb_user WHERE email = ?");
             $stmt->execute([$mail]);

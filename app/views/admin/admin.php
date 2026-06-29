@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="description" content="Admin - Gestion du catalogue de jeux sur Master Gaming. Ajoutez, modifiez ou supprimez des jeux pour offrir la meilleure sélection à votre communauté de gamers.">
     <title>Admin - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-gray-900 text-white font-sans">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>

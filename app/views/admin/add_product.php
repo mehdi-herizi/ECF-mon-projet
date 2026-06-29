@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="description" content="Admin - Ajouter un jeu sur Master Gaming. Remplissez le formulaire pour ajouter un nouveau jeu à votre catalogue. Définissez le nom, le prix, les catégories, l'image et la description pour offrir la meilleure expérience à vos clients gamers.">
     <title>Ajouter un Jeu - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css"> -->
 </head>
 <body class="bg-gray-900 text-white p-10">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>
@@ -43,9 +45,12 @@ $error   = $error   ?? '';
                 <input type="number" step="0.01" name="price" placeholder="Prix (ex: 59.99)"
                     class="bg-gray-700 p-3 rounded-xl flex-1 outline-none" required>
                 <select name="tag" class="bg-gray-700 p-3 rounded-xl flex-1 outline-none">
-                    <option value="new">Nouveau (New)</option>
-                    <option value="trending">Tendance (Trending)</option>
-                    <option value="coming_soon">Bientôt (Coming Soon)</option>
+                    <optgroup label="Sélectionnez un tag">
+                        <option value="">Aucun</option>
+                        <option value="new">Nouveau (New)</option>
+                        <option value="trending">Tendance (Trending)</option>
+                        <option value="coming_soon">Bientôt (Coming Soon)</option>
+                    </optgroup>
                 </select>
             </div>
 

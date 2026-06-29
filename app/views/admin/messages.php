@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="description" content="Admin - Messages Reçus sur Master Gaming. Consultez et gérez les messages envoyés par les utilisateurs via le formulaire de contact. Supprimez les messages indésirables et restez à l'écoute de votre communauté de gamers.">
     <title>Admin - Messages Reçus</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>

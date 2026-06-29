@@ -24,6 +24,8 @@ $mesCommandes  = $mesCommandes  ?? [];
     <meta name="description" content="Gérez votre profil sur Master Gaming. Modifiez vos informations personnelles et suivez vos commandes.">
     <title>Mon Profil - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 
 <body class="bg-gray-900 text-white font-sans min-h-screen">

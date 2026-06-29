@@ -21,6 +21,8 @@ $queryString  = $queryString  ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalogue - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
     <meta name="description" content="Découvrez le catalogue de Master Gaming : des centaines de jeux vidéo PC à portée de clic. Action, RPG, FPS et plus encore. Trouvez votre prochain jeu dès aujourd'hui !">
 </head>
 

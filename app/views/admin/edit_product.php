@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="description" content="Admin - Modifier le jeu <?= htmlspecialchars($product['name']) ?> sur Master Gaming. Mettez à jour les détails du produit, changez l'image, la vidéo, les catégories et le prix de ce jeu pour offrir la meilleure expérience à vos clients.">
     <title>Modifier <?= htmlspecialchars($product['name']) ?> - Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-[#09090b] text-white min-h-screen p-6 md:p-12">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>

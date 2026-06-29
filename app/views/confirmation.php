@@ -15,6 +15,8 @@ $total   = $total   ?? 0;
     <meta name="description" content="Votre commande a été confirmée chez Master Gaming. Retrouvez tous les détails de votre achat ici.">
     <title>Commande confirmée - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>

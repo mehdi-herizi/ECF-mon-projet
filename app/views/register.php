@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Gaming - Inscription</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
     <meta name="description" content="Rejoignez Master Gaming aujourd'hui ! Inscrivez-vous pour accéder à des offres exclusives, suivre vos commandes et profiter de votre bibliothèque de jeux.">
 </head>
 

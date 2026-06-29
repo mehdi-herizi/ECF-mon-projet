@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="description" content="Gérez vos paramètres de compte sur Master Gaming. Modifiez votre email, votre mot de passe et d'autres informations de sécurité.">
     <title>Paramètres - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>

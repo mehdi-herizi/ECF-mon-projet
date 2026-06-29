@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="description" content="Détails de l'utilisateur <?= htmlspecialchars($user['firstname'] . ' ' . $user['name']) ?> sur Master Gaming. Consultez l'historique des achats, la wishlist et les informations de contact de ce membre de la communauté.">
     <title>Détails Utilisateur — <?= htmlspecialchars($user['firstname']) ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-[#09090b] text-white min-h-screen">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>

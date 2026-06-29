@@ -21,6 +21,8 @@ $error   = $error   ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assistance - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
     <meta name="description" content="Contactez le support de Master Gaming pour toute question ou assistance. Notre équipe est là pour vous aider avec vos commandes, jeux et plus encore.">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen flex flex-col">

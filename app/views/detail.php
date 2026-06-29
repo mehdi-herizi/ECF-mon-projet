@@ -26,6 +26,8 @@ $inWishlist  = $inWishlist  ?? false;
     <meta name="description" content="<?= htmlspecialchars($game['description'] ?? 'Découvrez ce jeu vidéo exceptionnel sur Master Gaming.') ?>">
     <title><?= htmlspecialchars($game['name']) ?>jeu - Master Gaming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen">
 <?php require_once ROOT . 'app/views/partials/header.php'; ?>
